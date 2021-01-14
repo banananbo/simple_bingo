@@ -9,4 +9,12 @@ module.exports = {
     path: path.resolve(__dirname, 'public/js'),
   },
   mode: env,
+  module: {
+    rules: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+        }
+      ]
+  },
 }

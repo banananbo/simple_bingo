@@ -98,11 +98,63 @@ eval("let test = ()=> {alert(\"webpack test\");};\ntest();\n\n//# sourceURL=webp
 /******/ })()
 ;
 ```
+##### 【参考】webpackのmodeオプション
+下記のようにproductionモードで実行すると、出力結果が異なる 不要な記述が省略されていることが分かる
+```sh
+npx webpack --mode=production # もしくはmodeを付けない場合はproductionで実行される
 ```
-npx webpack --mode=production
+```dist/app.js
+console.log("webpack test");
 ```
-```src/js/app.js
-alert("webpack test");
-```
+https://webpack.js.org/configuration/mode/
 
-### 
+## babelの導入
+```
+yarn add --dev @babel/core @babel/preset-env babel-loader core-js
+```
+webpackの設定に、jsファイルはbabelを通すように設定
+```webpack.config.js
+  module: {
+    rules: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+        }
+      ]
+  },
+```
+babelの設定用にファイルを２つ追加する
+```.babelrc
+{
+    "presets": [[ "@babel/env", { "modules": false } ]],
+    "env": {
+       "test": {
+            "presets": [[ "@babel/env", { "targets": { "node": "current" } } ]]
+        }
+    }
+}
+```
+```.browserslistrc
+> 1%
+```
+再び、webpackを実行すると、ES5に対応した書き方に変換されていることがわかる。
+
+```public/js/app.js
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (function() { // webpackBootstrap
+/*!********************!*\
+  !*** ./src/app.js ***!
+  \********************/
+eval("var test = function test() {\n  alert(\"webpack test\");\n};\n\ntest();\n\n//# sourceURL=webpack://test5/./src/app.js?");
+/******/ })()
+;
+```
+IEでエラーが出ないことを確認
+

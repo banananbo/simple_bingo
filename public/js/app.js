@@ -6,10 +6,10 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /*!********************!*\
   !*** ./src/app.js ***!
   \********************/
-eval("let test = ()=> {alert(\"webpack test\");};\ntest();\n\n//# sourceURL=webpack://test5/./src/app.js?");
+eval("var test = function test() {\n  alert(\"webpack test\");\n};\n\ntest();\n\n//# sourceURL=webpack://test5/./src/app.js?");
 /******/ })()
 ;
