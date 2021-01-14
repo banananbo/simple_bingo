@@ -158,3 +158,57 @@ eval("var test = function test() {\n  alert(\"webpack test\");\n};\n\ntest();\n\
 ```
 IEでエラーが出ないことを確認
 
+## vue.jsを入れる
+```sh
+yarn add --dev vue vue-loader vue-template-compiler
+```
+
+### jsをVueのものに書き換えていく
+```src/app.js
+import Vue from 'vue';
+import Hello from './Hello.vue';
+
+document.addEventListener('DOMContentLoaded', () => {
+  new Vue(Hello).$mount('#app');
+});
+```
+vueの単一コンポーネントファイルを追加
+```src/Hello.vue
+<template>
+  <div>
+    <p>{{ greeting }} World!</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      greeting: ''
+    };
+  },
+  created() {
+    this.greeting = 'hello';
+  }
+}
+</script>
+```
+#### webpack 実行
+```sh
+npx webpack --mode="development"
+asset app.js 239 KiB [emitted] (name: main)
+runtime modules 916 bytes 4 modules
+cacheable modules 223 KiB
+  modules by path ./src/ 2.13 KiB
+    ./src/app.js 152 bytes [built] [code generated]
+    ./src/Hello.vue 1.04 KiB [built] [code generated]
+    ./src/Hello.vue?vue&type=template&id=184cbba9& 197 bytes [built] [code generated]
+    ./src/Hello.vue?vue&type=script&lang=js& 336 bytes [built] [code generated]
+    ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/Hello.vue?vue&type=template&id=184cbba9& 267 bytes [built] [code generated]
+    ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/Hello.vue?vue&type=script&lang=js& 172 bytes [built] [code generated]
+  modules by path ./node_modules/ 221 KiB
+    ./node_modules/vue/dist/vue.runtime.esm.js 218 KiB [built] [code generated]
+    ./node_modules/vue-loader/lib/runtime/componentNormalizer.js 2.71 KiB [built] [code generated]
+webpack 5.14.0 compiled successfully in 2064 ms
+```
+ブラウザで問題なく表示されていることを確認
