@@ -253,3 +253,121 @@ cacheable modules 232 KiB
 webpack 5.14.0 compiled successfully in 2071 ms
 ```
 CSSが app.js に埋め込まれ、適用されるようになった。
+
+## Typescript対応
+```sh
+yarn add --dev typescript ts-loader
+```
+
+### app.js →　app.tsへ
+内容はとくにいじらず
+
+### Hello.vueをts対応
+```Hello.vue
+<script lang="ts">
+```
+
+### webpack設定
+```webpack.config.js
+entry: './src/app.ts',
+
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: [
+              {
+              loader: 'ts-loader',
+              options: {
+                  appendTsSuffixTo: [/\.vue$/]
+              }
+              }
+          ]
+        }
+``` 
+"moduleResolution": "node",
+"allowSyntheticDefaultImports": true
+の2行が無いと、import Vue from 'vue'　のようなインポートができなかった。Typescriptの決まりなのか？
+
+```tsconfig.json
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "es2015",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "baseUrl": "./",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "./src/*.vue",
+        "./src/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
+```
+試しに、型をつけてみる
+```Hello.vue
+<script lang="ts">
+export default {
+  data() {
+    return {
+      greeting: ''
+    };
+  },
+  created() {
+    this.greeting = 'hello';
+  },
+  computed:{
+      computed_greeting():string{
+          return this.greeting;
+      }
+  }
+}
+</script>
+```
+これでwebpackが通り、TypeScriptが扱えている
+```
+npx webpack --mode="development"
+asset app.js 257 KiB [compared for emit] (name: main)
+runtime modules 1.19 KiB 5 modules
+cacheable modules 233 KiB
+  modules by path ./src/ 3.57 KiB 9 modules
+  modules by path ./node_modules/ 229 KiB
+    ./node_modules/vue/dist/vue.runtime.esm.js 218 KiB [built] [code generated]
+    ./node_modules/vue-loader/lib/runtime/componentNormalizer.js 2.71 KiB [built] [code generated]
+    ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js 6.67 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/runtime/api.js 1.57 KiB [built] [code generated]
+webpack 5.14.0 compiled successfully in 4685 ms
+```
+
+```
+  computed:{
+      computed_greeting():string{
+          return 1;
+      }
+  }
+```
+ためしにこうやると、こける
+```
+npx webpack --mode="development"
+asset app.js 257 KiB [emitted] (name: main)
+runtime modules 1.19 KiB 5 modules
+cacheable modules 232 KiB
+  modules by path ./src/ 3.56 KiB 9 modules
+  modules by path ./node_modules/ 229 KiB
+    ./node_modules/vue/dist/vue.runtime.esm.js 218 KiB [built] [code generated]
+    ./node_modules/vue-loader/lib/runtime/componentNormalizer.js 2.71 KiB [built] [code generated]
+    ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js 6.67 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/runtime/api.js 1.57 KiB [built] [code generated]
+
+ERROR in /home/obana/js/vue/test5/src/Hello.vue.ts
+[tsl] ERROR in /home/obana/js/vue/test5/src/Hello.vue.ts(19,11)
+      TS2322: Type 'number' is not assignable to type 'string'.
+```
+
+

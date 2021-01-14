@@ -4,7 +4,7 @@ const path = require('path');
 const env = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/app.ts',
   output: {
     filename: 'app.js',
     path: path.resolve(__dirname, 'public/js'),
@@ -26,6 +26,18 @@ module.exports = {
           use: ['style-loader',
                 'css-loader'
           ],
+        },
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: [
+              {
+              loader: 'ts-loader',
+              options: {
+                  appendTsSuffixTo: [/\.vue$/] /* .vueファイルをTSとして読み込むようにする */
+              }
+              }
+          ]
         }
       ]
   },

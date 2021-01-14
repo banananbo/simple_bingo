@@ -1,10 +1,10 @@
 <template>
   <div>
-    <p>{{ greeting }} World!</p>
+    <p>{{ computed_greeting }} World!</p>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -13,6 +13,11 @@ export default {
   },
   created() {
     this.greeting = 'hello';
+  },
+  computed:{
+      computed_greeting(){
+          return this.greeting;
+      }
   }
 }
 </script>
