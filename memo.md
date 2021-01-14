@@ -193,7 +193,7 @@ export default {
 }
 </script>
 ```
-#### webpack 実行
+### webpack 実行
 ```sh
 npx webpack --mode="development"
 asset app.js 239 KiB [emitted] (name: main)
@@ -212,3 +212,44 @@ cacheable modules 223 KiB
 webpack 5.14.0 compiled successfully in 2064 ms
 ```
 ブラウザで問題なく表示されていることを確認
+
+### 単一コンポ―ネント CSS対応
+```sh
+yarn add --dev style-loader css-loader
+```
+webpackにcss用の設定を追加
+```
+ module: {
+    rules: 
+    [
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+        },
+        {
+          test: /\.css$/,
+          loader: 'vue-style-loader',
+          loader: 'css-loader',
+        }
+      ]
+  },
+```
+
+```sh
+npx webpack --mode="development"
+asset app.js 257 KiB [compared for emit] (name: main)
+runtime modules 1.19 KiB 5 modules
+cacheable modules 232 KiB
+  modules by path ./src/ 3.39 KiB 9 modules
+  modules by path ./node_modules/ 229 KiB
+    ./node_modules/vue/dist/vue.runtime.esm.js 218 KiB [built] [code generated]
+    ./node_modules/vue-loader/lib/runtime/componentNormalizer.js 2.71 KiB [built] [code generated]
+    ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js 6.67 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/runtime/api.js 1.57 KiB [built] [code generated]
+webpack 5.14.0 compiled successfully in 2071 ms
+```
+CSSが app.js に埋め込まれ、適用されるようになった。
