@@ -50,6 +50,7 @@ yarn add --dev webpack webpack-cli
 ```
 node_modules というディレクトリが作られ、webpack利用に必要なパッケージがインストールされる。
 これらの詳細の情報は、同時に作成されたyarn.lockに記録される。
+
 ### テスト用のjsの準備
 ```src/app.js
 let test = ()=> {alert("webpack test");};
@@ -370,4 +371,7 @@ ERROR in /home/obana/js/vue/test5/src/Hello.vue.ts
       TS2322: Type 'number' is not assignable to type 'string'.
 ```
 
-
+### bootstrap
+```
+yarn add --dev bootstrap
+``` 
