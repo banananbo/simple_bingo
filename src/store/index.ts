@@ -27,6 +27,7 @@ actions: {
     console.log(bingo);
     console.log(100);
     if(strage_bingo) context.commit('setBingoData',bingo);
+    else context.commit('setBingoData',Bingo.createNew(3,true));
   },
   // saveBingo (context) {
   //   localStorage.setItem('mainBingo', bingo);

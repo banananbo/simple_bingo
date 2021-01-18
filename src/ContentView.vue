@@ -57,10 +57,10 @@ export default Vue.extend({
         draw:function(){
             let context = this.canvas.getContext( "2d" ) ;
             if(!this.enable) context.globalAlpha = 0.3;
-            context.clearRect(0,0,this.size,this.size);
             const chara = new Image();
             chara.src =  this.content.img_src;
             chara.onload = () => {
+                context.clearRect(0,0,this.size,this.size);
                 console.log(this.size);
                 context.drawImage(chara, 0,  0, this.size,this.size);
                 const textsize:TextMetrics = context.measureText(this.content.title);

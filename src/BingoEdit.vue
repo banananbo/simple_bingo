@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-9 col-sm-12">
             <div id="top_area">
-             <h5>ビンゴを作る</h5>Count: {{ count }}
+             <h5>ビンゴを作る</h5>
               <section id="cell_size_input">
                 セルの数：
                 <select name='cell_num' v-model='cell_num'>
