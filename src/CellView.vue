@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="rounded" :class="[{checked:cell.checked},rounded]">
         <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
         <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
     </div>
@@ -16,6 +16,9 @@ export type DataType ={
 }
 
 export default Vue.extend({
+    data: {
+
+},
     props: {
         size: {
             type: Number,
@@ -70,5 +73,8 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-
+.checked{
+    color: red;
+    background-color: rgb(231, 127, 123);
+}
 </style>

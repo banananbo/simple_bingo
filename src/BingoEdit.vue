@@ -8,7 +8,7 @@
              <h5>ビンゴを作る</h5>
               <section id="cell_size_input">
                 セルの数：
-                <select name='cell_num' v-model='cell_num'>
+                <select name='cell_num' v-model='cell_num' @change="initBingo">
                   <option v-for="num,idx in cell_nums" :key="idx"> {{num}} </option>
                 </select>
               </section>
@@ -29,7 +29,7 @@
          </div>
       </div>
       <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
-      <a class="navbar-brand" href="#">Fixed bottom</a>
+      <a class="navbar-brand" href="#"></a>
       <router-link to="/game">次へ</router-link>
       </nav>
 </section>
@@ -90,17 +90,17 @@ export default Vue.extend({
   },
   },
   watch: {
-      'size': {
-          handler: function () {
-              this.initBingo();
-          }
-      },
-      'cell_num': {
-          handler: function () {
-            console.log("change cell num");
-              this.initBingo();
-          }
-      }
+      // 'size': {
+      //     handler: function () {
+      //         this.initBingo();
+      //     }
+      // },
+      // 'cell_num': {
+      //     handler: function () {
+      //       console.log("change cell num");
+      //       this.initBingo();
+      //     }
+      // }
   },
   computed:{
       cell_size:function():number{

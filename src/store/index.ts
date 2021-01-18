@@ -26,8 +26,12 @@ actions: {
     let bingo = Bingo.createByJson(strage_bingo);
     console.log(bingo);
     console.log(100);
-    if(strage_bingo) context.commit('setBingoData',bingo);
-    else context.commit('setBingoData',Bingo.createNew(3,true));
+    if(strage_bingo){
+      context.commit('setBingoData',bingo);
+    }else{
+      console.log('sinki');
+      context.commit('setBingoData',Bingo.createNew(3,true));
+    }
   },
   // saveBingo (context) {
   //   localStorage.setItem('mainBingo', bingo);

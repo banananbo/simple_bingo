@@ -3,6 +3,9 @@
     <div class="modal__bg">
      <div class="modal__content rounded">
          <ContentView :size="100" :content="cell.content"></ContentView>
+         <p>{{cell.content.title}}</p>
+         <button @click="submitContent">見つけた！</button>
+         <button @click="cancelContent">とりけす</button>
     </div>
     </div>
 </div>
@@ -36,7 +39,12 @@ ContentView
     },
 
     methods: {
-
+        submitContent:function(){
+            this.$emit('submit',{cell:this.cell});
+        },
+        cancelContent:function(){
+            this.$emit('cancel',{cell:this.cell});
+        },
   },
 });
 </script>
@@ -55,7 +63,7 @@ ContentView
 }
 .modal__content{
     background: #fff;
-    left: 50%;
+    /* left: 50%; */
     padding: 10px;
     position: absolute;
     top: 50%;

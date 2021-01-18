@@ -4,12 +4,10 @@
     <div class="container-fluid text-center">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
-    <ControlPop v-if="cellPop" :cell="selectedCell"></ControlPop>
-    <!-- <div>
-        Count: {{ count }}
-        <button @click="onclick">Increment</button>
-        <router-link to="/create">Start!</router-link>
-    </div> -->
+    <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
+    <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
+      <router-link to="/create">再作成</router-link>
+    </nav>
 </div>
 </template>
 <script lang="ts">
@@ -67,6 +65,16 @@ export default Vue.extend({
             // this.count++;
             // this.$store.commit('increment');
         },
+        submitCell :function(obj:any){
+            obj.cell.check();
+            this.cellPop = false;
+            this.selectedCell = null;
+        },
+        cancellCell :function(obj:any){
+            obj.cell.unCheck();
+            this.cellPop = false;
+            this.selectedCell = null;
+        }
   },
 });
 </script>

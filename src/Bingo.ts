@@ -46,11 +46,22 @@ export class Bingo{
 }
 
 export class Cell{
+    private _checked:Boolean = false;
+
     constructor( public x:number, public y:number, public content:Content=Content.blank ){
         
     }
     static createByObj(obj:any):Cell{
         const content:Content = Content.createByObj(obj.content);
         return new Cell(obj.x,obj.y,content);
+    }
+    public check(){
+        this._checked = true;
+    }
+    public unCheck(){
+        this._checked = false;
+    }
+    public get checked():Boolean{
+        return this._checked;
     }
 }
