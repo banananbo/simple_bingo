@@ -9,6 +9,7 @@
         "baseUrl": "./",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
+        "noImplicitThis": true
     },
     "include": [
         "./src/*.vue",

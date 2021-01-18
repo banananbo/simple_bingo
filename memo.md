@@ -374,4 +374,22 @@ ERROR in /home/obana/js/vue/test5/src/Hello.vue.ts
 ### bootstrap
 ```
 yarn add --dev bootstrap
-``` 
+```
+#### bootstrap導入
+https://getbootstrap.jp/docs/4.1/getting-started/webpack/
+
+モジュールからwebpackのビルドを通して導入する方法もあるようですが、今回は
+直接インポートします。
+
+```app.ts
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
+
+### webpackの自動実行
+```sh
+npx webpack --watch
+```
+watchオプションを付けると、ファイルの変更を検知して自動で実行してくれるので便利
+
+### TypeScript本格導入
+

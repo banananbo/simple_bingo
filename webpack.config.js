@@ -34,12 +34,19 @@ module.exports = {
               {
               loader: 'ts-loader',
               options: {
+                  // transpileOnly: true,
                   appendTsSuffixTo: [/\.vue$/] /* .vueファイルをTSとして読み込むようにする */
               }
-              }
+              } 
           ]
         }
       ]
+  },
+  resolve: {
+    alias: {
+      '@src': path.join(__dirname, 'src'),
+      vue: 'vue/dist/vue.esm.js',
+    }
   },
   plugins: [
     new VueLoaderPlugin()
