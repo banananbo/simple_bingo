@@ -10,7 +10,7 @@
      <div class="modal__bg js-modal-close"></div>
      <div class="modal__content">
       <div v-for="(content, index) in contents" :key="index" class="box">
-            <Cell :content='content' :size="100" :canvasid="'canvas'+index"></Cell>
+            <CellView :content='content' :size="100" :canvasid="'canvas'+index"></CellView>
       </div>
           dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>
           dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>dummy<br>
@@ -25,7 +25,7 @@
 <script lang="ts">
 
 import Vue from "vue"
-import Cell from "./Cell.vue";
+import CellView from "./CellView.vue";
 import {Content} from "./content.ts"
 
 
@@ -42,7 +42,7 @@ export default Vue.extend({
         };
     },
   components: {
-    Cell
+    CellView
   },
   methods:{
     openModal:function(){

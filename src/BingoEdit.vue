@@ -12,17 +12,17 @@
             </div>
 
             <div>
-              <BingoView :contents="contents" :cell_size="cell_size" @cellClick='onCellClicked'></BingoView>
+              <BingoView :bingo="bingo" :cell_size="cell_size" @cellClick='onCellClicked'></BingoView>
             </div>
           </div>
-          <button id="show-modal" @click="showModal = true">Show Modal</button>
+          <!-- <button id="show-modal" @click="showModal = true">Show Modal</button>
           <div class="sidebar_fixed no-print card col-md-3 col-sm-12 p-3 mb-2 bg-primary text-white" >
             <ul class="no-print">
               <li>サイズ：<input v-model="size" type="number" min="200" max="1000" step="50"></li>
               <li>セルの数：<input v-model="cell_num" type="number" min="3" max="8"></li>
             </ul>
-          </div>
-          <CellEdit v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged"></CellEdit>
+          </div> -->
+          <CellEdit :bingo="bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged"></CellEdit>
          </div>
       </div>
 </section>
@@ -33,8 +33,9 @@
 import Vue from "vue" 
 import BingoView from "./BingoView.vue";
 import CellEdit from "./CellEdit.vue";
-import Cell from "./Cell.vue";
+// import CellView from "./CellView.vue";
 import {Content} from "./content.ts";
+import {Bingo,Cell} from "./Bingo.ts";
 
 Vue.component("modal", {
   template: "#modal-template"
@@ -45,7 +46,8 @@ export type DataType ={
   cell_num: number,
   showModal: Boolean,
   contents: Array<Array<Content>>,
-  editCell: any
+  editCell: Cell,
+  bingo: Bingo
 }
 
 export default Vue.extend({
@@ -55,7 +57,8 @@ export default Vue.extend({
       cell_num: 3,
       showModal: false,
       editCell: null,
-      contents: []
+      contents: [],
+      bingo:null
     };
   },
   methods:{
@@ -64,18 +67,14 @@ export default Vue.extend({
       this.editCell = obj.cell;
       this.showModal = true;
     },
-    cellChanged:function(){
+    cellChanged:function(obj:any){
       this.showModal = false;
+      this.editCell.content = obj.content;
     },
     initBingo: function(){
-      this.contents = [];
-      for(let i=0; i<this.cell_num;i++){
-          let horizontal:Array<Content> = [];
-          for(let j=0; j<this.cell_num; j++){
-          horizontal.push(Content.random);
-          }
-          this.contents.push(horizontal);
-      }
+      this.bingo= Bingo.createNew(this.cell_num,true);
+      console.log(this.bingo);
+  },
   },
   watch: {
       'size': {
@@ -85,10 +84,10 @@ export default Vue.extend({
       },
       'cell_num': {
           handler: function () {
+            console.log("change cell num");
               this.initBingo();
           }
       }
-    },
   },
   computed:{
       cell_size:function():number{

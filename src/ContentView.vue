@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas :id="canvasid" :width="size" :height="size" @click='select'></canvas>
+        <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas>
     </div>
 </template>
 <script lang="ts">
@@ -25,9 +25,10 @@ export default Vue.extend({
             type: Number,
             required: true
         },
-        canvasid: {
-            type: String,
-            required: true
+        enable: {
+            type: Boolean,
+            default: true,
+            required: false
         },
         content: {
             type: Content,
@@ -48,13 +49,14 @@ export default Vue.extend({
     },
 
     mounted(){
-        this.canvas = <HTMLCanvasElement>document.getElementById( this.canvasid );
+        this.canvas = <HTMLCanvasElement>this.$refs.canvas;
         this.draw();
     },
 
     methods: {
         draw:function(){
             let context = this.canvas.getContext( "2d" ) ;
+            if(!this.enable) context.globalAlpha = 0.3;
             context.clearRect(0,0,this.size,this.size);
             const chara = new Image();
             chara.src =  this.content.img_src;
@@ -68,7 +70,7 @@ export default Vue.extend({
         },
         select:function(){
             console.log(this.content.title);
-            this.$emit('cellClick',{content:this.content,cell:this});
+            this.$emit('onClick',{content:this.content});
         }
   },
 });

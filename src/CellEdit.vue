@@ -4,7 +4,7 @@
      <div class="modal__bg"></div>
      <div class="modal__content">
       <div v-for="(content, index) in contents" :key="index" class="box">
-            <Cell :content='content' :size="100" :canvasid="'canvas'+index" @cellClick='onCellClicked'></Cell>
+            <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="100" @onClick="onClicked"></ContentView>
       </div>
      </div>
   </div>
@@ -13,8 +13,9 @@
 <script lang="ts">
 
 import Vue from "vue"
-import Cell from "./Cell.vue";
+import ContentView from "./ContentView.vue";
 import {Content} from "./content.ts"
+import {Bingo} from "./Bingo.ts"
 
 export type DataType ={
       contents: Array<Content>
@@ -26,22 +27,24 @@ export default Vue.extend({
             contents: Content.contents,
         };
     },
-
+   computed:{
+      except_id_list():Array<number>{
+          return this.bingo.contents.map(c=>c.id);
+      }
+  },
     props: {
-        cell: {
-            type: Cell,
+        bingo: {
+            type: Bingo,
             required: true
         },
     },
     methods:{
-      onCellClicked: function(obj:any){
-        console.log(obj);
-        this.cell.content = obj.content;
-        this.$emit("selected");
+      onClicked: function(obj:any){
+        this.$emit("selected",obj);
       }
     },
   components: {
-    Cell
+    ContentView
   },
 })
 </script>
