@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded" :class="[{checked:cell.checked},rounded]">
+    <div class="rounded" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
         <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
         <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
     </div>
@@ -76,5 +76,10 @@ export default Vue.extend({
 .checked{
     color: red;
     background-color: rgb(231, 127, 123);
+}
+.bingocell{
+    border-color: red;
+    border-width: 5em;
+    background-color: rgb(32, 25, 214);
 }
 </style>

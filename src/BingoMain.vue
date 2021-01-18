@@ -4,6 +4,7 @@
     <div class="container-fluid text-center">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
+    score:{{this.$store.state.bingo.score}}
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
     <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
       <router-link to="/create">再作成</router-link>
@@ -69,11 +70,13 @@ export default Vue.extend({
             obj.cell.check();
             this.cellPop = false;
             this.selectedCell = null;
+            this.$store.state.bingo.checkBingo();
         },
         cancellCell :function(obj:any){
             obj.cell.unCheck();
             this.cellPop = false;
             this.selectedCell = null;
+            this.$store.state.bingo.checkBingo();
         }
   },
 });

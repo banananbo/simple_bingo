@@ -2,6 +2,22 @@ import {Content} from "./content.ts";
 
 export class Bingo{
     
+    public get score():number{
+        return this.cells.flat().filter(c =>  c.checked).length;
+    }
+
+    public checkBingo(){
+        let bingonum = 0;
+        this.cells.forEach(
+            row => {
+                if(row.every(c =>  c.checked)){
+                   bingonum++;
+                   row.forEach(c => c.is_bingo = true);
+               }
+            }
+        )
+    }
+
     constructor( public cells:Array<Array<Cell>> ){
         
     }
@@ -47,6 +63,7 @@ export class Bingo{
 
 export class Cell{
     private _checked:Boolean = false;
+    private _is_bingo:Boolean = false;
 
     constructor( public x:number, public y:number, public content:Content=Content.blank ){
         
@@ -63,5 +80,11 @@ export class Cell{
     }
     public get checked():Boolean{
         return this._checked;
+    }
+    public get is_bingo():Boolean{
+        return this._is_bingo;
+    }
+    public set is_bingo(val:Boolean){
+        this._is_bingo = val;
     }
 }
