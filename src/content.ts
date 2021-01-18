@@ -25,5 +25,7 @@ export class Content{
         let id = Math.floor( Math.random() * (10 - 1) );
         return this.contents[id];
     }
-
+    static createByObj(obj:any):Content{
+        return new Content(obj.id,obj.img_src,obj.title);
+    }
 }

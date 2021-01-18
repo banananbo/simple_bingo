@@ -26,7 +26,7 @@ export default Vue.extend({
     },
 
     props: {
-        cell_size: {
+        size: {
             type: Number,
             required: true
         },
@@ -36,12 +36,18 @@ export default Vue.extend({
         // },
         bingo: {
             type: Bingo,
-            required: true
+            required: false
         }
     },
 
+    computed:{
+      cell_size:function():number{
+          return Math.floor(this.size/this.bingo.cell_num);
+      },
+  },
+
     components: {
-    CellView
+    CellView,
     },
 
     created(){

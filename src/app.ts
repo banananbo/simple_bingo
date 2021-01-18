@@ -2,6 +2,7 @@ import Vue from 'vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VueRouter from 'vue-router';
 import routes from './router.ts';
+import store from './store/index.ts';
 // import VueCarousel from 'vue-carousel';
 
 Vue.use(VueRouter);
@@ -15,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // new Vue(Hello).$mount('#app');
   new Vue({
     el: '#app',
-    router: router
+    router: router,
+    store: store,
+    beforeCreate(){
+      this.$store.dispatch('doLoad')
+    }
   })
 });
