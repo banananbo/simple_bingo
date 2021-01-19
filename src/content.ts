@@ -12,6 +12,8 @@ export class Content{
             new Content(8,"https://1.bp.blogspot.com/-H8YBA_SpxGs/X-Fcu75hh_I/AAAAAAABdEU/WRKUa03ypYor3TwvhziHAnSEcTN4Noq0gCNcBGAsYHQ/s1148/onepiece08_franky.png",'フランキー'),
             new Content(9,"https://1.bp.blogspot.com/-KZ0MJgiPJHo/X__CLeY-zVI/AAAAAAABdNM/HnFYqUe0VQEzCWCqyMggibpk4kBRtFCpQCNcBGAsYHQ/s1102/onepiece09_brook.png",'がいこつ'),
             new Content(10,"https://1.bp.blogspot.com/-vIXZ3_KMn9g/X-FcvVKPQSI/AAAAAAABdEc/i8oJKU0UDMM2uQfzemn6oOmJLICo4VcVgCNcBGAsYHQ/s1185/onepiece10_jinbe.png",'ジンベエ'),
+            new Content(11,"https://1.bp.blogspot.com/-XJ4izO61h5g/X-FcwW85RwI/AAAAAAABdEo/1qaHb2pwEvQehHV2ePis0QU8SpiIlqroQCNcBGAsYHQ/s1201/onepiece11_arlong2.png",'アーロン'),
+            new Content(12,"https://1.bp.blogspot.com/-pGLNjxN42lM/X-FcwLVGLwI/AAAAAAABdEk/_FEy4Cf-ZHElAoQeh8fFGCiMln4FDlF0QCNcBGAsYHQ/s1287/onepiece12_buggy.png",'バギー'),
     ];
 
     static get blank():Content{
@@ -22,7 +24,7 @@ export class Content{
     }
     
     static get random():Content{
-        let id = Math.floor( Math.random() * (10 - 1) );
+        let id = Math.floor( Math.random() * (13 - 1) );
         return this.contents[id];
     }
     static createByObj(obj:any):Content{

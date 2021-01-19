@@ -55,7 +55,6 @@ export type DataType ={
   showModal: Boolean,
   contents: Array<Array<Content>>,
   editCell: Cell,
-  bingo: Bingo,
   cell_nums: Array<Number>
 }
 
@@ -67,7 +66,6 @@ export default Vue.extend({
       showModal: false,
       editCell: null,
       contents: [],
-      bingo:null,
       cell_nums: [3,4,5]
     };
   },
@@ -111,6 +109,7 @@ export default Vue.extend({
       }
   },
   created() { 
+    if(!this.$store.state.bingo) this.initBingo();
     this.cell_num = this.$store.state.bingo.cell_num;
   },
   mounted(){

@@ -17,16 +17,18 @@ mutations: {
         state.bingo = bingo;
         localStorage.setItem('mainBingo', JSON.stringify(bingo));
     },
+    saveBingoData (state:State) {
+      console.log('save');
+      console.log( JSON.stringify(state.bingo) )
+      localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
+    }
 },
 actions: {
   doLoad (context:any) {
     let strage_bingo = localStorage.mainBingo;
-    console.log(99);
-    console.log(strage_bingo);
-    let bingo = Bingo.createByJson(strage_bingo);
-    console.log(bingo);
-    console.log(100);
     if(strage_bingo){
+      let bingo = Bingo.createByJson(strage_bingo);
+      bingo.checkBingo();
       context.commit('setBingoData',bingo);
     }else{
       console.log('sinki');

@@ -67,7 +67,7 @@ ContentView
     padding: 10px;
     position: absolute;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-70%,-50%);
     width: 250px;
     overflow: auto;
     height: 250px;

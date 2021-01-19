@@ -66,7 +66,6 @@ export default Vue.extend({
         //     };
         // },
         select:function(){
-            console.log(this.cell.content.title);
             this.$emit('cellClick',{cell:this.cell});
         }
   },

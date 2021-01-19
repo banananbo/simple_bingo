@@ -6,10 +6,16 @@ export class Bingo{
     public static PLAYING:number = 1;
     public static PLAYED:number = 2;
 
-    private _game_state:number = Bingo.BEFORE_PLAY;
-    private _start_time:Number = 0;
-
     public bingonum:number = 0;
+
+    constructor( 
+        public cells:Array<Array<Cell>>,
+        private _game_state:number = Bingo.BEFORE_PLAY,
+        private _start_time:Number = 0,
+        private _end_time:Number = 0
+         ){
+        
+    }
     
     public get score():number{
         return this.cells.flat().filter(c =>  c.checked).length;
@@ -23,16 +29,35 @@ export class Bingo{
         return this._game_state==Bingo.PLAYING;
     }
     
-    public get time():number{
-        return ( Date.now()- <number>this._start_time);
+    public get time_formatted():string{
+        return this.formatedTime( Date.now()- <number>this._start_time);
+    }
+
+    public get spentTime():string{
+        return this.formatedTime(<number>this._end_time - <number>this._start_time);
+    }
+
+    private formatedTime(time:number):string{
+        return Math.floor(time/3600000)+":"+Math.floor(time/60000)%60+":"+
+        Math.floor(time/1000)%60;
     }
 
     public startGame(){
-        this._game_state=Bingo.PLAYING;
+        this._game_state = Bingo.PLAYING;
         this._start_time = Date.now();
     }
 
+    public endGame(){
+        this._game_state = Bingo.PLAYED;
+        this._end_time = Date.now();
+    }
+
+    private clearBingoFlag(){
+        this.cells.flat().forEach( c => c.is_bingo = false );
+    }
+
     public checkBingo(){
+        this.clearBingoFlag(); 
         let bingonum = 0;
         // 横
         this.cells.forEach(
@@ -40,7 +65,6 @@ export class Bingo{
                 if(row.every(c =>  c.checked)){
                    bingonum++;
                    row.forEach(c => c.is_bingo = true);
-        console.log('bingo?');
 
                 }
             }
@@ -54,7 +78,6 @@ export class Bingo{
                 }
             )){
                 bingonum++;
-                console.log('bingo?');
                 this.cells.forEach(c => c[i].is_bingo = true);
 
             };
@@ -67,7 +90,6 @@ export class Bingo{
         )){
             bingonum++;
             this.cells.forEach( (c,index) => c[index].is_bingo = true);
-        console.log('bingo?');
 
         };
         if(this.cells.every(
@@ -76,15 +98,9 @@ export class Bingo{
             }
         )){
             bingonum++;
-        console.log('bingo?');
-
             this.cells.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
         };
         this.bingonum = bingonum;     
-    }
-
-    constructor( public cells:Array<Array<Cell>> ){
-        
     }
 
     public get contents():Array<Content>{
@@ -110,9 +126,6 @@ export class Bingo{
     static createByJson(json:string):Bingo{
         let obj:any = JSON.parse(json);
         // obj = JSON.parse(obj)
-        console.log(obj);
-        console.log(typeof(obj));
-        console.log(obj.cells);
         let cells:Array<Array<Cell>> = [];
         for(let i:number=0;i<obj.cells.length;i++){
             let row:Array<Cell> = [];
@@ -121,21 +134,24 @@ export class Bingo{
             }
             cells.push(row);
         }
-        console.log(cells);
-        return new Bingo(cells);
+        return new Bingo(cells,obj._game_state,obj._start_time,obj._end_time);
     }
 }
 
 export class Cell{
-    private _checked:Boolean = false;
     private _is_bingo:Boolean = false;
 
-    constructor( public x:number, public y:number, public content:Content=Content.blank ){
+    constructor( 
+        public x:number,
+        public y:number, 
+        public content:Content=Content.blank,
+        private _checked:Boolean=false
+        ){
         
     }
     static createByObj(obj:any):Cell{
         const content:Content = Content.createByObj(obj.content);
-        return new Cell(obj.x,obj.y,content);
+        return new Cell(obj.x,obj.y,content,obj._checked);
     }
     public check(){
         this._checked = true;
