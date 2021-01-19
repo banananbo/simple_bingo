@@ -4,58 +4,30 @@
           <div class="modal-wrapper">
             <div class="modal-container">
 
-     <div class="modal-body rounded">
-         <ContentView :size="100" :content="cell.content"></ContentView>
-         <p>{{cell.content.title}}</p>
-         <div class="text-center">
-          <button @click="submitContent">見つけた！</button>
-          <button @click="cancelContent">とりけす</button>
-         </div>
-    </div>
+              <div class="modal-body">
+                <slot name="body">
+                  default body
+                </slot>
+              </div>
 
+              <div class="modal-footer">
+                <slot name="footer">
+                  default footer
+                  <button class="modal-default-button" @click="$emit('close')">
+                    OK
+                  </button>
+                </slot>
+              </div>
             </div>
           </div>
         </div>
       </transition>
 </template>
 <script lang="ts">
-
-import Vue from "vue"
-import {Bingo,Cell} from "./Bingo.ts";
-import Header from "./Header.vue";
-import BingoView from "./BingoView.vue";
-import ContentView from "./ContentView.vue";
-
-export type DataType ={
-    
-}
-
-export default Vue.extend({
-    data(): DataType {
-        return {
-
-        };
-    },
-
-    props: {
-        cell:Cell
-    },
-    mounted(){
-    },
-
-    components: {
-ContentView
-    },
-
-    methods: {
-        submitContent:function(){
-            this.$emit('submit',{cell:this.cell});
-        },
-        cancelContent:function(){
-            this.$emit('cancel',{cell:this.cell});
-        },
-  },
-});
+    import Vue from 'vue'
+    export default Vue.extend({
+        
+    })
 </script>
 <style scoped>
 .modal-mask {
@@ -78,7 +50,7 @@ ContentView
 .modal-container {
   width: 300px;
   margin: 0px auto;
-  padding: 5px;
+  padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);

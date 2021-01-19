@@ -5,12 +5,14 @@ import {Bingo,Cell} from "../Bingo.ts";
 Vue.use(Vuex);
 
 interface State {
-  bingo: Bingo
+  bingo: Bingo,
+  my_bingo_archives: Array<Bingo>
 }
 
 export default new Vuex.Store({
 state: {
-    bingo: null
+    bingo: null,
+    my_bingo_archives: []
 } as State,
 mutations: {
     setBingoData (state:State,bingo:Bingo) {
@@ -21,6 +23,13 @@ mutations: {
       console.log('save');
       console.log( JSON.stringify(state.bingo) )
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
+    },
+    addToBingoArchives (state:State,bingo:Bingo) {
+      state.my_bingo_archives.push(bingo);
+      localStorage.setItem('my_bingo_archives', JSON.stringify(state.my_bingo_archives));
+    },
+    initBingoArchives (state:State,bingos:Array<Bingo>) {
+      state.my_bingo_archives = bingos;
     }
 },
 actions: {
@@ -31,8 +40,15 @@ actions: {
       bingo.checkBingo();
       context.commit('setBingoData',bingo);
     }else{
-      console.log('sinki');
       context.commit('setBingoData',Bingo.createNew(3,true));
+    }
+
+    let my_bingo_archives = localStorage.my_bingo_archives;
+    if(my_bingo_archives){
+      let my_bingo_archives_obj:Array<any> = JSON.parse(my_bingo_archives);
+      let arr:Array<Bingo> = [];
+      my_bingo_archives_obj.forEach( o => arr.push( Bingo.createByObj(o) ) )
+      context.commit('initBingoArchives',arr);
     }
   },
   // saveBingo (context) {

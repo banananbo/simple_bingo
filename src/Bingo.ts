@@ -12,7 +12,8 @@ export class Bingo{
         public cells:Array<Array<Cell>>,
         private _game_state:number = Bingo.BEFORE_PLAY,
         private _start_time:Number = 0,
-        private _end_time:Number = 0
+        private _end_time:Number = 0,
+        public memo:string = ""
          ){
         
     }
@@ -38,8 +39,9 @@ export class Bingo{
     }
 
     private formatedTime(time:number):string{
-        return Math.floor(time/3600000)+":"+Math.floor(time/60000)%60+":"+
-        Math.floor(time/1000)%60;
+        return ("00"+Math.floor(time/3600000)).slice(-2)+":"+
+        ("00"+Math.floor(time/60000)%60).slice(-2) +":"+
+        ("00"+Math.floor(time/1000)%60).slice(-2);
     }
 
     public startGame(){
@@ -123,9 +125,7 @@ export class Bingo{
         return new Bingo(cells);
     }
 
-    static createByJson(json:string):Bingo{
-        let obj:any = JSON.parse(json);
-        // obj = JSON.parse(obj)
+    static createByObj(obj:any):Bingo{
         let cells:Array<Array<Cell>> = [];
         for(let i:number=0;i<obj.cells.length;i++){
             let row:Array<Cell> = [];
@@ -134,7 +134,13 @@ export class Bingo{
             }
             cells.push(row);
         }
-        return new Bingo(cells,obj._game_state,obj._start_time,obj._end_time);
+        return new Bingo(cells,obj._game_state,obj._start_time,obj._end_time,obj.memo);
+    }
+
+    static createByJson(json:string):Bingo{
+        let obj:any = JSON.parse(json);
+        // obj = JSON.parse(obj)
+        return Bingo.createByObj(obj);
     }
 }
 

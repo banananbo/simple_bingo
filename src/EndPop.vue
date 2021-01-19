@@ -5,11 +5,17 @@
             <div class="modal-container">
 
      <div class="modal-body rounded">
-         <ContentView :size="100" :content="cell.content"></ContentView>
-         <p>{{cell.content.title}}</p>
+         <h5>ビンゴを終わりにしますか？</h5>
+         <h6>記録</h6>
+         <ul>
+              <li class="list-group-item">score:{{bingo.score}}</li>
+              <li class="list-group-item">bingo:{{bingo.bingonum}}</li>
+              <li class="list-group-item">time:{{this.timer}}</li>
+         </ul>
+         <textarea v-model="bingo.memo"></textarea>
          <div class="text-center">
-          <button @click="submitContent">見つけた！</button>
-          <button @click="cancelContent">とりけす</button>
+          <button @click="submitContent">おしまい</button>
+          <button @click="cancelContent">つづける</button>
          </div>
     </div>
 
@@ -38,7 +44,8 @@ export default Vue.extend({
     },
 
     props: {
-        cell:Cell
+        bingo:Bingo,
+        timer:String
     },
     mounted(){
     },
@@ -49,10 +56,10 @@ ContentView
 
     methods: {
         submitContent:function(){
-            this.$emit('submit',{cell:this.cell});
+            this.$emit('submit');
         },
         cancelContent:function(){
-            this.$emit('cancel',{cell:this.cell});
+            this.$emit('cancel');
         },
   },
 });

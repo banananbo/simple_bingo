@@ -16,6 +16,7 @@
         <button @click="clickEndBtn">×</button>
     </div>
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
+    <EndPop v-if="endPop" :bingo="this.$store.state.bingo" :timer="timer" @submit="endGame" @cancel="endPop=false"></EndPop>
     <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
       <router-link to="/create">再作成</router-link>
     </nav>
@@ -27,10 +28,12 @@ import {Bingo,Cell} from "./Bingo.ts";
 import Header from "./Header.vue";
 import BingoView from "./BingoView.vue";
 import ControlPop from "./ControlPop.vue";
+import EndPop from "./EndPop.vue";
 
 export type DataType ={
     size: number,
     cellPop: Boolean,
+    endPop: Boolean,
     selectedCell: Cell,
     timer:string,
     timerObj:any
@@ -41,6 +44,7 @@ export default Vue.extend({
         return {
             size: screen.width - 40,
             cellPop: false,
+            endPop: false,
             selectedCell: null,
             timer: "",
             timerObj: null
@@ -73,14 +77,24 @@ export default Vue.extend({
     components: {
         Header,
         BingoView,
-        ControlPop
+        ControlPop,
+        EndPop
+    },
+
+    beforeDestroy(){
+        clearInterval(this.timerObj);
     },
 
     methods: {
-        clickEndBtn(){
+        endGame(){
             this.$store.state.bingo.endGame();
             this.$store.commit('saveBingoData');
+            this.$store.commit('addToBingoArchives',this.$store.state.bingo);
+            this.$store.state.bingo = null;
             this.$router.push('result');
+        },
+        clickEndBtn(){
+            this.endPop = true;
         },
         startGame(){
             this.$store.state.bingo.startGame();
