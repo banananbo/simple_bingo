@@ -1,21 +1,86 @@
 import {Content} from "./content.ts";
 
 export class Bingo{
+
+    public static BEFORE_PLAY:number = 0;
+    public static PLAYING:number = 1;
+    public static PLAYED:number = 2;
+
+    private _game_state:number = Bingo.BEFORE_PLAY;
+    private _start_time:Number = 0;
+
+    public bingonum:number = 0;
     
     public get score():number{
         return this.cells.flat().filter(c =>  c.checked).length;
     }
 
+    public get game_state():number{
+        return this._game_state;
+    }
+
+    public get is_playing():Boolean{
+        return this._game_state==Bingo.PLAYING;
+    }
+    
+    public get time():number{
+        return ( Date.now()- <number>this._start_time);
+    }
+
+    public startGame(){
+        this._game_state=Bingo.PLAYING;
+        this._start_time = Date.now();
+    }
+
     public checkBingo(){
         let bingonum = 0;
+        // 横
         this.cells.forEach(
             row => {
                 if(row.every(c =>  c.checked)){
                    bingonum++;
                    row.forEach(c => c.is_bingo = true);
-               }
+        console.log('bingo?');
+
+                }
             }
         )
+        // 縦
+        for(let i:number=0;i<this.cell_num;i++){
+            console.log(i);
+            if(this.cells.every(
+                row => {
+                    return row[i].checked
+                }
+            )){
+                bingonum++;
+                console.log('bingo?');
+                this.cells.forEach(c => c[i].is_bingo = true);
+
+            };
+        }
+        // 斜め
+        if(this.cells.every(
+            (row,index) => {
+                return row[index].checked
+            }
+        )){
+            bingonum++;
+            this.cells.forEach( (c,index) => c[index].is_bingo = true);
+        console.log('bingo?');
+
+        };
+        if(this.cells.every(
+            (row,index) => {
+                return row[this.cell_num-index-1].checked
+            }
+        )){
+            bingonum++;
+        console.log('bingo?');
+
+            this.cells.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
+        };
+        this.bingonum = bingonum;     
     }
 
     constructor( public cells:Array<Array<Cell>> ){

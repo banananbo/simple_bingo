@@ -4,7 +4,16 @@
     <div class="container-fluid text-center">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
-    score:{{this.$store.state.bingo.score}}
+    <div v-if="!this.$store.state.bingo.is_playing">
+        <button @click="startGame">START!</button>
+    </div>
+    <div v-if="this.$store.state.bingo.is_playing">
+        <ul>
+            <li>score:{{this.$store.state.bingo.score}}</li>
+            <li>bingo:{{this.$store.state.bingo.bingonum}}</li>
+            <li>time:{{this.$store.state.bingo.time}}</li>
+        </ul>
+    </div>
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
     <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
       <router-link to="/create">再作成</router-link>
@@ -19,7 +28,6 @@ import BingoView from "./BingoView.vue";
 import ControlPop from "./ControlPop.vue";
 
 export type DataType ={
-    bingo: Bingo,
     size: number,
     cellPop: Boolean,
     selectedCell: Cell
@@ -28,12 +36,14 @@ export type DataType ={
 export default Vue.extend({
     data(): DataType {
         return {
-            bingo: null,
             size: screen.width - 40,
             cellPop: false,
             selectedCell: null
         };
     },
+    computed:{
+
+  },
 
     props: {
         // cell_size: {
@@ -57,8 +67,13 @@ export default Vue.extend({
     },
 
     methods: {
+        startGame(){
+            this.$store.state.bingo.startGame();
+        },
         onCellClicked: function(obj:any){
-            console.log(9);
+            console.log(1);
+            console.log(this.$store.state.bingo.is_playing);
+            if (!this.$store.state.bingo.is_playing) return;
             this.selectedCell = obj.cell
             this.cellPop = true;
         },
