@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
+    <div class="rounded" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
         <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
         <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
     </div>

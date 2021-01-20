@@ -11,15 +11,33 @@ export class Bingo{
     constructor( 
         public cells:Array<Array<Cell>>,
         private _game_state:number = Bingo.BEFORE_PLAY,
-        private _start_time:Number = 0,
-        private _end_time:Number = 0,
+        private _start_time:number = 0,
+        private _end_time:number = 0,
+        private _title:String = "",
         public memo:string = ""
          ){
         
     }
+
+    public get cell_last_checked():Cell{
+        return this.cells_checked.slice(-1)[0];
+    }
+
+    public get cells_checked():Array<Cell>{
+        return this.cells.flat().filter( c => c.checked ).sort( (a,b) => a.checkInfo.time - b.checkInfo.time );
+    }
+
+    public get endDate():string{
+        return new Date(this._end_time).toLocaleDateString();
+    }
     
     public get score():number{
         return this.cells.flat().filter(c =>  c.checked).length;
+    }
+
+    public get title():String{
+        if(this._title == "") return this.getDateString(this._start_time)+"のビンゴ"
+        return this._title;
     }
 
     public get game_state():number{
@@ -56,6 +74,19 @@ export class Bingo{
 
     private clearBingoFlag(){
         this.cells.flat().forEach( c => c.is_bingo = false );
+    }
+
+    private getDateString(time:number):string{
+        const now = new Date(time);
+        const year = now.getFullYear();
+        const mon = now.getMonth()+1; //１を足すこと
+        const day = now.getDate();
+        const hour = now.getHours();
+        const min = now.getMinutes();
+    
+        //出力用
+        const s = year + "年" + mon + "月" + day + "日" + hour + "時" + min + "分"; 
+        return s;            
     }
 
     public checkBingo(){
@@ -134,7 +165,7 @@ export class Bingo{
             }
             cells.push(row);
         }
-        return new Bingo(cells,obj._game_state,obj._start_time,obj._end_time,obj.memo);
+        return new Bingo(cells,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo);
     }
 
     static createByJson(json:string):Bingo{
@@ -151,22 +182,23 @@ export class Cell{
         public x:number,
         public y:number, 
         public content:Content=Content.blank,
-        private _checked:Boolean=false
+        private _check:any=null
         ){
         
     }
     static createByObj(obj:any):Cell{
+        const check:any = (obj._check)? new CheckMetaData(obj._check.time) : null;
         const content:Content = Content.createByObj(obj.content);
-        return new Cell(obj.x,obj.y,content,obj._checked);
+        return new Cell(obj.x,obj.y,content,check);
     }
     public check(){
-        this._checked = true;
+        this._check = new CheckMetaData(Date.now());
     }
     public unCheck(){
-        this._checked = false;
+        this._check = null;
     }
     public get checked():Boolean{
-        return this._checked;
+        return <boolean>this._check;
     }
     public get is_bingo():Boolean{
         return this._is_bingo;
@@ -174,4 +206,25 @@ export class Cell{
     public set is_bingo(val:Boolean){
         this._is_bingo = val;
     }
+    public get checkInfo():CheckMetaData{
+        return this._check;
+    }
+    public get check_time():string{
+        const now = new Date(this.checkInfo.time);
+        const year = now.getFullYear();
+        const mon = now.getMonth()+1; //１を足すこと
+        const day = now.getDate();
+        const hour = now.getHours();
+        const min = now.getMinutes();
+    
+        //出力用
+        const s = year + "年" + mon + "月" + day + "日" + hour + "時" + min + "分"; 
+        return s; 
+    }
+}
+
+export class CheckMetaData{
+    constructor(
+        public time:number,
+    ){}
 }

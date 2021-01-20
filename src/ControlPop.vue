@@ -7,9 +7,10 @@
      <div class="modal-body rounded">
          <ContentView :size="100" :content="cell.content"></ContentView>
          <p>{{cell.content.title}}</p>
+         <p v-if="cell.checked">{{cell.check_time}}に発見</p>
          <div class="text-center">
-          <button @click="submitContent">見つけた！</button>
-          <button @click="cancelContent">とりけす</button>
+          <button v-if="!cell.checked" @click="submitContent">見つけた！</button>
+          <button v-if="cell.checked" @click="cancelContent">とりけす</button>
          </div>
     </div>
 

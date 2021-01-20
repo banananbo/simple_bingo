@@ -109,7 +109,11 @@ export default Vue.extend({
       }
   },
   created() { 
-    if(!this.$store.state.bingo) this.initBingo();
+    if( this.$store.state.bingo && this.$store.state.bingo.is_playing){
+        this.$router.push('game');
+        return;
+    }
+    this.initBingo();
     this.cell_num = this.$store.state.bingo.cell_num;
   },
   mounted(){

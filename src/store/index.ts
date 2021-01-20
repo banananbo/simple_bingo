@@ -25,7 +25,7 @@ mutations: {
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
     },
     addToBingoArchives (state:State,bingo:Bingo) {
-      state.my_bingo_archives.push(bingo);
+      state.my_bingo_archives.unshift(bingo);
       localStorage.setItem('my_bingo_archives', JSON.stringify(state.my_bingo_archives));
     },
     initBingoArchives (state:State,bingos:Array<Bingo>) {
@@ -35,6 +35,7 @@ mutations: {
 actions: {
   doLoad (context:any) {
     let strage_bingo = localStorage.mainBingo;
+    if(strage_bingo == "null")  strage_bingo = null;
     if(strage_bingo){
       let bingo = Bingo.createByJson(strage_bingo);
       bingo.checkBingo();

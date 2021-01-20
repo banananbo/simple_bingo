@@ -13,6 +13,7 @@
                 <li class="list-group-item">bingo:{{this.$store.state.bingo.bingonum}}</li>
                 <li class="list-group-item">time:{{timer}}</li>
         </ul>
+        
         <button @click="clickEndBtn">×</button>
     </div>
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
@@ -27,6 +28,7 @@ import Vue from "vue"
 import {Bingo,Cell} from "./Bingo.ts";
 import Header from "./Header.vue";
 import BingoView from "./BingoView.vue";
+import CellView from "./CellView.vue";
 import ControlPop from "./ControlPop.vue";
 import EndPop from "./EndPop.vue";
 
@@ -64,33 +66,44 @@ export default Vue.extend({
         //     required: true
         // }
     },
+    created(){
+         if(!this.$store.state.bingo){
+            // プレイ中のbingo無し
+            this.$router.push("/");return;
+        }
+    },
     mounted(){
         // this.bingo = this.$store.state.bingo;
         // console.log(this.$store.state.bingo);
+       
+
         this.$store.state.bingo.checkBingo();
         this.timerObj = setInterval(() => {
             if (this.$store.state.bingo.time==0) return;
             this.timer = this.$store.state.bingo.time_formatted
          }, 1000);
     },
+    beforeDestroy(){
+        clearInterval(this.timerObj);
+    },
+
 
     components: {
         Header,
         BingoView,
         ControlPop,
-        EndPop
+        EndPop,
+        CellView
     },
 
-    beforeDestroy(){
-        clearInterval(this.timerObj);
-    },
+    
 
     methods: {
         endGame(){
             this.$store.state.bingo.endGame();
             this.$store.commit('saveBingoData');
             this.$store.commit('addToBingoArchives',this.$store.state.bingo);
-            this.$store.state.bingo = null;
+            this.$store.commit('setBingoData',null);
             this.$router.push('result');
         },
         clickEndBtn(){
@@ -104,6 +117,7 @@ export default Vue.extend({
             if (!this.$store.state.bingo.is_playing) return;
             this.selectedCell = obj.cell
             this.cellPop = true;
+            console.log(this.$store.state.bingo.cells_checked);
         },
         onclick :function(obj:any){
             // this.count++;
