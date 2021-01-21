@@ -1,7 +1,6 @@
 <template>
       <div class="navbar navbar-dark bg-dark fixed-top navbar-light bg-light">
       <a class="navbar-brand" href="#">
-        <img src="https://getbootstrap.jp/docs/4.2/assets/brand/bootstrap-solid.svg" width="20" height="20" alt="">
         Simple Bingo
       </a>
     　</div>
@@ -17,5 +16,7 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-
+  .navbar{
+    padding:4px 16px;
+}
 </style>

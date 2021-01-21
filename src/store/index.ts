@@ -21,7 +21,7 @@ mutations: {
     },
     saveBingoData (state:State) {
       console.log('save');
-      console.log( JSON.stringify(state.bingo) )
+      // console.log( JSON.stringify(state.bingo) )
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
     },
     addToBingoArchives (state:State,bingo:Bingo) {
@@ -30,6 +30,10 @@ mutations: {
     },
     initBingoArchives (state:State,bingos:Array<Bingo>) {
       state.my_bingo_archives = bingos;
+    },
+    discardPlayingGame (state:State){
+       state.bingo = null;
+       localStorage.setItem('mainBingo', "");
     }
 },
 actions: {

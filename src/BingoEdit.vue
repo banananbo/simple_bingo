@@ -8,15 +8,15 @@
              <h5>ビンゴを作る</h5>
               <section id="cell_size_input">
                 セルの数：
-                <select name='cell_num' v-model='cell_num' @change="initBingo">
+                <select name='cell_num' v-model='cell_num' @change="initBingo()">
                   <option v-for="num,idx in cell_nums" :key="idx"> {{num}} </option>
                 </select>
               </section>
             </div>
-
             <div>
-              <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
+              <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
             </div>
+            <button type="button" class="btn btn-primary" @click="startBingoGame">ビンゴを始める</button>
           </div>
           <!-- <button id="show-modal" @click="showModal = true">Show Modal</button>
           <div class="sidebar_fixed no-print card col-md-3 col-sm-12 p-3 mb-2 bg-primary text-white" >
@@ -25,13 +25,10 @@
               <li>セルの数：<input v-model="cell_num" type="number" min="3" max="8"></li>
             </ul>
           </div> -->
-          <CellEdit :bingo="this.$store.state.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged"></CellEdit>
+          <CellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged"></CellEdit>
          </div>
       </div>
-      <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
-      <a class="navbar-brand" href="#"></a>
-      <router-link to="/game">次へ</router-link>
-      </nav>
+      <Footer></Footer>
 </section>
 </template>
 
@@ -41,6 +38,7 @@ import Vue from "vue"
 import BingoView from "./BingoView.vue";
 import CellEdit from "./CellEdit.vue";
 import Header from "./Header.vue";
+import Footer from "./Footer.vue";
 // import CellView from "./CellView.vue";
 import {Content} from "./content.ts";
 import {Bingo,Cell} from "./Bingo.ts";
@@ -55,7 +53,8 @@ export type DataType ={
   showModal: Boolean,
   contents: Array<Array<Content>>,
   editCell: Cell,
-  cell_nums: Array<Number>
+  cell_nums: Array<Number>,
+  bingo: Bingo
 }
 
 export default Vue.extend({
@@ -66,12 +65,12 @@ export default Vue.extend({
       showModal: false,
       editCell: null,
       contents: [],
-      cell_nums: [3,4,5]
+      cell_nums: [3,4,5],
+      bingo: null
     };
   },
   methods:{
     onCellClicked:function(obj:any){
-      console.log(obj.cell.content.title);
       this.editCell = obj.cell;
       this.showModal = true;
     },
@@ -80,12 +79,12 @@ export default Vue.extend({
       this.editCell.content = obj.content;
     },
     initBingo: function(){
-      const bingo = Bingo.createNew(this.cell_num,true);
-      this.$store.commit('setBingoData',bingo);
-      // this.$store.commit('setBingoData',this.bingo);
-      // // this.$store.state.bingo = this.bingo;
-      // console.log(this.bingo);
-  },
+      this.bingo = Bingo.createNew(this.cell_num,true);
+    },
+    startBingoGame:function(){
+      this.$store.commit('setBingoData',this.bingo);
+      this.$router.push('game');
+    }
   },
   watch: {
       // 'size': {
@@ -93,12 +92,12 @@ export default Vue.extend({
       //         this.initBingo();
       //     }
       // },
-      // 'cell_num': {
-      //     handler: function () {
-      //       console.log("change cell num");
-      //       this.initBingo();
-      //     }
-      // }
+      'cell_num': {
+          handler: function () {
+            console.log("change cell num");
+            this.initBingo();
+          }
+      }
   },
   computed:{
       cell_size:function():number{
@@ -113,8 +112,9 @@ export default Vue.extend({
         this.$router.push('game');
         return;
     }
+    
     this.initBingo();
-    this.cell_num = this.$store.state.bingo.cell_num;
+    // this.cell_num = this.$store.state.bingo.cell_num;
   },
   mounted(){
     // this.initBingo();
@@ -122,7 +122,8 @@ export default Vue.extend({
   components: {
     BingoView,
     CellEdit,
-    Header
+    Header,
+    Footer
   }
 })
 </script>

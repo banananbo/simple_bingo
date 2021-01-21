@@ -1,11 +1,22 @@
 <template>
 <section>
+      <Header></Header>
       <div class="container-fluid text-center">
             <h2>Quick Bingo</h2>
-            <router-link to="/create">Start!</router-link>
-            <button @click="openModal">open</button>
+            <section v-if="!this.$store.state.bingo">
+            <button type="button" class="btn btn-primary" @click="$router.push('/game')">ビンゴを始める</button>
+            </section>
       </div>
-      <MyModal v-if="modal"></MyModal>
+      <section v-if="this.$store.state.bingo" >
+      <h5>プレイ中のビンゴ</h5>
+            <ResultCard :bingo="this.$store.state.bingo"></ResultCard>
+      <section class="text-center">
+            <button type="button" class="btn btn-primary" @click="$router.push('/game')">続きをプレイ</button>
+            <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
+      </section>    
+      </section>
+      <Footer></Footer>
+      <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
 </section>
 </template>
 
@@ -13,24 +24,32 @@
 
 import Vue from "vue" 
 import MyModal from "./MyModal.vue";
+import Header from "./Header.vue";
+import Footer from "./Footer.vue";
+import ResultCard from "./ResultCard.vue";
+import DiscardGamePop from "./DiscardGamePop.vue";
 
 export type DataType ={
-      modal:Boolean
+      view_discardPop:Boolean
 }
 
 export default Vue.extend({
       data():DataType{
       return {
-            modal: false,
+            view_discardPop: false,
         };
       },
       methods:{
-            openModal: function(){
-                  this.modal = true;
+            discardGame: function(){
+                  this.view_discardPop = false;
+                  this.$router.push('game');
             }
       },
       components:{
-            MyModal
+        Header,
+        Footer,
+        ResultCard,
+        DiscardGamePop
       }
 })
 </script>

@@ -12,21 +12,26 @@
                 </tr>
             </table>
         </div>
-        <div v-if="detail_view">
-            <BingoView :bingo="bingo" :size="size"></BingoView>
-            
-            <div>
-                <ul class="list-group list-group-horizontal  mx-auto">
-                    <li class="list-group-item">score:{{bingo.score}}</li>
-                    <li class="list-group-item">bingo:{{bingo.bingonum}}</li>
-                    <li class="list-group-item">time:{{bingo.spentTime}}</li>
+        <transition name="slide-fade">
+            <div v-if="detail_view">
+                <BingoView :bingo="bingo" :size="size"></BingoView>
+                
+                <div>
+                    <ul class="list-group mx-auto">
+                        <li class="list-group-item">score:{{bingo.score}}</li>
+                        <li class="list-group-item">bingo:{{bingo.bingonum}}</li>
+                        <li class="list-group-item">開始:{{format_to_date(bingo.start_time)}}</li>
+                        <li v-if="bingo.end_time" class="list-group-item">終了:{{format_to_date(bingo.end_time)}}</li>
+                        <li v-if="bingo.end_time" class="list-group-item">time:{{format_to_time(bingo.spentTime)}}</li>
+                        <li v-if="bingo.is_playing" class="list-group-item">time:{{format_to_time(bingo.current_time)}}</li>
+                    </ul>
+                </div>
+                <p>{{bingo.memo}}</p>
+                <ul v-for="(cell,idx) in bingo.cells_checked" :key="idx">
+                    <li><CellView :cell="cell" :size="50"></CellView> {{cell.check_time}}</li>
                 </ul>
             </div>
-            <p>{{bingo.memo}}</p>
-            <ul v-for="(cell,idx) in bingo.cells_checked" :key="idx">
-                <li><CellView :cell="cell" :size="50"></CellView> {{cell.check_time}}</li>
-            </ul>
-        </div>
+        </transition>
 </div>
 </template>
 <script lang="ts">
@@ -34,6 +39,7 @@ import Vue from "vue"
 import {Bingo,Cell} from "./Bingo.ts";
 import BingoView from "./BingoView.vue";
 import CellView from "./CellView.vue";
+import DateFunc from "./mixin/date_func.ts";
 
 export type DataType ={
     detail_view: Boolean,
@@ -45,6 +51,7 @@ export default Vue.extend({
             detail_view:false,
         };
     },
+    mixins: [DateFunc],
     computed:{
         main_cell():Cell{
             return this.bingo.cell_last_checked ? this.bingo.cell_last_checked : this.bingo.cells[0][0]
@@ -58,7 +65,8 @@ export default Vue.extend({
         },
         size:{
             type: Number,
-            required: true
+            required: false,
+            default: screen.width - 40
         }
     },
     created(){
@@ -81,6 +89,7 @@ export default Vue.extend({
     div .main{
         margin: 10px;
         padding: 5px;
+        cursor: hand;
     }
     .title{
   color: #010079;
@@ -89,4 +98,17 @@ export default Vue.extend({
   background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
   background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
     }
+
+
+.slide-fade-enter-active {
+    transition: all .3s ease;
+}
+.slide-fade-leave-active {
+    transition: all .3s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateY(-20px);
+    opacity: 0;
+}
 </style>

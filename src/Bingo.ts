@@ -1,12 +1,15 @@
 import {Content} from "./content.ts";
+import {ExDate} from "./lib/ex_date.ts"
+import {EventEmitter} from 'events'
 
-export class Bingo{
+export class Bingo extends EventEmitter{
 
     public static BEFORE_PLAY:number = 0;
     public static PLAYING:number = 1;
     public static PLAYED:number = 2;
 
     public bingonum:number = 0;
+    public all_clear:Boolean = false;
 
     constructor( 
         public cells:Array<Array<Cell>>,
@@ -16,7 +19,10 @@ export class Bingo{
         private _title:String = "",
         public memo:string = ""
          ){
-        
+            super();
+            cells.flat().forEach(
+              c => { c.on( 'checked',()=> this.checkBingo() ) }
+            )
     }
 
     public get cell_last_checked():Cell{
@@ -36,7 +42,7 @@ export class Bingo{
     }
 
     public get title():String{
-        if(this._title == "") return this.getDateString(this._start_time)+"のビンゴ"
+        if(this._title == "") return ExDate.format_to_date(this._start_time)+"のビンゴ"
         return this._title;
     }
 
@@ -44,23 +50,38 @@ export class Bingo{
         return this._game_state;
     }
 
+    public get start_time():number{
+        return this._start_time;
+    }
+
+    public get end_time():number{
+        return this._end_time;
+    }
+
     public get is_playing():Boolean{
         return this._game_state==Bingo.PLAYING;
     }
+
+    private check_all_clear():void{
+        if(this.cells.flat().every(c=>c.checked)){
+            this.all_clear = true;
+            this.emit('all_clear');
+        }
+    }
     
-    public get time_formatted():string{
-        return this.formatedTime( Date.now()- <number>this._start_time);
+    public get current_time():number{
+        return Date.now()- this._start_time;
     }
 
-    public get spentTime():string{
-        return this.formatedTime(<number>this._end_time - <number>this._start_time);
+    public get spentTime():number{
+        return this._end_time - this._start_time;
     }
 
-    private formatedTime(time:number):string{
-        return ("00"+Math.floor(time/3600000)).slice(-2)+":"+
-        ("00"+Math.floor(time/60000)%60).slice(-2) +":"+
-        ("00"+Math.floor(time/1000)%60).slice(-2);
-    }
+    // private formatedTime(time:number):string{
+    //     return ("00"+Math.floor(time/3600000)).slice(-2)+":"+
+    //     ("00"+Math.floor(time/60000)%60).slice(-2) +":"+
+    //     ("00"+Math.floor(time/1000)%60).slice(-2);
+    // }
 
     public startGame(){
         this._game_state = Bingo.PLAYING;
@@ -74,19 +95,6 @@ export class Bingo{
 
     private clearBingoFlag(){
         this.cells.flat().forEach( c => c.is_bingo = false );
-    }
-
-    private getDateString(time:number):string{
-        const now = new Date(time);
-        const year = now.getFullYear();
-        const mon = now.getMonth()+1; //１を足すこと
-        const day = now.getDate();
-        const hour = now.getHours();
-        const min = now.getMinutes();
-    
-        //出力用
-        const s = year + "年" + mon + "月" + day + "日" + hour + "時" + min + "分"; 
-        return s;            
     }
 
     public checkBingo(){
@@ -133,7 +141,8 @@ export class Bingo{
             bingonum++;
             this.cells.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
         };
-        this.bingonum = bingonum;     
+        this.bingonum = bingonum;
+        this.check_all_clear();   
     }
 
     public get contents():Array<Content>{
@@ -175,7 +184,7 @@ export class Bingo{
     }
 }
 
-export class Cell{
+export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
 
     constructor( 
@@ -184,7 +193,7 @@ export class Cell{
         public content:Content=Content.blank,
         private _check:any=null
         ){
-        
+            super();
     }
     static createByObj(obj:any):Cell{
         const check:any = (obj._check)? new CheckMetaData(obj._check.time) : null;
@@ -193,6 +202,7 @@ export class Cell{
     }
     public check(){
         this._check = new CheckMetaData(Date.now());
+        (this as EventEmitter).emit("checked");
     }
     public unCheck(){
         this._check = null;
