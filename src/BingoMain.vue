@@ -1,23 +1,30 @@
 <template>
 <div>
     <Header></Header>
-    <div v-if="!this.$store.state.bingo.is_playing" :style='overlay_style' class="container-fluid text-center">
-    </div>
+    <BingoOverlay v-if="!this.$store.state.bingo.is_playing" :width="bingo_w" :height="bingo_h"></BingoOverlay>
     <div ref="bingoview" class="container-fluid text-center">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
-    <div v-if="!this.$store.state.bingo.is_playing" class="text-center">
-        <button @click="startGame" class="btn btn-primary">START!</button>
-    </div>
-    <div v-if="this.$store.state.bingo.is_playing">
-        <ul class="list-group list-group-horizontal  mx-auto" style="max-width: 80%;">
-                <li class="list-group-item">score:{{this.$store.state.bingo.score}}</li>
-                <li class="list-group-item">bingo:{{this.$store.state.bingo.bingonum}}</li>
-                <li class="list-group-item">time:{{timer}}</li>
-        </ul>
-        <section class="text-center">
-            <button type="button" class="btn btn-primary" @click="clickEndBtn">おわる</button>
-        </section>
+    <div style="margin-top:10px">
+        <div v-if="!this.$store.state.bingo.is_playing" class="text-center ">
+            <button @click="startGame" class="btn btn-primary">スタート！</button>
+        </div>
+        <div v-if="this.$store.state.bingo.is_playing">
+            <table>
+                <tr>
+                    <th>スコア</th>
+                    <th>ビンゴ</th>
+                    <th>時間</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td class="big">{{this.$store.state.bingo.score}}</td>
+                    <td class="big">{{this.$store.state.bingo.bingonum}}</td>
+                    <td>{{timer}}</td>
+                    <td><button type="button" class="btn btn-primary" @click="clickEndBtn">おわる</button></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
     <EndPop v-if="endPop" :bingo="this.$store.state.bingo" :timer="timer" @submit="endGame" @cancel="endPop=false"></EndPop>
@@ -45,7 +52,6 @@ export type DataType ={
     timerObj:any,
     bingo_w:number,
     bingo_h:number,
-    overlay_color:string
 }
 
 export default Vue.extend({
@@ -59,19 +65,11 @@ export default Vue.extend({
             timerObj: null,
             bingo_w:100,
             bingo_h:100,
-            overlay_color: "#9996"
         };
     },
     mixins: [DateFunc],
     computed:{
-        overlay_style():object{
-            return {
-                "height": this.bingo_h+"px",
-                "width" : this.bingo_w+"px",
-                "background-color" : this.overlay_color,
-                "position" : "absolute"
-            }
-        }
+
     },
     watch: {
     //   'size': {
@@ -129,7 +127,8 @@ export default Vue.extend({
         BingoView,
         ControlPop,
         EndPop,
-        CellView
+        CellView,
+        BingoOverlay
     },
 
     methods: {
@@ -178,4 +177,60 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
+table{
+  width: 100%;
+  border-collapse:separate;
+  border-spacing: 0;
+  padding: 5px 20px;
+}
+
+table th:first-child{
+  border-radius: 5px 0 0 0;
+}
+
+table th:last-child{
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #3c6690;
+}
+
+table th{
+  text-align: center;
+  color:white;
+  background: linear-gradient(#829ebc,#225588);
+  border-left: 1px solid #3c6690;
+  border-top: 1px solid #3c6690;
+  border-bottom: 1px solid #3c6690;
+  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+  width: 25%;
+  padding: 5px 0;
+  font-size: 80%;
+}
+
+table td{
+  text-align: center;
+  border-left: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  border-top:none;
+  box-shadow: 0px -3px 5px 1px #eee inset;
+  width: 25%;
+  padding: 10px 0;
+}
+
+.big{
+    font-size: 140%;
+    /* font-weight: 600; */
+    font-family: Impact,Charcoal;
+}
+
+table td:last-child{
+  border-right: 1px solid #a8b7c5;
+}
+
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+table tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
+}
 </style>

@@ -23,7 +23,6 @@
 <script lang="ts">
 
 import Vue from "vue" 
-import MyModal from "./MyModal.vue";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import ResultCard from "./ResultCard.vue";
