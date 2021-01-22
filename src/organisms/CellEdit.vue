@@ -13,9 +13,9 @@
 <script lang="ts">
 
 import Vue from "vue"
-import ContentView from "./ContentView.vue";
-import {Content} from "./content.ts"
-import {Bingo} from "./Bingo.ts"
+import ContentView from "@organisms/ContentView.vue";
+import {Content} from "@lib/bingo/content.ts"
+import {Bingo} from "@lib/bingo/Bingo.ts"
 
 export type DataType ={
       contents: Array<Content>

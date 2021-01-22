@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VueRouter from 'vue-router';
-import routes from './router.ts';
+import routes from './router/router.ts';
 import store from './store/index.ts';
 // import VueCarousel from 'vue-carousel';
 

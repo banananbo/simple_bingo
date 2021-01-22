@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {Bingo,Cell} from "../Bingo.ts";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 
 Vue.use(Vuex);
 

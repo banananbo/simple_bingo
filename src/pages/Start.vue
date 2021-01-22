@@ -23,10 +23,10 @@
 <script lang="ts">
 
 import Vue from "vue" 
-import Header from "./Header.vue";
-import Footer from "./Footer.vue";
-import ResultCard from "./ResultCard.vue";
-import DiscardGamePop from "./DiscardGamePop.vue";
+import Header from "@organisms/Header.vue";
+import Footer from "@organisms/Footer.vue";
+import ResultCard from "@organisms/ResultCard.vue";
+import DiscardGamePop from "@organisms/DiscardGamePop.vue";
 
 export type DataType ={
       view_discardPop:Boolean

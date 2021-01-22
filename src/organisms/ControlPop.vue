@@ -3,21 +3,16 @@
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-container">
-
-     <div class="modal-body rounded">
-         <h5>プレイ中のビンゴをすててよろしいですか？</h5>
-         <h6>記録</h6>
-         <ul>
-              <li class="list-group-item">score:{{$store.state.bingo.score}}</li>
-              <li class="list-group-item">bingo:{{$store.state.bingo.bingonum}}</li>
-              <li class="list-group-item">time:{{$store.state.bingo.current_time}}</li>
-         </ul>
-         <div class="text-center">
-          <button @click="discardGame">すてる</button>
-          <button @click="cancelDiscard">つづける</button>
-         </div>
-    </div>
-
+              <div class="modal-body rounded">
+                  <ContentView :size="100" :content="cell.content"></ContentView>
+                  <p>{{cell.content.title}}</p>
+                  <p v-if="cell.checked">{{cell.check_time}}に発見</p>
+                  <div class="text-center">
+                    <button class="btn btn-primary" v-if="!cell.checked" @click="submitContent">見つけた！</button>
+                    <button class="btn btn-primary" v-if="!cell.checked" @click="cancelContent">まだ</button>
+                    <button class="btn btn-primary" v-if="cell.checked" @click="cancelContent">とりけす</button>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
@@ -26,10 +21,10 @@
 <script lang="ts">
 
 import Vue from "vue"
-import {Bingo,Cell} from "./Bingo.ts";
-import Header from "./Header.vue";
-import BingoView from "./BingoView.vue";
-import ContentView from "./ContentView.vue";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import Header from "@organisms/Header.vue";
+import BingoView from "@organisms/BingoView.vue";
+import ContentView from "@organisms/ContentView.vue";
 
 export type DataType ={
     
@@ -43,7 +38,7 @@ export default Vue.extend({
     },
 
     props: {
-
+        cell:Cell
     },
     mounted(){
     },
@@ -53,12 +48,11 @@ ContentView
     },
 
     methods: {
-        discardGame:function(){
-            this.$store.commit('discardPlayingGame');
-            this.$emit('discard');
+        submitContent:function(){
+            this.$emit('submit',{cell:this.cell});
         },
-        cancelDiscard:function(){
-            this.$emit('cancel');
+        cancelContent:function(){
+            this.$emit('cancel',{cell:this.cell});
         },
   },
 });

@@ -5,12 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Bingo</title>
     <script src="js/app.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+      // add to home>
+      window.addEventListener('load', function() {
+       if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.register("js/serviceWorker.js")
+       .then(function(registration) {
+       console.log("serviceWorker registed.");
+       }).catch(function(error) {
+       console.warn("serviceWorker error.", error);
+       });
+       }
+      });
+      // <add to home
+      </script>
     <style>
 html, body{
     margin: 0;         /* 余白の削除 */
     padding: 0;        /* 余白の削除 */
     width:100%;
     height:100%;
+    touch-action: manipulation;
 }
 
 div#header-fixed

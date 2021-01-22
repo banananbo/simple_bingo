@@ -35,13 +35,12 @@
 <script lang="ts">
 
 import Vue from "vue" 
-import BingoView from "./BingoView.vue";
-import CellEdit from "./CellEdit.vue";
-import Header from "./Header.vue";
-import Footer from "./Footer.vue";
-// import CellView from "./CellView.vue";
-import {Content} from "./content.ts";
-import {Bingo,Cell} from "./Bingo.ts";
+import BingoView from "@organisms/BingoView.vue";
+import CellEdit from "@organisms/CellEdit.vue";
+import Header from "@organisms/Header.vue";
+import Footer from "@organisms/Footer.vue";
+import {Content} from "@lib/bingo/content.ts";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 
 Vue.component("modal", {
   template: "#modal-template"

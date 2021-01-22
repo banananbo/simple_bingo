@@ -61,10 +61,10 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "./Bingo.ts";
-import BingoView from "./BingoView.vue";
-import ContentView from "./ContentView.vue";
-import DateFunc from "./mixin/date_func.ts";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import BingoView from "@organisms/BingoView.vue";
+import ContentView from "@organisms/ContentView.vue";
+import DateFunc from "@mixin/date_func.ts";
 
 export type DataType ={
     detail_view: Boolean,

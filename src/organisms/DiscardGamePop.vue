@@ -1,31 +1,23 @@
 <template>
-<transition name="modal">
+      <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
-            <div class="modal-container modal-dialog modal-dialog-fluid">
+            <div class="modal-container">
 
-              <div class="modal-header">
-                <slot name="header">
-                  {{cell.content.title}}
-                </slot>
-              </div>
+     <div class="modal-body rounded">
+         <h5>プレイ中のビンゴをすててよろしいですか？</h5>
+         <h6>記録</h6>
+         <ul>
+              <li class="list-group-item">score:{{$store.state.bingo.score}}</li>
+              <li class="list-group-item">bingo:{{$store.state.bingo.bingonum}}</li>
+              <li class="list-group-item">time:{{$store.state.bingo.current_time}}</li>
+         </ul>
+         <div class="text-center">
+          <button class="btn btn-danger" @click="discardGame">すてる</button>
+          <button class="btn btn-primary" @click="cancelDiscard">つづける</button>
+         </div>
+    </div>
 
-              <div class="modal-body">
-                <div name="body" class="boxContainer">
-                  <div v-for="(content, index) in contents" :key="index" class="box">
-                        <Cell :content='content' :size="cell.size" :canvasid="'canvas'+index"></Cell>
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <slot name="footer">
-                  default footer
-                  <button class="modal-default-button" @click="$emit('close')">
-                    OK
-                  </button>
-                </slot>
-              </div>
             </div>
           </div>
         </div>
@@ -34,32 +26,44 @@
 <script lang="ts">
 
 import Vue from "vue"
-import Cell from "./Cell.vue";
-import {Content} from "./content.ts"
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import Header from "@organisms/Header.vue";
+import BingoView from "@organisms/BingoView.vue";
+import ContentView from "@organisms/ContentView.vue";
 
 export type DataType ={
-      contents: Array<Content>
+    
 }
 
 export default Vue.extend({
     data(): DataType {
         return {
-            contents: Content.contents,
+
         };
     },
 
     props: {
-        cell: {
-            type: Cell,
-            required: true
-        },
+
     },
-  components: {
-    Cell
+    mounted(){
+    },
+
+    components: {
+ContentView
+    },
+
+    methods: {
+        discardGame:function(){
+            this.$store.commit('discardPlayingGame');
+            this.$emit('discard');
+        },
+        cancelDiscard:function(){
+            this.$emit('cancel');
+        },
   },
-})
+});
 </script>
-<style>
+<style scoped>
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -80,7 +84,7 @@ export default Vue.extend({
 .modal-container {
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 5px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -109,7 +113,7 @@ export default Vue.extend({
  * You can easily play with the modal transition by editing
  * these styles.
  */
-
+/* 
 .modal-enter {
   opacity: 0;
 }
@@ -122,21 +126,5 @@ export default Vue.extend({
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-
-.box{
-  float: left;
-}
-
-.boxContainer{
-  overflow: hidden;
-}
-
-.modal-dialog-fluid {
-  max-width: inherit;
-  width: 80%;
-  margin-left: 15px;
-  overflow-y: auto;
-  height: 100%;
-}
+} */
 </style>

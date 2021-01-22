@@ -56,6 +56,10 @@ module.exports = {
   resolve: {
     alias: {
       '@src': path.join(__dirname, 'src'),
+      '@lib': path.join(__dirname, 'src/lib'),
+      '@pages': path.join(__dirname, 'src/pages'),
+      '@organisms': path.join(__dirname, 'src/organisms'),
+      '@mixin': path.join(__dirname, 'src/mixin'),
       vue: 'vue/dist/vue.esm.js',
     }
   },

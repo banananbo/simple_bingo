@@ -7,9 +7,9 @@
 <script lang="ts">
 import Vue from "vue"
 
-import {Cell} from "./Bingo.ts";
-import {Content} from "./content.ts"
-import ContentView from "./ContentView.vue"
+import {Cell} from "@lib/bingo/Bingo.ts";
+import {Content} from "@lib/bingo/content.ts"
+import ContentView from "@organisms/ContentView.vue"
 
 export type DataType ={
     canvas: HTMLCanvasElement

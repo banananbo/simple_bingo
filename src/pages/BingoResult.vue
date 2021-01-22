@@ -11,10 +11,10 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "./Bingo.ts";
-import Header from "./Header.vue";
-import Footer from "./Footer.vue";
-import ResultCard from "./ResultCard.vue";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import Header from "@organisms/Header.vue";
+import Footer from "@organisms/Footer.vue";
+import ResultCard from "@organisms/ResultCard.vue";
 
 export type DataType ={
     size: number,

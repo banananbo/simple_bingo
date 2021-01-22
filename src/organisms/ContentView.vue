@@ -6,7 +6,7 @@
 <script lang="ts">
 import Vue from "vue"
 
-import {Content} from "./content.ts"
+import {Content} from "@lib/bingo/content.ts"
 
 export type DataType ={
     canvas: HTMLCanvasElement

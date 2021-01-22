@@ -34,16 +34,16 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "./Bingo.ts";
-import Header from "./Header.vue";
-import Footer from "./Footer.vue";
-import BingoView from "./BingoView.vue";
-import CellView from "./CellView.vue";
-import ControlPop from "./ControlPop.vue";
-import EndPop from "./EndPop.vue";
-import BingoOverlay from "./BingoOverlay.vue";
-import DateFunc from "./mixin/date_func.ts";
-import DiscardGamePop from "./DiscardGamePop.vue";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import Header from "@organisms/Header.vue";
+import Footer from "@organisms/Footer.vue";
+import BingoView from "@organisms/BingoView.vue";
+import CellView from "@organisms/CellView.vue";
+import ControlPop from "@organisms/ControlPop.vue";
+import EndPop from "@organisms/EndPop.vue";
+import BingoOverlay from "@organisms/BingoOverlay.vue";
+import DateFunc from "@mixin/date_func.ts";
+import DiscardGamePop from "@organisms/DiscardGamePop.vue";
 
 export type DataType ={
     size: number,
@@ -179,6 +179,7 @@ export default Vue.extend({
             this.clickEndBtn();
         },
         confirmDiscard: function(){
+            this.endPop=false;
             this.view_discardPop = true;
         },
         discardGame: function(){

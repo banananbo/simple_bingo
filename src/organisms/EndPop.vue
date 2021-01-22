@@ -24,9 +24,9 @@
             <textarea v-model="bingo.memo" ></textarea>
          </div>
          <div class="text-center">
-          <button @click="submitContent">記録して終わる</button>
-          <button @click="removeContent">すてる</button>
-          <button @click="cancelContent">つづける</button>
+          <button class="btn btn-primary" @click="submitContent">記録して終わる</button>
+          <button class="btn btn-danger" @click="removeContent">すてる</button>
+          <button class="btn btn-primary" @click="cancelContent">つづける</button>
          </div>
     </div>
 
@@ -38,10 +38,10 @@
 <script lang="ts">
 
 import Vue from "vue"
-import {Bingo,Cell} from "./Bingo.ts";
-import Header from "./Header.vue";
-import BingoView from "./BingoView.vue";
-import ContentView from "./ContentView.vue";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import Header from "@organisms/Header.vue";
+import BingoView from "@organisms/BingoView.vue";
+import ContentView from "@organisms/ContentView.vue";
 
 export type DataType ={
     

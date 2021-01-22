@@ -1,5 +1,5 @@
-import {Content} from "./content.ts";
-import {ExDate} from "./lib/ex_date.ts"
+import {Content} from "@lib/bingo/content.ts";
+import {ExDate} from "@lib/func/ex_date.ts"
 import {EventEmitter} from 'events'
 
 export class Bingo extends EventEmitter{
