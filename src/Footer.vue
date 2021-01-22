@@ -5,13 +5,13 @@
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="$router.push('/')">
         <v-fa icon="home" />
-        <span>Home</span>
+        <span>HOME</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#" @click.prevent.stop="$router.push('/game')">
         <v-fa icon="th" />
-        <span>Star</span>
+        <span>PLAY</span>
       </a>
     </li>
     <li class="nav-item">
@@ -23,7 +23,7 @@
     <li class="nav-item">
       <a href="#">
         <v-fa icon="plus" />
-        <span>Buy</span>
+        <span>ADD</span>
       </a>
     </li>
   </ul>

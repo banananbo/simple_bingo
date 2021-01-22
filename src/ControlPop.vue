@@ -10,6 +10,7 @@
          <p v-if="cell.checked">{{cell.check_time}}に発見</p>
          <div class="text-center">
           <button v-if="!cell.checked" @click="submitContent">見つけた！</button>
+          <button v-if="!cell.checked" @click="cancelContent">まだ</button>
           <button v-if="cell.checked" @click="cancelContent">とりけす</button>
          </div>
     </div>

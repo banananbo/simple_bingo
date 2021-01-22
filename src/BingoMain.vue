@@ -1,7 +1,7 @@
 <template>
 <div>
     <Header></Header>
-    <BingoOverlay v-if="!this.$store.state.bingo.is_playing" :width="bingo_w" :height="bingo_h"></BingoOverlay>
+    <BingoOverlay :width="bingo_w" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
     <div ref="bingoview" class="container-fluid text-center">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
@@ -27,7 +27,8 @@
         </div>
     </div>
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
-    <EndPop v-if="endPop" :bingo="this.$store.state.bingo" :timer="timer" @submit="endGame" @cancel="endPop=false"></EndPop>
+    <EndPop v-if="endPop" :bingo="this.$store.state.bingo" :timer="timer" @submit="endGame" @cancel="endPop=false" @remove="confirmDiscard"></EndPop>
+    <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
     <Footer></Footer>
 </div>
 </template>
@@ -42,6 +43,7 @@ import ControlPop from "./ControlPop.vue";
 import EndPop from "./EndPop.vue";
 import BingoOverlay from "./BingoOverlay.vue";
 import DateFunc from "./mixin/date_func.ts";
+import DiscardGamePop from "./DiscardGamePop.vue";
 
 export type DataType ={
     size: number,
@@ -52,6 +54,7 @@ export type DataType ={
     timerObj:any,
     bingo_w:number,
     bingo_h:number,
+    view_discardPop:Boolean
 }
 
 export default Vue.extend({
@@ -65,6 +68,7 @@ export default Vue.extend({
             timerObj: null,
             bingo_w:100,
             bingo_h:100,
+            view_discardPop: false,
         };
     },
     mixins: [DateFunc],
@@ -107,7 +111,7 @@ export default Vue.extend({
             if (this.$store.state.bingo.time==0) return;
             this.timer = (this as any).format_to_time(this.$store.state.bingo.current_time)
          }, 1000);
-         this.$store.state.bingo.on( 'all_clear' ,()=>{ this.onClearBingo() } )
+        //  this.$store.state.bingo.on( 'all_clear' ,()=>{ this.onClearBingo() } )
 
          console.log((this.$refs.bingoview as Element).clientWidth)
          console.log((this.$refs.bingoview as Element).clientHeight)
@@ -128,7 +132,8 @@ export default Vue.extend({
         ControlPop,
         EndPop,
         CellView,
-        BingoOverlay
+        BingoOverlay,
+        DiscardGamePop
     },
 
     methods: {
@@ -172,6 +177,13 @@ export default Vue.extend({
         },
         onClearBingo : function():void{
             this.clickEndBtn();
+        },
+        confirmDiscard: function(){
+            this.view_discardPop = true;
+        },
+        discardGame: function(){
+            this.view_discardPop = false;
+            this.$router.push('/');
         }
   },
 });

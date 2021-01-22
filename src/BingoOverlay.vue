@@ -1,7 +1,9 @@
 <template>
-    <div :style='overlay_style' :class="[container-fluid,text-center]">
-        <p :style="text_style">{{text}}</p>
-    </div>
+    <transition :name="transition_name">
+        <div v-if="show" :style='overlay_style' class="container-fluid text-center">
+            <p :style="text_style">{{text}}</p>
+        </div>
+    </transition>
 </template>
 <script lang="ts">
 import Vue from "vue"
@@ -9,7 +11,9 @@ import Vue from "vue"
 export type DataType ={
     overlay_color:string,
     text:string,
-    text_style:Object
+    text_style:Object,
+    show:Boolean,
+    transition_name:string
 }
 
 export default Vue.extend({
@@ -17,7 +21,9 @@ export default Vue.extend({
         return {
             overlay_color: "#9996",
             text: "READY",
-            text_style: {}
+            text_style: {},
+            show:false,
+            transition_name:"fade"
         };
     },
     computed:{
@@ -31,8 +37,73 @@ export default Vue.extend({
         }
     },
     
-    methods: {
-
+   methods: {
+       ready(){
+           this.overlay_color = "#9996";
+           this.show = true;
+           this.text = "READY";
+           this.transition_name = "fade";
+           this.text_style = {
+            "font-size":"5em",
+            "text-align":"center",
+            "line-height":"0.95em",
+            "font-weight":"bold",
+            "color": "#FFF",
+            "text-shadow": "0 0 0.10em #2962FF,0 0 0.15em #2962FF,0 0 0.80em #2962FF,0 0 1.00em #2962FF",
+            "display": "grid",
+            "place-items": "center",
+            "width":"100%",
+            "height":"100%",
+           }
+           this.$store.state.bingo.once('start_game',this.start)
+       },
+       start(){
+           this.text = "GO!!";
+           this.removeAfterTime(300);
+       },
+       bingo(event_obj:any){
+           this.overlay_color = "#0000";
+           this.text = "BINGO!";
+           this.transition_name = "bottom";
+           if(event_obj.num == 2) this.text = "WBINGO!";
+           if(event_obj.num > 2)  this.text = event_obj.num+"BINGO!";
+           this.show = true;
+           this.text_style = {
+            "font-size":"5em",
+            "text-align":"center",
+            "line-height":"0.95em",
+            "font-weight":"bold",
+            "color": "#FFF",
+            "text-shadow": "0 0 0.10em #2962FF,0 0 0.15em #2962FF,0 0 0.80em #2962FF,0 0 1.00em #2962FF",
+            "display": "grid",
+            "place-items": "center",
+            "width":"100%",
+            "height":"100%",
+           }
+           this.removeAfterTime(1000);
+       },
+       removeAfterTime(time:number,callback:Function=null){
+        setTimeout( ()=>{this.show = false;console.log(callback);if(callback)callback()},time );
+       },
+       perfect(){
+           this.overlay_color = "#0000";
+           this.text = "PERFECT!";
+           this.transition_name = "bottom";
+           this.show = true;
+           this.text_style = {
+            "font-size":"5em",
+            "text-align":"center",
+            "line-height":"0.95em",
+            "font-weight":"bold",
+            "color": "#FFF",
+            "text-shadow": "0 0 0.10em #2962FF,0 0 0.15em #2962FF,0 0 0.80em #2962FF,0 0 1.00em #2962FF",
+            "display": "grid",
+            "place-items": "center",
+            "width":"100%",
+            "height":"100%",
+           }
+           this.removeAfterTime(3000,()=>{ console.log('after'), this.$emit('afterPerfectAnime')});
+       }
    },
     watch: {
 
@@ -40,28 +111,18 @@ export default Vue.extend({
 
     props: {
         width: Number,
-        height: Number
+        height: Number,
     },
 
     created(){
-        this.text_style = {
-	"font-size":"5em",
-	"text-align":"center",
-	"line-height":"0.95em",
-	"font-weight":"bold",
-	"color": "#FFF",
-    "text-shadow": "0 0 0.10em #2962FF,0 0 0.15em #2962FF,0 0 0.80em #2962FF,0 0 1.00em #2962FF",
-      "display": "grid",
-  "place-items": "center",
-  "width":"100%",
-  "height":"100%",
 
-        }
     },
+
     mounted(){
-
+        if(!this.$store.state.bingo.is_playing) this.ready();
+        this.$store.state.bingo.on('bingo',this.bingo);
+        this.$store.state.bingo.on( 'all_clear' ,this.perfect)
     },
-
 
     components: {
 
@@ -70,20 +131,23 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-.main_text {
-	font-size:5em;
-	text-align:center;
-	line-height:0.95em;
-	font-weight:bold;
-	color: transparent;
-	background: repeating-linear-gradient(45deg,
-		#E60012 0.1em 0.2em,
-		#F39800 0.2em 0.3em,
-		#FFF100 0.3em 0.4em,
-		#009944 0.4em 0.5em,
-		#0068B7 0.5em 0.6em,
-		#1D2088 0.7em 0.8em,
-		#CFA7CD 0.8em 0.9em);
-	-webkit-background-clip: text;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.bottom-enter-active, .bottom-leave-active {
+  transform: translate(0px, 0px);
+  transition: transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.bottom-enter{
+   transform: translateY(100vh) translateY(0px);
+}
+
+.bottom-leave-to {
+   transform: translateY(-100vh) translateY(0px);
 }
 </style>

@@ -86,6 +86,7 @@ export class Bingo extends EventEmitter{
     public startGame(){
         this._game_state = Bingo.PLAYING;
         this._start_time = Date.now();
+        this.emit('start_game');
     }
 
     public endGame(){
@@ -141,6 +142,13 @@ export class Bingo extends EventEmitter{
             bingonum++;
             this.cells.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
         };
+
+        // あたらしくビンゴ
+        const newbingo:number = bingonum - this.bingonum;
+        if( 0 < newbingo){
+            this.emit('bingo',{num:newbingo});
+        }
+
         this.bingonum = bingonum;
         this.check_all_clear();   
     }
@@ -218,18 +226,6 @@ export class Cell extends EventEmitter {
     }
     public get checkInfo():CheckMetaData{
         return this._check;
-    }
-    public get check_time():string{
-        const now = new Date(this.checkInfo.time);
-        const year = now.getFullYear();
-        const mon = now.getMonth()+1; //１を足すこと
-        const day = now.getDate();
-        const hour = now.getHours();
-        const min = now.getMinutes();
-    
-        //出力用
-        const s = year + "年" + mon + "月" + day + "日" + hour + "時" + min + "分"; 
-        return s; 
     }
 }
 

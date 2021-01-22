@@ -7,14 +7,25 @@
      <div class="modal-body rounded">
          <h5>ビンゴを終わりにしますか？</h5>
          <h6>記録</h6>
-         <ul>
-              <li class="list-group-item">score:{{bingo.score}}</li>
-              <li class="list-group-item">bingo:{{bingo.bingonum}}</li>
-              <li class="list-group-item">time:{{this.timer}}</li>
-         </ul>
-         <textarea v-model="bingo.memo"></textarea>
+            <table>
+                <tr>
+                    <th>スコア</th>
+                    <th>ビンゴ</th>
+                    <th>時間</th>
+                </tr>
+                <tr>
+                    <td class="big">{{this.$store.state.bingo.score}}</td>
+                    <td class="big">{{this.$store.state.bingo.bingonum}}</td>
+                    <td>{{timer}}</td>
+                </tr>
+            </table>
+            <h6>ビンゴはどうでしたか？</h6>
          <div class="text-center">
-          <button @click="submitContent">おしまい</button>
+            <textarea v-model="bingo.memo" ></textarea>
+         </div>
+         <div class="text-center">
+          <button @click="submitContent">記録して終わる</button>
+          <button @click="removeContent">すてる</button>
           <button @click="cancelContent">つづける</button>
          </div>
     </div>
@@ -60,6 +71,9 @@ ContentView
         },
         cancelContent:function(){
             this.$emit('cancel');
+        },
+        removeContent:function(){
+            this.$emit('remove');
         },
   },
 });
@@ -128,4 +142,61 @@ ContentView
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 } */
+
+table{
+  width: 100%;
+  border-collapse:separate;
+  border-spacing: 0;
+  padding: 5px 20px;
+}
+
+table th:first-child{
+  border-radius: 5px 0 0 0;
+}
+
+table th:last-child{
+  border-radius: 0 5px 0 0;
+  border-right: 1px solid #3c6690;
+}
+
+table th{
+  text-align: center;
+  color:white;
+  background: linear-gradient(#829ebc,#225588);
+  border-left: 1px solid #3c6690;
+  border-top: 1px solid #3c6690;
+  border-bottom: 1px solid #3c6690;
+  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+  width: 25%;
+  padding: 5px 0;
+  font-size: 80%;
+}
+
+table td{
+  text-align: center;
+  border-left: 1px solid #a8b7c5;
+  border-bottom: 1px solid #a8b7c5;
+  border-top:none;
+  box-shadow: 0px -3px 5px 1px #eee inset;
+  width: 25%;
+  padding: 10px 0;
+}
+
+.big{
+    font-size: 140%;
+    /* font-weight: 600; */
+    font-family: Impact,Charcoal;
+}
+
+table td:last-child{
+  border-right: 1px solid #a8b7c5;
+}
+
+table tr:last-child td:first-child {
+  border-radius: 0 0 0 5px;
+}
+
+table tr:last-child td:last-child {
+  border-radius: 0 0 5px 0;
+}
 </style>
