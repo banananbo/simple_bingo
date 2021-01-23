@@ -1,7 +1,7 @@
 <template>
-    <div class="rounded" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
-        <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
+    <div class="rounded celldiv" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
         <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
+        <span class="title">{{cell.content.title}}</span>
     </div>
 </template>
 <script lang="ts">
@@ -76,9 +76,31 @@ export default Vue.extend({
     color: red;
     background-color: rgb(231, 127, 123);
 }
+
 .bingocell{
     border-color: red;
     border-width: 5em;
     background-color: rgb(32, 25, 214);
+}
+
+.celldiv {/*親div*/
+  position: relative;
+}
+
+span {
+  position: absolute;/*絶対配置*/
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  font-weight: bold;
+  font-size: 0.8em;
+  background: #a22a40;
+  color:#fff;
+  line-height: 1.4;
+  margin-bottom: 2px;
+  padding: 1px 2px;
+  border-radius: 5px;
 }
 </style>

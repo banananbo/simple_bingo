@@ -4,12 +4,17 @@
           <div class="modal-wrapper">
             <div class="modal-container">
               <div class="modal-body rounded">
-                  <ContentView :size="100" :content="cell.content"></ContentView>
-                  <p>{{cell.content.title}}</p>
-                  <p v-if="cell.checked">{{cell.check_time}}に発見</p>
-                  <div class="text-center">
+                  <p class="title">{{cell.content.title}}</p>
+                  <div class="inline-block" style="float: left">
+                    <ContentView :size="100" :content="cell.content"></ContentView>
+                  </div>
+                  <div class="inline-block" style="width:150px">
+                    {{cell.content.caption}}
+                  </div>
+                  <div class="text-center" style="clear:both">
                     <button class="btn btn-primary" v-if="!cell.checked" @click="submitContent">見つけた！</button>
                     <button class="btn btn-primary" v-if="!cell.checked" @click="cancelContent">まだ</button>
+                    <p v-if="cell.checked">{{cell.check_time}}に発見</p>
                     <button class="btn btn-primary" v-if="cell.checked" @click="cancelContent">とりけす</button>
                   </div>
               </div>
@@ -58,6 +63,20 @@ ContentView
 });
 </script>
 <style scoped>
+.inline-block {
+    /* display: inline-block; */
+    float: left;
+}
+.title {
+  font-weight: bold;
+  font-size: 0.8em;
+  background: #a22a40;
+  color:#fff;
+  line-height: 1.4;
+  margin-bottom: 2px;
+  padding: 1px 2px;
+  border-radius: 5px;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;

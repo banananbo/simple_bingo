@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas>
-    </div>
+    <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas>
 </template>
 <script lang="ts">
 import Vue from "vue"

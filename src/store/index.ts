@@ -32,8 +32,6 @@ mutations: {
     },
     addToBingoDBArchives (state:State) {
       console.log("pushing");
-      state.my_bingo_archives.unshift(state.bingo);
-      console.log("pushed");
       let database = firebase.database();
       database.ref('archives').push(JSON.parse(JSON.stringify(state.bingo)));
       console.log("pushed");
@@ -63,11 +61,9 @@ mutations: {
                       list.push(rootList[val]);
                   })
               }
-              console.log("db no data");
-            console.log(rootList);
-            console.log(list);
+
           }
-          state.recent_archives = list.map(o=> Bingo.createByObj(o));
+          state.recent_archives = list.reverse().map(o=> Bingo.createByObj(o));
           console.log(state.recent_archives );
       });
     }
@@ -75,7 +71,6 @@ mutations: {
 },
 actions: {
   doSave (context:any) {
-      console.log("doda");
       context.commit('addToBingoArchives');
       context.commit('addToBingoDBArchives');
   },

@@ -32,7 +32,8 @@ export default Vue.extend({
                 "height": this.height+"px",
                 "width" : this.width+"px",
                 "background-color" : this.overlay_color,
-                "position" : "absolute"
+                "position" : "absolute",
+                "z-index" : "1000"
             }
         }
     },
