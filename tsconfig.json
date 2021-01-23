@@ -6,6 +6,7 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
+        "strictNullChecks": false,
         "baseUrl": "./src",
         // "paths": {
         //     "@lib/*":["src/lib/*"]

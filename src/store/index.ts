@@ -21,22 +21,28 @@ mutations: {
     },
     saveBingoData (state:State) {
       console.log('save');
-      // console.log( JSON.stringify(state.bingo) )
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
     },
-    addToBingoArchives (state:State,bingo:Bingo) {
-      state.my_bingo_archives.unshift(bingo);
+    addToBingoArchives (state:State) {
+      state.my_bingo_archives.unshift(state.bingo);
       localStorage.setItem('my_bingo_archives', JSON.stringify(state.my_bingo_archives));
+    },
+    addToBingoDBArchives (state:State) {
+      state.my_bingo_archives.unshift(state.bingo);
     },
     initBingoArchives (state:State,bingos:Array<Bingo>) {
       state.my_bingo_archives = bingos;
     },
     discardPlayingGame (state:State){
        state.bingo = null;
-       localStorage.setItem('mainBingo', "");
+       localStorage.setItem('mainBingo');
     }
 },
 actions: {
+  doSave (context:any) {
+    context.commit('addToBingoArchives');
+    context.commit('addToBingoDBArchives');
+  },
   doLoad (context:any) {
     let strage_bingo = localStorage.mainBingo;
     if(strage_bingo == "null")  strage_bingo = null;

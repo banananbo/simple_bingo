@@ -2,6 +2,15 @@ import {Content} from "@lib/bingo/content.ts";
 import {ExDate} from "@lib/func/ex_date.ts"
 import {EventEmitter} from 'events'
 
+export class User{
+    constructor(
+        _id:string = "",
+        _name:string = "びんごくん"
+    ){
+
+    }
+}
+
 export class Bingo extends EventEmitter{
 
     public static BEFORE_PLAY:number = 0;
@@ -17,7 +26,8 @@ export class Bingo extends EventEmitter{
         private _start_time:number = 0,
         private _end_time:number = 0,
         private _title:String = "",
-        public memo:string = ""
+        public memo:string = "",
+        public player:User = new User()
          ){
             super();
             cells.flat().forEach(
