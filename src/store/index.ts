@@ -50,7 +50,7 @@ mutations: {
       // let room = "test/-MRhbdOiK1QUEuSAauht";
       let room = "archives";
       let list:any[] = [];
-      database.ref(room).orderByChild('_end_time').startAt(1).limitToFirst(2)
+      database.ref(room).orderByChild('_end_time').startAt(1).limitToLast(5)
       .on("value", (data)=> {
           if (data) {
               const rootList = data.val();
