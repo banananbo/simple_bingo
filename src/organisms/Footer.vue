@@ -21,9 +21,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="#">
-        <v-fa icon="plus" />
-        <span>ADD</span>
+      <a href="#"  @click.prevent.stop="$router.push('/archives')">
+        <v-fa icon="list" />
+        <span>みんな</span>
       </a>
     </li>
   </ul>

@@ -141,6 +141,7 @@ export default Vue.extend({
             this.$store.state.bingo.endGame();
             this.$store.commit('saveBingoData');
             this.$store.commit('addToBingoArchives',this.$store.state.bingo);
+            this.$store.dispatch('doSave')
             this.$store.commit('setBingoData',null);
             this.$router.push('result');
         },
