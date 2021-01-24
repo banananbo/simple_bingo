@@ -4,7 +4,7 @@
      <div class="modal__bg"></div>
      <div class="modal__content">
       <div v-for="(content, index) in contents" :key="index" class="box">
-            <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="100" @onClick="onClicked"></ContentView>
+            <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="size" @onClick="onClicked"></ContentView>
             <p>{{content.title}}</p>
       </div>
      </div>
@@ -19,13 +19,15 @@ import {Content} from "@lib/bingo/content.ts"
 import {Bingo} from "@lib/bingo/Bingo.ts"
 
 export type DataType ={
-      contents: Array<Content>
+      contents: Array<Content>,
+      size: number
 }
 
 export default Vue.extend({
     data(): DataType {
         return {
             contents: Content.contents,
+            size : (screen.width -80)/4
         };
     },
    computed:{

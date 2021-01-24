@@ -19,8 +19,8 @@ export type DataType ={
 export default Vue.extend({
     data(): DataType {
         return {
-            overlay_color: "#9996",
-            text: "READY",
+            overlay_color: "#FFF6",
+            text: "よーい",
             text_style: {},
             show:false,
             transition_name:"fade"
@@ -42,7 +42,7 @@ export default Vue.extend({
        ready(){
            this.overlay_color = "#9996";
            this.show = true;
-           this.text = "READY";
+           this.text = "よーい";
            this.transition_name = "fade";
            this.text_style = {
             "font-size":"5em",
@@ -59,15 +59,15 @@ export default Vue.extend({
            this.$store.state.bingo.once('start_game',this.start)
        },
        start(){
-           this.text = "GO!!";
+           this.text = "スタート!!";
            this.removeAfterTime(300);
        },
        bingo(event_obj:any){
            this.overlay_color = "#0000";
-           this.text = "BINGO!";
+           this.text = "ビンゴ!";
            this.transition_name = "bottom";
-           if(event_obj.num == 2) this.text = "WBINGO!";
-           if(event_obj.num > 2)  this.text = event_obj.num+"BINGO!";
+           if(event_obj.num == 2) this.text = "Wビンゴ!";
+           if(event_obj.num > 2)  this.text = event_obj.num+"ビンゴ!";
            this.show = true;
            this.text_style = {
             "font-size":"5em",

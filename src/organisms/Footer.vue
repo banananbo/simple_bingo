@@ -3,25 +3,25 @@
       <!-- <router-link to="/create">再作成</router-link> -->
         <ul class="nav-list">
     <li class="nav-item">
-      <a href="#"  @click.prevent.stop="$router.push('/')">
+      <a href="#"  @click.prevent.stop="movePage('/')">
         <v-fa icon="home" />
         <span>ホーム</span>
       </a>
     </li>
     <li class="nav-item">
-      <a href="#" @click.prevent.stop="$router.push('/game')">
+      <a href="#" @click.prevent.stop="movePage('/game')">
         <v-fa icon="th" />
         <span>ビンゴ</span>
       </a>
     </li>
     <li class="nav-item">
-      <a href="#"  @click.prevent.stop="$router.push('/mypage')">
+      <a href="#"  @click.prevent.stop="movePage('/mypage')">
         <v-fa icon="user" />
         <span>あなた</span>
       </a>
     </li>
     <li class="nav-item">
-      <a href="#"  @click.prevent.stop="$router.push('/archives')">
+      <a href="#"  @click.prevent.stop="movePage('/archives')">
         <v-fa icon="users" />
         <span>みんな</span>
       </a>
@@ -37,7 +37,10 @@ export type DataType ={
 
 export default Vue.extend({
   methods:{
-
+    movePage(route:string){
+      if (this.$route.name == route) return;
+      this.$router.push(route);
+    }
   }
 });
 </script>

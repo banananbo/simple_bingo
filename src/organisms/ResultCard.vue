@@ -60,7 +60,7 @@ export type DataType ={
 export default Vue.extend({
     data(): DataType {
         return {
-            detail_view:false,
+            detail_view: false,
         };
     },
     mixins: [DateFunc],
@@ -78,11 +78,16 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width - 60
+            default: screen.width -60
+        },
+        detail_mode:{
+            type: Boolean,
+            required: false,
+            default: false
         },
     },
     created(){
-
+        if(this.detail_mode) this.detail_view = true;
     },
 
     components: {
@@ -92,7 +97,7 @@ export default Vue.extend({
 
     methods: {
         toggleView(){
-            this.detail_view = !this.detail_view;
+            if(!this.detail_mode) this.detail_view = !this.detail_view;
         }
   },
 });

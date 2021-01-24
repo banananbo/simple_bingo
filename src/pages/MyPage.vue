@@ -3,7 +3,7 @@
     <Header></Header>
     <h5>いままでのビンゴ</h5>
     <div  v-for="(bingo,idx) in this.$store.state.my_bingo_archives" :key="idx">
-        <ResultCard :size="size" :bingo="bingo"></ResultCard>
+        <ResultCard :bingo="bingo"></ResultCard>
     </div>
     <Footer></Footer>
 </div>
@@ -17,14 +17,12 @@ import Footer from "@organisms/Footer.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 
 export type DataType ={
-    size: number,
     bingo: Bingo
 }
 
 export default Vue.extend({
     data(): DataType {
         return {
-            size: screen.width - 60,
             bingo: null,
         };
     },

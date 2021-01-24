@@ -3,10 +3,8 @@
       <Header></Header>
       <div class="container-fluid text-center">
             <h2>ぷらっとビンゴ</h2>
-            <section v-if="!this.$store.state.bingo">
-            <button type="button" class="btn btn-primary" @click="$router.push('/game')">ビンゴを始める</button>
-            </section>
       </div>
+
       <section class='info_box' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize"></ResultCard>
@@ -15,6 +13,13 @@
                   <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
             </section>    
       </section>
+      <!-- <section class="list">
+      <ul>
+            <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/009.png" style="width:50px;height:50px"></li>
+            <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/002.png" style="width:50px;height:50px"></li>
+            <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/006.png" style="width:50px;height:50px"></li>
+      </ul>
+      </section> -->
       <section class='info_box'>
             <h5>あそびかた</h5>
             <ul>
@@ -23,6 +28,9 @@
                   <li>子どもの、発見の喜び　</li>
                   <li>いつもの風景に、新たな発見を　</li>
             </ul>
+      </section>
+      <section v-if="!this.$store.state.bingo" class="text-center">
+            <button type="button" class="btn btn-primary" @click="$router.push('/game')">ビンゴを始める</button>
       </section>
        
       <Footer></Footer>
@@ -65,6 +73,18 @@ export default Vue.extend({
 })
 </script>
 <style>
+.list ul {
+	text-align: center;
+	margin-left: -10px;
+	font-size: 0; /* タグ改行時の空白防止 */
+}
+ 
+.list ul li{
+	display: inline-block;
+	margin-left: 10px;
+	font-size: 14px; /* ulでサイズ0にしたのを戻す */
+}
+
 .info_box {
     padding: 0.5em 1em;
     margin: 2em 0;

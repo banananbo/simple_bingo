@@ -1,8 +1,13 @@
 <template>
-<div>
+<div style="position:relative;">
     <Header></Header>
-    <h5>ビンゴの結果</h5>
-    <ResultCard class="container-fluid" v-if="bingo" :size="size" :bingo="bingo" :datail_view="true"></ResultCard>
+    <div style="position:absolute; 0%; right:10px;">
+    <a type="button" class="btn btn-primary" href="http://twitter.com/share?url=https//banananbo.github.io/simple_bingo/public&text=ぷらっとビンゴでお散歩しました！&hashtags=#furabingo" target="_blank">
+    <v-fa :icon="['fab', 'twitter']" />シェアする
+    </a>
+    </div>
+    <h5 style="padding-bottom:20px">ビンゴけっか</h5>
+    <ResultCard v-if="bingo" :bingo="bingo" :datail_view="true" :detail_mode="true"></ResultCard>
     <Footer></Footer>
 </div>
 
@@ -16,14 +21,12 @@ import ResultCard from "@organisms/ResultCard.vue";
 import firebase from "firebase"
 
 export type DataType ={
-    size: number,
     bingo: Bingo,
 }
 
 export default Vue.extend({
     data(): DataType {
         return {
-            size: screen.width - 40,
             bingo: null,
         };
     },
