@@ -1,13 +1,11 @@
 <template>
-<div>
-    <table>
-        <tr v-for="(row, index1) in bingo.cells" :key="index1">
-            <td v-for="(cell, index2) in row" :key="index2">
-                <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked'></CellView>
-            </td>
-        </tr>
-    </table>
-</div>
+<table>
+    <tr v-for="(row, index1) in bingo.cells" :key="index1">
+        <td v-for="(cell, index2) in row" :key="index2">
+            <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100"></CellView>
+        </td>
+    </tr>
+</table>
 </template>
 <script lang="ts">
 import Vue from "vue"

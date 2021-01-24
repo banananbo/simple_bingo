@@ -1,7 +1,7 @@
 <template>
     <div class="rounded celldiv" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
         <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
-        <span class="title">{{cell.content.title}}</span>
+        <span v-if="show_title" class="title">{{cell.content.title}}</span>
     </div>
 </template>
 <script lang="ts">
@@ -18,7 +18,7 @@ export type DataType ={
 export default Vue.extend({
     data: {
 
-},
+    },
     props: {
         size: {
             type: Number,
@@ -28,6 +28,10 @@ export default Vue.extend({
             type: Cell,
             required: true
         },
+        show_title: {
+            type: Boolean,
+            default: true
+        }
     },
 
     watch: {

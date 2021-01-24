@@ -1,7 +1,8 @@
 <template>
-      <div class="navbar navbar-dark bg-dark fixed-top navbar-light bg-light">
+      <div class="navbar fixed-top">
       <a class="navbar-brand" href="#">
-        Simple Bingo
+        <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
+        ぷらっとビンゴ
       </a>
     　</div>
 </template>
@@ -18,5 +19,6 @@ export default Vue.extend({
 <style scoped>
   .navbar{
     padding:4px 16px;
-}
+  }
+
 </style>

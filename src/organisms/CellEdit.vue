@@ -5,6 +5,7 @@
      <div class="modal__content">
       <div v-for="(content, index) in contents" :key="index" class="box">
             <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="100" @onClick="onClicked"></ContentView>
+            <p>{{content.title}}</p>
       </div>
      </div>
   </div>

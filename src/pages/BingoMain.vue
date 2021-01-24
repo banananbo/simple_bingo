@@ -2,7 +2,7 @@
 <div>
     <Header></Header>
     <BingoOverlay :width="bingo_w" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
-    <div ref="bingoview" class="container-fluid text-center">
+    <div ref="bingoview">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
     <div style="margin-top:10px">
@@ -196,7 +196,7 @@ table{
   width: 100%;
   border-collapse:separate;
   border-spacing: 0;
-  padding: 5px 20px;
+  /* padding: 5px 20px; */
 }
 
 table th:first-child{

@@ -10,17 +10,18 @@ export class Bingo extends EventEmitter{
     public static PLAYED:number = 2;
 
     public bingonum:number = 0;
-    public id:string = '';
+    // public id:string = '';
     public all_clear:Boolean = false;
 
-    constructor( 
+    constructor(
         public cells:Array<Array<Cell>>,
+        public player:User = new User(),
         private _game_state:number = Bingo.BEFORE_PLAY,
         private _start_time:number = 0,
         private _end_time:number = 0,
         private _title:String = "",
         public memo:string = "",
-        public player:User = new User()
+        public id:string = '',
          ){
             super();
             cells.flat().forEach(
@@ -173,7 +174,7 @@ export class Bingo extends EventEmitter{
             }
             cells.push(row);
         }
-        return new Bingo(cells);
+        return new Bingo(cells,new User());
     }
 
     static createByObj(obj:any):Bingo{
@@ -185,7 +186,7 @@ export class Bingo extends EventEmitter{
             }
             cells.push(row);
         }
-        return new Bingo(cells,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo);
+        return new Bingo(cells,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo,obj.id);
     }
 
     static createByJson(json:string):Bingo{

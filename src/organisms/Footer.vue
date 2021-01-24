@@ -1,28 +1,28 @@
 <template>
-    <nav class="navbar navbar-dark bg-dark fixed-bottom navbar-light bg-light">
+    <nav class="navbar fixed-bottom">
       <!-- <router-link to="/create">再作成</router-link> -->
         <ul class="nav-list">
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="$router.push('/')">
         <v-fa icon="home" />
-        <span>HOME</span>
+        <span>ホーム</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#" @click.prevent.stop="$router.push('/game')">
         <v-fa icon="th" />
-        <span>PLAY</span>
+        <span>ビンゴ</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="$router.push('/mypage')">
-        <v-fa icon="list" />
-        <span>History</span>
+        <v-fa icon="user" />
+        <span>あなた</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="$router.push('/archives')">
-        <v-fa icon="list" />
+        <v-fa icon="users" />
         <span>みんな</span>
       </a>
     </li>

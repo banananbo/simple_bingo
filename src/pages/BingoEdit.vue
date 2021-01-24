@@ -13,7 +13,7 @@
                 </select>
               </section>
             </div>
-            <div>
+            <div v-if="this.bingo">
               <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
             </div>
             <button type="button" class="btn btn-primary" @click="startBingoGame">ビンゴを始める</button>
@@ -127,28 +127,9 @@ export default Vue.extend({
 })
 </script>
 <style>
-/* #top_area{
-position: relative;
-padding-top: 50px;
+.container-fluid{
+  padding: 0 0;
 }
-#cell_size_input{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-.page_title{
-  position: absolute;
-  top: 10px;
-  left: 5px;
-}
-.sidebar_fixed {
-  position: sticky;
-  height: 150px;
-  top: 60px;
-}
-.sidebar_content {
-  margin-bottom: 100px;
-} */
 @media print{
   .no-print{
     display: none;

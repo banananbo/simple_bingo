@@ -2,12 +2,12 @@
 <section>
       <Header></Header>
       <div class="container-fluid text-center">
-            <h2>Quick Bingo</h2>
+            <h2>ぷらっとビンゴ</h2>
             <section v-if="!this.$store.state.bingo">
             <button type="button" class="btn btn-primary" @click="$router.push('/game')">ビンゴを始める</button>
             </section>
       </div>
-      <section v-if="this.$store.state.bingo" >
+      <section class='info_box' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
                   <ResultCard :bingo="this.$store.state.bingo"></ResultCard>
             <section class="text-center">
@@ -15,7 +15,7 @@
                   <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
             </section>    
       </section>
-      <section>
+      <section class='info_box'>
             <h5>あそびかた</h5>
             <ul>
                   <li>ビンゴを持って出かけよう！ </li>
@@ -63,5 +63,17 @@ export default Vue.extend({
 })
 </script>
 <style>
-
+.info_box {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    color: #6091d3;/*文字色*/
+    background: #FFF;
+    border: solid 3px #6091d3;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+.info_box li {
+    margin: 0; 
+    padding: 0;
+}
 </style>
