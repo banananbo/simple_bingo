@@ -19,47 +19,29 @@
         </div>
         <transition name="slide-fade">
             <div v-if="detail_view">
-                <BingoView :bingo="bingo" :size="size"></BingoView>
-                <!-- <table>
-                    <tr>
-                        <th>スコア</th>
-                        <th>ビンゴ</th>
-                        <th>時間</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td class="big">{{bingo.score}}</td>
-                        <td class="big">{{bingo.bingonum}}</td>
-                        <td>{{format_to_time(bingo.spentTime)}}</td>
-                        <td>{{format_to_date(bingo.start_time)}}~{{format_to_date(bingo.end_time)}}</td>
-                    </tr>
-                </table> -->
                 <div>
-                    <dl>
-                        <dt>score</dt>
-                        <dd>{{bingo.score}}</dd>
-                        <dt>bingo</dt>
-                        <dd>{{bingo.bingonum}}</dd>
-                        <dt>開始</dt>
-                        <dd>{{format_to_date(bingo.start_time)}}</dd>
-                        <dt>終了</dt>
-                        <dd>{{format_to_date(bingo.end_time)}}}</dd>
-                         <dt>時間</dt>
-                        <dd>{{format_to_time(bingo.current_time)}}</dd>
-                        <dt>メモ</dt>
-                        <dd>{{bingo.memo}}</dd>
-
-                        <!-- <li class="list-group-item">bingo:{{bingo.bingonum}}</li>
-                        <li class="list-group-item">開始:{{format_to_date(bingo.start_time)}}</li>
-                        <li v-if="bingo.end_time" class="list-group-item">終了:{{format_to_date(bingo.end_time)}}</li>
-                        <li v-if="bingo.end_time" class="list-group-item">time:{{format_to_time(bingo.spentTime)}}</li>
-                        <li v-if="bingo.is_playing" class="list-group-item">time:{{format_to_time(bingo.current_time)}}</li> -->
+                    <BingoView :bingo="bingo" :size="size"></BingoView>
+                    <div>
+                        <dl>
+                            <dt>score</dt>
+                            <dd>{{bingo.score}}</dd>
+                            <dt>bingo</dt>
+                            <dd>{{bingo.bingonum}}</dd>
+                            <dt>開始</dt>
+                            <dd>{{format_to_date(bingo.start_time)}}</dd>
+                            <dt>終了</dt>
+                            <dd>{{format_to_date(bingo.end_time)}}</dd>
+                            <dt>時間</dt>
+                            <dd>{{format_to_time(bingo.current_time)}}</dd>
+                            <dt>メモ</dt>
+                            <dd>{{bingo.memo}}</dd>
+                        </dl>
+                    </div>
+                    <dl v-for="(cell,idx) in bingo.cells_checked" :key="idx">
+                        <dt><ContentView :content="cell.content" :size="50"></ContentView></dt>
+                        <dd>{{format_to_date(cell.checkInfo.time)}}</dd>
                     </dl>
                 </div>
-                <dl v-for="(cell,idx) in bingo.cells_checked" :key="idx">
-                    <dt><ContentView :content="cell.content" :size="50"></ContentView></dt>
-                    <dd>{{format_to_date(cell.checkInfo.time)}}</dd>
-                </dl>
             </div>
         </transition>
 </div>
@@ -96,7 +78,7 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width - 40
+            default: screen.width - 60
         },
     },
     created(){

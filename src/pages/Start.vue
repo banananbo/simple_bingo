@@ -9,7 +9,7 @@
       </div>
       <section class='info_box' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
-                  <ResultCard :bingo="this.$store.state.bingo"></ResultCard>
+                  <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize"></ResultCard>
             <section class="text-center">
                   <button type="button" class="btn btn-primary" @click="$router.push('/game')">続きをプレイ</button>
                   <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
@@ -39,13 +39,15 @@ import ResultCard from "@organisms/ResultCard.vue";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
 
 export type DataType ={
-      view_discardPop:Boolean
+      view_discardPop:Boolean,
+      resultcardSize:number
 }
 
 export default Vue.extend({
       data():DataType{
       return {
             view_discardPop: false,
+            resultcardSize: screen.width - 100
         };
       },
       methods:{

@@ -24,7 +24,7 @@ export type DataType ={
 export default Vue.extend({
     data(): DataType {
         return {
-            size: screen.width - 40,
+            size: screen.width - 60,
             bingo: null,
         };
     },

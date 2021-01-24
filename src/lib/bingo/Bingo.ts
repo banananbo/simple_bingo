@@ -46,7 +46,10 @@ export class Bingo extends EventEmitter{
     }
 
     public get title():String{
-        if(this._title == "") return ExDate.format_to_date(this._start_time)+"のビンゴ"
+        if(this._title == ""){
+            if(!this._start_time) return "未プレイのビンゴ"
+            return ExDate.format_to_date(this._start_time)+"のビンゴ"
+        }
         return this._title;
     }
 

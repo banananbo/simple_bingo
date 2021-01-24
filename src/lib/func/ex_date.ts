@@ -5,6 +5,7 @@ export class ExDate{
         ("00"+Math.floor(time/1000)%60).slice(-2);
     }
     static format_to_date(time:number):string{
+        if(!time) return "-";
         const now = new Date(time);
         const year = now.getFullYear();
         const mon = now.getMonth()+1; //１を足すこと

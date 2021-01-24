@@ -2,7 +2,7 @@
 <div>
     <Header></Header>
     <h5>ビンゴの結果</h5>
-    <ResultCard v-if="bingo" :size="size" :bingo="bingo" :datail_view="true"></ResultCard>
+    <ResultCard class="container-fluid" v-if="bingo" :size="size" :bingo="bingo" :datail_view="true"></ResultCard>
     <Footer></Footer>
 </div>
 
