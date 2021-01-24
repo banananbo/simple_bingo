@@ -2,10 +2,12 @@ export class Content{
     constructor(public id:number,public img_src:string, public title:string,public caption:string){
     }
     static contents:Array<Content> = [
-            new Content(1,"https://banananbo.github.io/simple_bingo/public/img/contents/001.png",
+            new Content(1,
+                "https://banananbo.github.io/simple_bingo/public/img/contents/001.png",
             'ねこ','いつもの場所にいるかも'),
-            new Content(2,"https://1.bp.blogspot.com/-bNh-4a2vMgQ/X-pbWfo-WAI/AAAAAAABdJg/_0JEspd7OQYZ8uigJTkvIbaFYSCwpUFtACNcBGAsYHQ/s1041/onepiece02_zoro_bandana.png",
-            'ゾロ','caption'),
+            new Content(2,
+                "https://banananbo.github.io/simple_bingo/public/img/contents/002.png",
+            'ポスト','郵便局の前にはある'),
             new Content(3,"https://1.bp.blogspot.com/-2ut_UQv3iss/X-Fcs_0oAII/AAAAAAABdD8/jrCZTd_xK-Y6CP1KwOtT_LpEpjp-1nvxgCNcBGAsYHQ/s1055/onepiece03_nami.png",
             'ナミ','caption'),
             new Content(4,"https://1.bp.blogspot.com/-KMz-sPtLOvY/X-Fcs3XzIqI/AAAAAAABdEA/5UtiBymBA2YDEIGaaw8TB-IZzciE2KZ7wCNcBGAsYHQ/s1025/onepiece04_usopp_sogeking.png",
