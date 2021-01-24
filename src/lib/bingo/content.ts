@@ -2,7 +2,7 @@ export class Content{
     constructor(public id:number,public img_src:string, public title:string,public caption:string){
     }
     static contents:Array<Content> = [
-            new Content(1,"/img/contents/001.png",
+            new Content(1,"https://banananbo.github.io/simple_bingo/public/img/contents/001.png",
             'ねこ','いつもの場所にいるかも'),
             new Content(2,"https://1.bp.blogspot.com/-bNh-4a2vMgQ/X-pbWfo-WAI/AAAAAAABdJg/_0JEspd7OQYZ8uigJTkvIbaFYSCwpUFtACNcBGAsYHQ/s1041/onepiece02_zoro_bandana.png",
             'ゾロ','caption'),
