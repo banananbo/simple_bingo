@@ -1,10 +1,8 @@
 <template>
 <div>
     <Header></Header>
-    <h5>bingo results</h5>
-    <div  v-for="(bingo,idx) in this.$store.state.my_bingo_archives" :key="idx">
-        <ResultCard :size="size" :bingo="bingo"></ResultCard>
-    </div>
+    <h5>ビンゴの結果</h5>
+    <ResultCard v-if="bingo" :size="size" :bingo="bingo" :datail_view="true"></ResultCard>
     <Footer></Footer>
 </div>
 
@@ -15,10 +13,11 @@ import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
 import ResultCard from "@organisms/ResultCard.vue";
+import firebase from "firebase"
 
 export type DataType ={
     size: number,
-    bingo: Bingo
+    bingo: Bingo,
 }
 
 export default Vue.extend({
@@ -36,8 +35,13 @@ export default Vue.extend({
 
     },
     created(){
-        // this.bingo = this.$store.state.my_bingo_archives[0];
-        // this.$store.state.bingo = null;
+        console.log("created!!!");
+        console.log(this.$route.params.id);
+//     let database = firebase.database();
+firebase.database().ref('archives/'+this.$route.params.id)
+// firebase.database().ref('archives/'+'-MRmVFloQGP-zqaDG-f1')
+.once('value', (snapshot)=>{console.log(snapshot.val());console.log(this.bingo); this.bingo = Bingo.createByObj(snapshot.val());console.log("HOGA");console.log(this.bingo)})
+      // let room = "test/-MRhbdOiK1QUEuSAauht";
     },
 
     components: {

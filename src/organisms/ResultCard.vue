@@ -3,11 +3,16 @@
         <div style="float:left">
             <table>
                 <tr>
-                    <td>
+                    <td rowspan="2">
                         <ContentView v-if="!detail_view" :content="main_cell.content" :size="50"></ContentView>
                     </td>
-                    <td>
-                        <span class="title">{{bingo.title}}</span>
+                    <td class="title">
+                        {{bingo.title}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="player">
+                        by {{bingo.player.name}}
                     </td>
                 </tr>
             </table>
@@ -92,7 +97,7 @@ export default Vue.extend({
             type: Number,
             required: false,
             default: screen.width - 40
-        }
+        },
     },
     created(){
 
@@ -117,11 +122,17 @@ export default Vue.extend({
         cursor: hand;
     }
     .title{
-  color: #010079;
-  text-shadow: 0 0 5px white;
-  padding: 0.3em 0.5em;
-  background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
-  background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+        width: 100%;
+        color: #010079;
+        text-shadow: 0 0 5px white;
+        padding: 0.3em 0.5em;
+        background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+        background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+    }
+    .player{
+        width: 100%;
+        font-size: 0.8em;
+        text-align: right;
     }
 
 

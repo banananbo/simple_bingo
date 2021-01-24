@@ -2,8 +2,8 @@ export class Content{
     constructor(public id:number,public img_src:string, public title:string,public caption:string){
     }
     static contents:Array<Content> = [
-            new Content(1,"https://1.bp.blogspot.com/-tVeC6En4e_E/X96mhDTzJNI/AAAAAAABdBo/jlD_jvZvMuk3qUcNjA_XORrA4w3lhPkdQCNcBGAsYHQ/s1048/onepiece01_luffy.png",
-            'るふぃ','caption'),
+            new Content(1,"/img/contents/001.png",
+            'ねこ','いつもの場所にいるかも'),
             new Content(2,"https://1.bp.blogspot.com/-bNh-4a2vMgQ/X-pbWfo-WAI/AAAAAAABdJg/_0JEspd7OQYZ8uigJTkvIbaFYSCwpUFtACNcBGAsYHQ/s1041/onepiece02_zoro_bandana.png",
             'ゾロ','caption'),
             new Content(3,"https://1.bp.blogspot.com/-2ut_UQv3iss/X-Fcs_0oAII/AAAAAAABdD8/jrCZTd_xK-Y6CP1KwOtT_LpEpjp-1nvxgCNcBGAsYHQ/s1055/onepiece03_nami.png",

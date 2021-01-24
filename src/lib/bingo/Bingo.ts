@@ -1,15 +1,7 @@
 import {Content} from "@lib/bingo/content.ts";
-import {ExDate} from "@lib/func/ex_date.ts"
-import {EventEmitter} from 'events'
-
-export class User{
-    constructor(
-        _id:string = "",
-        _name:string = "びんごくん"
-    ){
-
-    }
-}
+import {User} from "@lib/bingo/user.ts";
+import {ExDate} from "@lib/func/ex_date.ts";
+import {EventEmitter} from 'events';
 
 export class Bingo extends EventEmitter{
 
@@ -18,6 +10,7 @@ export class Bingo extends EventEmitter{
     public static PLAYED:number = 2;
 
     public bingonum:number = 0;
+    public id:string = '';
     public all_clear:Boolean = false;
 
     constructor( 

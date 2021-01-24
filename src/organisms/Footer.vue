@@ -15,7 +15,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="#"  @click.prevent.stop="$router.push('/result')">
+      <a href="#"  @click.prevent.stop="$router.push('/mypage')">
         <v-fa icon="list" />
         <span>History</span>
       </a>

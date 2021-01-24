@@ -8,13 +8,23 @@
             </section>
       </div>
       <section v-if="this.$store.state.bingo" >
-      <h5>プレイ中のビンゴ</h5>
-            <ResultCard :bingo="this.$store.state.bingo"></ResultCard>
-      <section class="text-center">
-            <button type="button" class="btn btn-primary" @click="$router.push('/game')">続きをプレイ</button>
-            <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
-      </section>    
+            <h5>プレイ中のビンゴ</h5>
+                  <ResultCard :bingo="this.$store.state.bingo"></ResultCard>
+            <section class="text-center">
+                  <button type="button" class="btn btn-primary" @click="$router.push('/game')">続きをプレイ</button>
+                  <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
+            </section>    
       </section>
+      <section>
+            <h5>あそびかた</h5>
+            <ul>
+                  <li>ビンゴを持って出かけよう！ </li>
+                  <li>見つけたら、ビンゴ！ </li>
+                  <li>子どもの、発見の喜び　</li>
+                  <li>いつもの風景に、新たな発見を　</li>
+            </ul>
+      </section>
+       
       <Footer></Footer>
       <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
 </section>

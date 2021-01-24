@@ -1,19 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import {User} from "@lib/bingo/user.ts";
 import firebase from "firebase"
 
 Vue.use(Vuex);
 
 interface State {
   bingo: Bingo,
+  user: User,
   my_bingo_archives: Array<Bingo>,
-  recent_archives: Array<Bingo>
+  recent_archives: Array<Bingo>,
 }
 
 export default new Vuex.Store({
 state: {
     bingo: null,
+    user: new User(),
     my_bingo_archives: [],
     recent_archives: []
 } as State,
@@ -33,8 +36,10 @@ mutations: {
     addToBingoDBArchives (state:State) {
       console.log("pushing");
       let database = firebase.database();
-      database.ref('archives').push(JSON.parse(JSON.stringify(state.bingo)));
-      console.log("pushed");
+      let newPostRef  = database.ref('archives').push(JSON.parse(JSON.stringify(state.bingo)));
+      let newid = newPostRef.key;
+      state.bingo.id = newid;
+      console.log("pushed"+newid);
     },
     initBingoArchives (state:State,bingos:Array<Bingo>) {
       state.my_bingo_archives = bingos;
@@ -70,7 +75,7 @@ mutations: {
     
 },
 actions: {
-  doSave (context:any) {
+  doSaveFinished (context:any) {
       context.commit('addToBingoArchives');
       context.commit('addToBingoDBArchives');
   },
