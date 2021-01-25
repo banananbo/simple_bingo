@@ -3,7 +3,7 @@
     <Header></Header>
     <h5>いままでのビンゴ</h5>
     <div  v-for="(bingo,idx) in this.$store.state.my_bingo_archives" :key="idx">
-        <ResultCard :bingo="bingo"></ResultCard>
+        <ResultCard :bingo="bingo" :location_link="true"></ResultCard>
     </div>
     <Footer></Footer>
 </div>

@@ -7,7 +7,7 @@
 
       <section class='info_box' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
-                  <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize"></ResultCard>
+                  <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
             <section class="text-center">
                   <button type="button" class="btn btn-primary" @click="$router.push('/game')">続きをプレイ</button>
                   <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>

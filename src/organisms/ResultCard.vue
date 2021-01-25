@@ -40,6 +40,7 @@
                     <dl v-for="(cell,idx) in bingo.cells_checked" :key="idx">
                         <dt><ContentView :content="cell.content" :size="50"></ContentView></dt>
                         <dd>{{format_to_date(cell.checkInfo.time)}}</dd>
+                        <dd v-if="cell.checkInfo.location_available && location_link"><a :href="`https://www.google.com/maps?q=${cell.checkInfo.location.lat},${cell.checkInfo.location.lon}`" target="_blank">ばしょ</a></dd>
                     </dl>
                 </div>
             </div>
@@ -85,6 +86,11 @@ export default Vue.extend({
             required: false,
             default: false
         },
+        location_link:{
+            type: Boolean,
+            required: false,
+            default: false
+        }
     },
     created(){
         if(this.detail_mode) this.detail_view = true;

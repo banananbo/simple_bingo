@@ -211,12 +211,21 @@ export class Cell extends EventEmitter {
             super();
     }
     static createByObj(obj:any):Cell{
-        const check:any = (obj._check)? new CheckMetaData(obj._check.time) : null;
+        const check:any = (obj._check)? new CheckMetaData(obj._check.time,obj._check.location) : null;
         const content:Content = Content.createByObj(obj.content);
         return new Cell(obj.x,obj.y,content,check);
     }
     public check(){
         this._check = new CheckMetaData(Date.now());
+        navigator.geolocation.getCurrentPosition((position)=>{
+            console.log(position.coords.latitude);
+            console.log(position.coords.longitude);
+            console.log(this._check);
+            if(this._check){
+                console.log('whywhy');
+                this._check.location = {lat:position.coords.latitude,lon:position.coords.longitude}
+            }
+        });
         (this as EventEmitter).emit("checked");
     }
     public unCheck(){
@@ -237,7 +246,12 @@ export class Cell extends EventEmitter {
 }
 
 export class CheckMetaData{
+    // public location = {lat:0,lon:0}
+    public get location_available(){
+        return (this.location.lat!=0 && this.location.lon!=0)
+    }
     constructor(
         public time:number,
+        public location = {lat:0,lon:0}
     ){}
 }

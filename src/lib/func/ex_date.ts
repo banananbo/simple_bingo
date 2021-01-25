@@ -1,5 +1,6 @@
 export class ExDate{
     static format_to_time(time:number):string{
+        if(!time) return "-";
         return ("00"+Math.floor(time/3600000)).slice(-2)+":"+
         ("00"+Math.floor(time/60000)%60).slice(-2) +":"+
         ("00"+Math.floor(time/1000)%60).slice(-2);

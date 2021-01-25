@@ -72,4 +72,7 @@ export default Vue.extend({
   table-layout: fixed;
   width: 100%;
 }
+a:link, a:visited, a:hover, a:active {
+  color: rgb(255, 255, 255);
+}
 </style>
