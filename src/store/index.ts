@@ -11,6 +11,7 @@ interface State {
   user: User,
   my_bingo_archives: Array<Bingo>,
   recent_archives: Array<Bingo>,
+  allow_location: Boolean,
 }
 
 export default new Vuex.Store({
@@ -18,7 +19,8 @@ state: {
     bingo: null,
     user: new User(),
     my_bingo_archives: [],
-    recent_archives: []
+    recent_archives: [],
+    allow_location: false
 } as State,
 mutations: {
     setBingoData (state:State,bingo:Bingo) {
