@@ -33,6 +33,9 @@ mutations: {
       state.my_bingo_archives.unshift(state.bingo);
       localStorage.setItem('my_bingo_archives', JSON.stringify(state.my_bingo_archives));
     },
+    login (state:State,user:User){
+      state.user = user
+    },
     addToBingoDBArchives (state:State) {
       console.log("pushing");
       let database = firebase.database();
@@ -99,8 +102,23 @@ actions: {
     }
     context.commit('loadRecentArchives');
   },
-  // saveBingo (context) {
-  //   localStorage.setItem('mainBingo', bingo);
-  // },
-},
+  doLogin (context:any) {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+
+
+    firebase.auth()
+    .signInWithPopup(provider)
+    .then((result:any) => {
+        console.log(result.user);
+        context.commit('login',new User(`g-${result.user.uid}`,result.user.displayName));
+      }).catch((error:any) => {
+        alert(error.message);
+      });
+      // saveBingo (context) {
+      //   localStorage.setItem('mainBingo', bingo);
+      // },
+  }
+}
 })

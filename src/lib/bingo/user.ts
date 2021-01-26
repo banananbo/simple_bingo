@@ -1,7 +1,7 @@
 export class User{
     constructor(
         public id:string = "0",
-        public name:string = "びんご"
+        public name:string = "ゲスト"
     ){
 
     }
