@@ -193,7 +193,7 @@ export class Bingo extends EventEmitter{
         let cells:Array<Cell> = [];
         for(let i:number=0;i<cell_num;i++){
             for(let j:number=0;j<cell_num;j++){
-                cells.push(new Cell(i,j,random? Content.random : Content.blank));
+                cells.push(new Cell(i,j,random? Content.random.id : 0));
             }
         }
         return new Bingo(cells);
@@ -227,18 +227,26 @@ export class Bingo extends EventEmitter{
 export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
 
+    public get content():Content{
+        return Content.contents[this.content_id-1];
+    }
+
+    public set content(content:Content){
+        this.content_id = content.id;
+    }
+
     constructor( 
         public x:number,
         public y:number, 
-        public content:Content=Content.blank,
+        public content_id:number=0,
         private _check:any=null
         ){
             super();
     }
     static createByObj(obj:any):Cell{
         const check:any = (obj._check)? new CheckMetaData(obj._check.time,obj._check.location) : null;
-        const content:Content = Content.createByObj(obj.content);
-        return new Cell(obj.x,obj.y,content,check);
+        // const content:Content = Content.createByObj(obj.content_id);
+        return new Cell(obj.x,obj.y,obj.content_id,check);
     }
     public check(save_location:boolean = false){
         this._check = new CheckMetaData(Date.now());

@@ -68,7 +68,8 @@ export class Content{
         let id = Math.floor( Math.random() * (Content.contents.length-1) );
         return this.contents[id];
     }
-    static createByObj(obj:any):Content{
-        return new Content(obj.id,obj.title,obj.caption);
+    static createById(id:number):Content{
+        return Content.contents[id-1];
+        // return new Content(obj.id,obj.title,obj.caption);
     }
 }
