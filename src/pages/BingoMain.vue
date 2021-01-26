@@ -44,6 +44,8 @@ import EndPop from "@organisms/EndPop.vue";
 import BingoOverlay from "@organisms/BingoOverlay.vue";
 import DateFunc from "@mixin/date_func.ts";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
+import firebase from "firebase"
+
 
 export type DataType ={
     size: number,
@@ -137,11 +139,21 @@ export default Vue.extend({
     },
 
     methods: {
-        endGame(){
+        async endGame(){
+            console.log('before save finish');
             this.$store.state.bingo.endGame();
             this.$store.commit('saveBingoData');
             // this.$store.commit('addToBingoArchives',this.$store.state.bingo);
+            console.log('save finish');
+
+            // firestore
+            const db = firebase.firestore();
+            let res  =  await db.collection('archives').add(JSON.parse(JSON.stringify(this.$store.state.bingo)));
+            this.$store.state.bingo.id = res.id;
+            
             this.$store.dispatch('doSaveFinished');
+
+            console.log('saved finish');
             const newId = this.$store.state.bingo.id;
             this.$store.commit('setBingoData',null);
             this.$router.push(`result/`+newId);

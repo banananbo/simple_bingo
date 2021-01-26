@@ -5,6 +5,8 @@
             <h2>ぷらっとビンゴ</h2>
       </div>
       <button @click="login">login</button>
+      <button @click="twlogin">tw</button>
+      <button @click="dbtest">firebase</button>
       <section class='info_box' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
@@ -45,6 +47,7 @@ import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
+import firebase from "firebase"
 
 export type DataType ={
       view_discardPop:Boolean,
@@ -65,6 +68,24 @@ export default Vue.extend({
             },
             login: function(){
                   this.$store.dispatch('doLogin');
+            },
+            twlogin: function(){
+                  this.$store.dispatch('doLoginTwitter');
+            },
+            dbtest:  function(){
+                  const db = firebase.firestore();
+                  db.collection('archibes').add({
+                  first: 'Ada',
+                  last: 'Lovelace',
+                  born: 1815,
+                  test: [1,2,[3,4,5]]
+      })
+      .then(function(docRef:any) {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch(function(error:any) {
+        console.error('Error adding document: ', error);
+      });
             }
       },
       components:{

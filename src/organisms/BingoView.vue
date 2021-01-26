@@ -1,6 +1,6 @@
 <template>
 <table>
-    <tr v-for="(row, index1) in bingo.cells" :key="index1">
+    <tr v-for="(row, index1) in bingo.cells_multi" :key="index1">
         <td v-for="(cell, index2) in row" :key="index2">
             <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100"></CellView>
         </td>

@@ -38,13 +38,22 @@ export default Vue.extend({
 
     },
     created(){
-        console.log("created!!!");
-        console.log(this.$route.params.id);
-//     let database = firebase.database();
-firebase.database().ref('archives/'+this.$route.params.id)
-// firebase.database().ref('archives/'+'-MRmVFloQGP-zqaDG-f1')
-.once('value', (snapshot)=>{console.log(snapshot.val());console.log(this.bingo); this.bingo = Bingo.createByObj(snapshot.val());console.log("HOGA");console.log(this.bingo)})
-      // let room = "test/-MRhbdOiK1QUEuSAauht";
+//         console.log(this.$route.params.id);
+// firebase.database().ref('archives/'+this.$route.params.id)
+// .once('value', (snapshot)=>{console.log(snapshot.val());console.log(this.bingo); this.bingo = Bingo.createByObj(snapshot.val());console.log("HOGA");console.log(this.bingo)})
+const db = firebase.firestore();
+db.collection('archives').doc(this.$route.params.id).get().then(
+    doc => {
+                if (!doc.exists) {
+                console.log('No such document!');
+                } else {
+                console.log('Document data:', doc.data());
+                this.bingo = Bingo.createByObj(doc.data());
+                }
+            })
+            .catch(err => {
+                console.log('Error getting document', err);
+            });
     },
 
     components: {

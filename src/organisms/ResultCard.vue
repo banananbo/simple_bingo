@@ -18,7 +18,7 @@
             </table>
         </div>
         <transition name="slide-fade">
-            <div v-if="detail_view">
+            <div v-if="detail_view" class="container-fluid">
                 <div>
                     <BingoView :bingo="bingo" :size="size"></BingoView>
                     <div>
@@ -37,10 +37,12 @@
                             <dd>{{bingo.memo}}</dd>
                         </dl>
                     </div>
-                    <dl v-for="(cell,idx) in bingo.cells_checked" :key="idx">
+                    <dl v-for="(cell,idx) in bingo.cells_checked.reverse()" :key="idx">
                         <dt><ContentView :content="cell.content" :size="50"></ContentView></dt>
-                        <dd>{{format_to_date(cell.checkInfo.time)}}</dd>
-                        <dd v-if="cell.checkInfo.location_available && location_link"><a :href="`https://www.google.com/maps?q=${cell.checkInfo.location.lat},${cell.checkInfo.location.lon}`" target="_blank">ばしょ</a></dd>
+                        <dd>{{format_to_date(cell.checkInfo.time)}}
+                        <a v-if="cell.checkInfo.location_available && location_link" :href="`https://www.google.com/maps?q=${cell.checkInfo.location.lat},${cell.checkInfo.location.lon}`" target="_blank">
+                            <v-fa icon="map-marker-alt" />
+                        </a></dd>
                     </dl>
                 </div>
             </div>
@@ -67,7 +69,7 @@ export default Vue.extend({
     mixins: [DateFunc],
     computed:{
         main_cell():Cell{
-            return this.bingo.cell_last_checked ? this.bingo.cell_last_checked : this.bingo.cells[0][0]
+            return this.bingo.cell_last_checked ? this.bingo.cell_last_checked : this.bingo.cells[0]
         }
     },
 
@@ -146,12 +148,12 @@ overflow: hidden;
 zoom: 1;
 	}
 dt {
-width: 100px;
+width: 50px;
 float: left;
 clear: both;
 font-weight: bold;
 	}
 dd {
-padding: 0 0 5px 120px;
+padding: 0 0 5px 50px;
 }
 </style>

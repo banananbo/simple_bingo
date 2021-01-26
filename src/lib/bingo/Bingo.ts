@@ -2,6 +2,7 @@ import {Content} from "@lib/bingo/content.ts";
 import {User} from "@lib/bingo/user.ts";
 import {ExDate} from "@lib/func/ex_date.ts";
 import {EventEmitter} from 'events';
+import store from '../../store/index.ts';
 
 export class Bingo extends EventEmitter{
 
@@ -10,12 +11,27 @@ export class Bingo extends EventEmitter{
     public static PLAYED:number = 2;
 
     public bingonum:number = 0;
-    // public id:string = '';
     public all_clear:Boolean = false;
 
+    public get cells_multi():Array<Array<Cell>>{
+        let c:Array<Array<Cell>> = [];
+        let cell_idx:number=0;
+        for(let i:number=0;i<this.cell_num;i++){
+            let row:Array<Cell> = [];
+            for(let j:number=0;j<this.cell_num;j++){
+                row.push(this.cells[cell_idx]);
+                cell_idx++;
+            }
+            c.push(row);
+        }
+        return c;
+    }
+
+    public user_id:string = '0';
+
     constructor(
-        public cells:Array<Array<Cell>>,
-        public player:User = new User(),
+        public cells:Array<Cell>,
+        public player:User = store.state.user,
         private _game_state:number = Bingo.BEFORE_PLAY,
         private _start_time:number = 0,
         private _end_time:number = 0,
@@ -24,7 +40,8 @@ export class Bingo extends EventEmitter{
         public id:string = '',
          ){
             super();
-            cells.flat().forEach(
+            this.user_id = player.id;
+            this.cells.forEach(
               c => { c.on( 'checked',()=> this.checkBingo() ) }
             )
     }
@@ -34,7 +51,7 @@ export class Bingo extends EventEmitter{
     }
 
     public get cells_checked():Array<Cell>{
-        return this.cells.flat().filter( c => c.checked ).sort( (a,b) => a.checkInfo.time - b.checkInfo.time );
+        return this.cells.filter( c => c.checked ).sort( (a,b) => a.checkInfo.time - b.checkInfo.time );
     }
 
     public get endDate():string{
@@ -42,7 +59,7 @@ export class Bingo extends EventEmitter{
     }
     
     public get score():number{
-        return this.cells.flat().filter(c =>  c.checked).length;
+        return this.cells.filter(c =>  c.checked).length;
     }
 
     public get title():String{
@@ -70,25 +87,20 @@ export class Bingo extends EventEmitter{
     }
 
     private check_all_clear():void{
-        if(this.cells.flat().every(c=>c.checked)){
+        if(this.cells.every(c=>c.checked)){
             this.all_clear = true;
             this.emit('all_clear');
         }
     }
     
     public get current_time():number{
+        if(this._start_time == 0) return 0;
         return Date.now()- this._start_time;
     }
 
     public get spentTime():number{
         return this._end_time - this._start_time;
     }
-
-    // private formatedTime(time:number):string{
-    //     return ("00"+Math.floor(time/3600000)).slice(-2)+":"+
-    //     ("00"+Math.floor(time/60000)%60).slice(-2) +":"+
-    //     ("00"+Math.floor(time/1000)%60).slice(-2);
-    // }
 
     public startGame(){
         this._game_state = Bingo.PLAYING;
@@ -102,14 +114,15 @@ export class Bingo extends EventEmitter{
     }
 
     private clearBingoFlag(){
-        this.cells.flat().forEach( c => c.is_bingo = false );
+        this.cells.forEach( c => c.is_bingo = false );
     }
 
     public checkBingo(){
         this.clearBingoFlag(); 
         let bingonum = 0;
+        let cells_multi = this.cells_multi;
         // 横
-        this.cells.forEach(
+        cells_multi.forEach(
             row => {
                 if(row.every(c =>  c.checked)){
                    bingonum++;
@@ -120,34 +133,33 @@ export class Bingo extends EventEmitter{
         )
         // 縦
         for(let i:number=0;i<this.cell_num;i++){
-            console.log(i);
-            if(this.cells.every(
+            if(cells_multi.every(
                 row => {
                     return row[i].checked
                 }
             )){
                 bingonum++;
-                this.cells.forEach(c => c[i].is_bingo = true);
+                cells_multi.forEach(c => c[i].is_bingo = true);
 
             };
         }
         // 斜め
-        if(this.cells.every(
+        if(cells_multi.every(
             (row,index) => {
                 return row[index].checked
             }
         )){
             bingonum++;
-            this.cells.forEach( (c,index) => c[index].is_bingo = true);
+            cells_multi.forEach( (c,index) => c[index].is_bingo = true);
 
         };
-        if(this.cells.every(
+        if(cells_multi.every(
             (row,index) => {
                 return row[this.cell_num-index-1].checked
             }
         )){
             bingonum++;
-            this.cells.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
+            cells_multi.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
         };
 
         // あたらしくビンゴ
@@ -161,35 +173,48 @@ export class Bingo extends EventEmitter{
     }
 
     public get contents():Array<Content>{
-        return this.cells.flat().map(c => c.content);
+        return this.cells.map(c => c.content);
     }
 
     public get cell_num():number{
-        return this.cells.length;
+        // return this.cells.length;
+        return Math.sqrt(this.cells.length);
     }
 
     static createNew(cell_num:number,random:Boolean=false){
-        let cells:Array<Array<Cell>> = [];
+        // let cells:Array<Array<Cell>> = [];
+        // for(let i:number=0;i<cell_num;i++){
+        //     let row:Array<Cell> = [];
+        //     for(let j:number=0;j<cell_num;j++){
+        //         row.push(new Cell(i,j,random? Content.random : Content.blank));
+        //     }
+        //     cells.push(row);
+        // }
+        let cells:Array<Cell> = [];
         for(let i:number=0;i<cell_num;i++){
-            let row:Array<Cell> = [];
             for(let j:number=0;j<cell_num;j++){
-                row.push(new Cell(i,j,random? Content.random : Content.blank));
+                cells.push(new Cell(i,j,random? Content.random : Content.blank));
             }
-            cells.push(row);
         }
-        return new Bingo(cells,new User());
+        return new Bingo(cells);
     }
 
     static createByObj(obj:any):Bingo{
-        let cells:Array<Array<Cell>> = [];
+        // let cells:Array<Array<Cell>> = [];
+        // for(let i:number=0;i<obj.cells.length;i++){
+        //     let row:Array<Cell> = [];
+        //         for(let j:number=0;j<obj.cells[i].length;j++){
+        //         row.push(Cell.createByObj(obj.cells[i][j]));
+        //     }
+        //     cells.push(row);
+        // }
+        let cells:Array<Cell> = [];
         for(let i:number=0;i<obj.cells.length;i++){
-            let row:Array<Cell> = [];
-                for(let j:number=0;j<obj.cells[i].length;j++){
-                row.push(Cell.createByObj(obj.cells[i][j]));
-            }
-            cells.push(row);
+            cells.push(Cell.createByObj(obj.cells[i]));
         }
-        return new Bingo(cells,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo,obj.id);
+        const bingo:Bingo = new Bingo(cells,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo,obj.id);
+        bingo.checkBingo();
+        return bingo
     }
 
     static createByJson(json:string):Bingo{
