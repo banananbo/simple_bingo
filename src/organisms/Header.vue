@@ -4,7 +4,8 @@
         <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
         ぷらっとビンゴ
       </a>
-      <span>{{ this.$store.state.user.name}} </span>
+      <img :src="this.$store.state.user.image" height="30">
+      <span>{{ this.$store.state.user.name}}</span>
     　</div>
 </template>
 <script lang="ts">

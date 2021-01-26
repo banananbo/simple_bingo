@@ -31,14 +31,14 @@ mutations: {
     },
     setBingoId (state:State,id:string) {
       state.bingo.id = id;
-  },
+　　},
     saveBingoData (state:State) {
       console.log('save');
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
     },
-    addToBingoArchives (state:State) {
+    addToBingoArchivesLocal (state:State) {
+      if(!state.user.is_guest) return; // ゲストでない場合はローカルに記録しない
       state.my_bingo_archives_local.unshift(state.bingo);
-      console.log("add to bingo");
       localStorage.setItem('my_bingo_archives_local', JSON.stringify(state.my_bingo_archives_local));
     },
     login (state:State,user:User){
@@ -83,25 +83,6 @@ mutations: {
         .catch(err => {
           console.log('Error getting documents', err);
         })
-
-      // database.ref(room).orderByChild('_end_time').startAt(1).limitToLast(5)
-      // .on("value", (data)=> {
-      //     if (data) {
-      //         const rootList = data.val();
-      //         const key = data.key;
-              
-      //         // データオブジェクトを配列に変更する
-      //         if(rootList != null) {
-      //             Object.keys(rootList).forEach((val, key) => {
-      //                 rootList[val].id = val;
-      //                 list.push(rootList[val]);
-      //             })
-      //         }
-
-      //     }
-      //     state.recent_archives = list.reverse().map(o=> Bingo.createByObj(o));
-      //     console.log(state.recent_archives);
-      // });
     },
     loadMyArchives (state:State) {
       const db = firebase.firestore();
@@ -123,19 +104,9 @@ mutations: {
     }
 },
 actions: {
-  // async addToBingoDBArchives (context:any) {
-  //   console.log("pushing");
-
-  //   const db = firebase.firestore();
-  //   let res  =  await db.collection('archibes').add(JSON.parse(JSON.stringify(state.bingo)));
-
-  //   let newid = res.id;
-  //   context.commit('setBingoId',newid);
-  //   console.log("pushed"+newid);
-  // },
   doSaveFinished (context:any) {
-      // context.commit('addToBingoDBArchives');
-      context.commit('addToBingoArchives');
+      // context.commit('addToBingoDBArchives');    
+      context.commit('addToBingoArchivesLocal');
   },
   doLoad (context:any) {
     let strage_bingo = localStorage.mainBingo;
@@ -145,9 +116,6 @@ actions: {
       bingo.checkBingo();
       context.commit('setBingoData',bingo);
     }
-    // else{
-    //   context.commit('setBingoData',Bingo.createNew(3,true));
-    // }
 
     let my_bingo_archives_local = localStorage.my_bingo_archives_local;
     if(my_bingo_archives_local){
@@ -170,7 +138,8 @@ actions: {
     firebase.auth()
     .signInWithPopup(provider)
     .then((result:any) => {
-        let user =new User(`t-${result.user.uid}`,result.user.displayName);
+        let user =new User(`t-${result.user.uid}`,result.user.displayName,result.user.photoURL);
+        console.log(result.user);
         context.commit('login',user);
         localStorage.setItem('login_user', JSON.stringify(user));
       }).catch((error:any) => {
@@ -183,9 +152,10 @@ actions: {
     firebase.auth()
     .signInWithPopup(provider)
     .then((result:any) => {
-        let user =new User(`g-${result.user.uid}`,result.user.displayName);
+        let user =new User(`g-${result.user.uid}`,result.user.displayName,result.user.photoURL);
         context.commit('login',user);
         localStorage.setItem('login_user', JSON.stringify(user));
+        context.commit('loadMyArchives');
       }).catch((error:any) => {
         alert(error.message);
       });

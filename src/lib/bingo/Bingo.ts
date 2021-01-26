@@ -240,17 +240,20 @@ export class Cell extends EventEmitter {
         const content:Content = Content.createByObj(obj.content);
         return new Cell(obj.x,obj.y,content,check);
     }
-    public check(){
+    public check(save_location:boolean = false){
         this._check = new CheckMetaData(Date.now());
-        navigator.geolocation.getCurrentPosition((position)=>{
-            console.log(position.coords.latitude);
-            console.log(position.coords.longitude);
-            console.log(this._check);
-            if(this._check){
-                console.log('whywhy');
-                this._check.location = {lat:position.coords.latitude,lon:position.coords.longitude}
-            }
-        });
+        if(save_location){
+            navigator.geolocation.getCurrentPosition((position)=>{
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+                console.log(this._check);
+                if(this._check){
+                    console.log('whywhy');
+                    this._check.location = {lat:position.coords.latitude,lon:position.coords.longitude}
+                }
+            });
+        }
+
         (this as EventEmitter).emit("checked");
     }
     public unCheck(){

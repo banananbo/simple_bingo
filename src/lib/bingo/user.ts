@@ -1,10 +1,18 @@
 export class User{
+    static GUEST_ID:string = '0';
+
     constructor(
-        public id:string = "0",
-        public name:string = "ゲスト"
+        public id:string = User.GUEST_ID,
+        public name:string = "ゲスト",
+        public image:string = ""
     ){
         
     }
+
+    get is_guest():boolean{
+        return this.id == User.GUEST_ID;
+    }
+
     static createByObj(obj:any){
         return new User( obj.id,obj.name );
     }

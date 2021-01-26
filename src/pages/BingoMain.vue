@@ -151,6 +151,7 @@ export default Vue.extend({
             let res  =  await db.collection('archives').add(JSON.parse(JSON.stringify(this.$store.state.bingo)));
             this.$store.state.bingo.id = res.id;
             
+            this.$store.commit('loadMyArchives');
             this.$store.dispatch('doSaveFinished');
 
             console.log('saved finish');
@@ -176,7 +177,7 @@ export default Vue.extend({
             // this.$store.commit('increment');
         },
         submitCell :function(obj:any){
-            obj.cell.check();
+            obj.cell.check( this.$store.state.allow_location );
             this.cellPop = false;
             this.selectedCell = null;
             // this.$store.state.bingo.checkBingo();
