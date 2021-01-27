@@ -2,9 +2,9 @@
       <div class="navbar fixed-top">
         <a class="navbar-brand" href="#">
           <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
-          ぷらっとビンゴ
+          みつけた！ビンゴ
         </a>
-        <button class='btn' @click="openSettingPop"><v-fa icon="cog" />{{ $store.state.user.name}}</button>
+        <button class='btn' @click="openSettingPop"><v-fa icon="cog" /> {{ $store.state.user.name}}</button>
         <SettingPop v-if="settingPop" :user="$store.state.user" @close="closeSettingPop"></SettingPop>
     　</div>
 </template>

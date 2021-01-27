@@ -1,8 +1,8 @@
 <template>
       <transition name="modal">
-        <div class="modal-mask">
+        <div class="modal-mask" @click="closeModal">
           <div class="modal-wrapper">
-            <div class="modal-container">
+            <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">
               <div class="modal-body rounded">
                   <p class="title">{{cell.content.title}}</p>
                   <div class="inline-block" style="float: left">
@@ -14,7 +14,10 @@
                   <div class="text-center" style="clear:both">
                     <button class="btn btn-primary" v-if="!cell.checked" @click="submitContent">見つけた！</button>
                     <button class="btn btn-primary" v-if="!cell.checked" @click="cancelContent">まだ</button>
-                    <p v-if="cell.checked">{{cell.check_time}}に発見</p>
+                    <p v-if="cell.checked">{{format_to_date(cell.checkInfo.time)}}に発見</p>
+                    <!-- <a v-if="cell.location_available" :href="`https://www.google.com/maps?q=${cell.checkInfo.location.lat},${cell.checkInfo.location.lon}`" target="_blank">
+                        <v-fa icon="map-marker-alt" />
+                    </a> -->
                     <button class="btn btn-primary" v-if="cell.checked" @click="cancelContent">とりけす</button>
                   </div>
               </div>
@@ -30,6 +33,7 @@ import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 import Header from "@organisms/Header.vue";
 import BingoView from "@organisms/BingoView.vue";
 import ContentView from "@organisms/ContentView.vue";
+import DateFunc from "@mixin/date_func.ts";
 
 export type DataType ={
     
@@ -41,7 +45,7 @@ export default Vue.extend({
 
         };
     },
-
+    mixins: [DateFunc],
     props: {
         cell:Cell
     },
@@ -59,6 +63,9 @@ ContentView
         cancelContent:function(){
             this.$emit('cancel',{cell:this.cell});
         },
+        closeModal:function(){
+          this.$emit('close');
+        }
   },
 });
 </script>
@@ -69,13 +76,13 @@ ContentView
 }
 .title {
   font-weight: bold;
-  font-size: 0.8em;
-  background: #a22a40;
-  color:#fff;
-  line-height: 1.4;
-  margin-bottom: 2px;
-  padding: 1px 2px;
-  border-radius: 5px;
+  font-size: 1.2 em;
+  width: 100%;
+  color: #010079;
+  text-shadow: 0 0 5px white;
+  padding: 0.3em 0.5em;
+  background: -webkit-repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
+  background: repeating-linear-gradient(-45deg, #cce7ff, #cce7ff 3px,#e9f4ff 3px, #e9f4ff 7px);
 }
 .modal-mask {
   position: fixed;
@@ -111,7 +118,7 @@ ContentView
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .modal-default-button {

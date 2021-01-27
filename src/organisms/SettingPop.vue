@@ -5,8 +5,8 @@
             <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">  
               <div class="modal-body rounded">
                 <div v-if="user.is_guest">
-                  <p>ログインしていません</p>
-                  <p>
+                  <h5>ログインしていません</h5>
+                  <p style='font-size: 0.8em'>
                     ログインなしでも、ビンゴを楽しむことができます。
                   </p>
                   <button class='btn' @click="login"><v-fa :icon="['fab', 'google']" /> Googleでログイン</button>
@@ -75,6 +75,10 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
+.btn{
+  padding: 5px;
+  border-width: 1em;
+}
 .inline-block {
     /* display: inline-block; */
     float: left;

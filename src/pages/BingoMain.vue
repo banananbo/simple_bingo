@@ -26,7 +26,7 @@
             </table>
         </div>
     </div>
-    <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell"></ControlPop>
+    <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell" @close="cellPop = false;"></ControlPop>
     <EndPop v-if="endPop" :bingo="this.$store.state.bingo" :timer="timer" @submit="endGame" @cancel="endPop=false" @remove="confirmDiscard"></EndPop>
     <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
     <Footer></Footer>
@@ -113,12 +113,6 @@ export default Vue.extend({
             if (this.$store.state.bingo.time==0) return;
             this.timer = (this as any).format_to_time(this.$store.state.bingo.current_time)
          }, 1000);
-        //  this.$store.state.bingo.on( 'all_clear' ,()=>{ this.onClearBingo() } )
-
-         console.log((this.$refs.bingoview as Element).clientWidth)
-         console.log((this.$refs.bingoview as Element).clientHeight)
-         console.log((this.$refs.bingoview as Element).clientTop)
-         console.log((this.$refs.bingoview as Element).clientLeft)
          this.bingo_w = (this.$refs.bingoview as Element).clientWidth;
          this.bingo_h = (this.$refs.bingoview as Element).clientHeight;
     },

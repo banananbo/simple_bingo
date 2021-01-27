@@ -21,7 +21,7 @@
             </table>
             <h6>ビンゴはどうでしたか？</h6>
          <div class="text-center">
-            <textarea v-model="bingo.memo" ></textarea>
+            <textarea v-model="bingo.memo" style="width:80%" maxlength='100'></textarea>
          </div>
          <div class="text-center">
           <button class="btn btn-primary" @click="submitContent">記録して終わる</button>
@@ -113,7 +113,7 @@ ContentView
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .modal-default-button {

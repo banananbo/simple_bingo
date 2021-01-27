@@ -13,6 +13,8 @@ export class Bingo extends EventEmitter{
     public bingonum:number = 0;
     public all_clear:Boolean = false;
 
+    public nice_point:number=0;
+
     public get cells_multi():Array<Array<Cell>>{
         let c:Array<Array<Cell>> = [];
         let cell_idx:number=0;
@@ -48,7 +50,7 @@ export class Bingo extends EventEmitter{
             this.user_id = player.id;
             this.cells.forEach(
               c => { c.on( 'checked',()=> this.checkBingo() ) }
-            )
+        )
     }
 
     public get cell_last_checked():Cell{
@@ -116,6 +118,16 @@ export class Bingo extends EventEmitter{
     public endGame(){
         this._game_state = Bingo.PLAYED;
         this._end_time = Date.now();
+        this.memo = this.memo.substr(0,100);
+        this.calc_nice_point();
+    }
+
+    public calc_nice_point(){
+        if( this.spentTime <  300000 ) return;
+        let point:number=0;
+        point += this.score;
+        point += this.memo.length/3;
+        this.nice_point = point;
     }
 
     private clearBingoFlag(){
@@ -283,6 +295,10 @@ export class Cell extends EventEmitter {
     }
     public get checkInfo():CheckMetaData{
         return this._check;
+    }
+    public get location_available():Boolean{
+        if(!this._check) return false;
+        return this._check.location_available
     }
 }
 
