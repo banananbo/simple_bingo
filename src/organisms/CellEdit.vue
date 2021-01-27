@@ -111,6 +111,6 @@ export default Vue.extend({
   width: 80%;
   margin-left: 15px;
   overflow-y: auto;
-  height: 100%;
+  height: 80%;
 }
 </style>

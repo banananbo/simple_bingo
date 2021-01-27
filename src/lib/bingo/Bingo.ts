@@ -29,6 +29,11 @@ export class Bingo extends EventEmitter{
 
     public user_id:string = '0';
 
+    public setPlayer(user:User){
+        this.player = user;
+        this.user_id = user.id;
+    }
+
     constructor(
         public cells:Array<Cell>,
         public player:User = store.state.user,

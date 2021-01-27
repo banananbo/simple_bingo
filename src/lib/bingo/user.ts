@@ -1,5 +1,6 @@
 export class User{
     static GUEST_ID:string = '0';
+    static get GUEST_USER():User{return new User()}
 
     constructor(
         public id:string = User.GUEST_ID,
@@ -14,7 +15,7 @@ export class User{
     }
 
     static createByObj(obj:any){
-        return new User( obj.id,obj.name );
+        return new User( obj.id,obj.name,obj.image );
     }
     static createByJson(json:string){
         return User.createByObj(JSON.parse(json));

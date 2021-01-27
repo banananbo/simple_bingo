@@ -1,3 +1,14 @@
+export class Tag{
+    constructor(public id:number,public title:string){
+    }
+    static tags:Array<Tag> = [
+        new Tag(1,"こども"),
+        new Tag(2,"きんじょ"),
+        new Tag(3,"いきもの"),
+        new Tag(4,"ひと"),
+    ]
+}
+
 export class Content{
 
     constructor(public id:number,public title:string,public caption:string){

@@ -4,9 +4,7 @@
       <div class="container-fluid text-center">
             <h2>ぷらっとビンゴ</h2>
       </div>
-      <button @click="login">login</button>
-      <button @click="twlogin">tw</button>
-      <button @click="dbtest">firebase</button>
+      
       <section class='info_box' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
@@ -66,12 +64,7 @@ export default Vue.extend({
                   this.view_discardPop = false;
                   this.$router.push('game');
             },
-            login: function(){
-                  this.$store.dispatch('doLogin');
-            },
-            twlogin: function(){
-                  this.$store.dispatch('doLoginTwitter');
-            },
+
             dbtest:  function(){
                   const db = firebase.firestore();
                   db.collection('archibes').add({

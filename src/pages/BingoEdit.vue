@@ -16,7 +16,7 @@
             <div v-if="this.bingo">
               <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
             </div>
-            <LocationSetting></LocationSetting>
+            <!-- <LocationSetting></LocationSetting> -->
             <button type="button" class="btn btn-primary" @click="startBingoGame">ビンゴを始める</button>
           </div>
           <!-- <button id="show-modal" @click="showModal = true">Show Modal</button>
@@ -42,7 +42,7 @@ import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
 import {Content} from "@lib/bingo/content.ts";
 import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
-import LocationSetting from "@atoms/LocationSetting.vue";
+// import LocationSetting from "@atoms/LocationSetting.vue";
 
 Vue.component("modal", {
   template: "#modal-template"
@@ -125,7 +125,7 @@ export default Vue.extend({
     CellEdit,
     Header,
     Footer,
-    LocationSetting
+    // LocationSetting
   }
 })
 </script>

@@ -32,6 +32,13 @@ mutations: {
     setBingoId (state:State,id:string) {
       state.bingo.id = id;
 　　},
+    updatePlayer (state:State,user:User){
+      console.log("update player");
+      if(state.bingo){
+        console.log("update player2");
+        state.bingo.setPlayer(user);
+      }
+    },
     saveBingoData (state:State) {
       console.log('save');
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
@@ -142,6 +149,8 @@ actions: {
         console.log(result.user);
         context.commit('login',user);
         localStorage.setItem('login_user', JSON.stringify(user));
+        context.commit('loadMyArchives');
+        context.commit('updatePlayer',user);
       }).catch((error:any) => {
         alert(error.message);
       });
@@ -156,9 +165,16 @@ actions: {
         context.commit('login',user);
         localStorage.setItem('login_user', JSON.stringify(user));
         context.commit('loadMyArchives');
+        context.commit('updatePlayer',user);
       }).catch((error:any) => {
         alert(error.message);
       });
+  },
+  doLogout (context:any) {
+    context.commit('login',User.GUEST_USER);
+    localStorage.setItem('login_user', JSON.stringify(User.GUEST_USER));
+    context.commit('loadMyArchives');
+    context.commit('updatePlayer',User.GUEST_USER);
   }
 }
 })
