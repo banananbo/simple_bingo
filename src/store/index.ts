@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 import {User} from "@lib/bingo/user.ts";
 import firebase from "firebase"
+import {user_setting} from './modules/user_setting.ts'
 
 Vue.use(Vuex);
 
@@ -12,7 +13,6 @@ interface State {
   my_bingo_archives_local: Array<Bingo>,
   my_bingo_archives: Array<Bingo>,
   recent_archives: Array<Bingo>,
-  allow_location: Boolean,
 }
 
 export default new Vuex.Store({
@@ -22,8 +22,11 @@ state: {
     my_bingo_archives: [],
     my_bingo_archives_local: [],
     recent_archives: [],
-    allow_location: false
+    
 } as State,
+modules: {
+  user_setting
+},
 mutations: {
     setBingoData (state:State,bingo:Bingo) {
         state.bingo = bingo;
@@ -139,6 +142,7 @@ actions: {
     }
     context.commit('loadRecentArchives');
     context.commit('loadMyArchives');
+    context.commit("user_setting/doLoad");
   },
   doLoginTwitter (context:any) {
     let provider = new firebase.auth.TwitterAuthProvider();

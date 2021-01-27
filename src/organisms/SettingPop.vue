@@ -23,7 +23,7 @@
                 
                 <div class='info_box'>
                   <label>みつけた位置情報を記録するとさらに楽しめます。</label>
-                  <input type="checkbox" v-model="$store.state.allow_location" >
+                  <input type="checkbox" v-model="allow_location" @change="changeAllowLocation">
                   　位置情報を取得する
                   </label>
                 </div>
@@ -45,14 +45,23 @@ export type DataType ={
 export default Vue.extend({
     data(): DataType {
         return {
-
         };
     },
 
     props: {
-      user: User
+      user: User,
     },
     mounted(){
+    },
+    computed: {
+      allow_location: {
+        get():boolean{
+          return this.$store.state.user_setting.allow_location
+        },
+        set(value:boolean ){
+          this.$store.commit('user_setting/setAllowLocation',value);
+        }
+      }
     },
 
     components: {

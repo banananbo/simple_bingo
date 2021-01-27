@@ -94,7 +94,7 @@ export class Bingo extends EventEmitter{
     }
 
     private check_all_clear():void{
-        if(this.cells.every(c=>c.checked)){
+        if(this.cells.every(c => c.checked)){
             this.all_clear = true;
             this.emit('all_clear');
         }

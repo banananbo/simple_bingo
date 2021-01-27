@@ -5,7 +5,7 @@
           みつけた！ビンゴ
         </a>
         <button class='btn' @click="openSettingPop"><v-fa icon="cog" /> {{ $store.state.user.name}}</button>
-        <SettingPop v-if="settingPop" :user="$store.state.user" @close="closeSettingPop"></SettingPop>
+        <SettingPop v-if="settingPop" :user="$store.state.user" :allow_location='$store.state.user_setting.allow_location' @close="closeSettingPop"></SettingPop>
     　</div>
 </template>
 <script lang="ts">

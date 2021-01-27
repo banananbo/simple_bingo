@@ -171,7 +171,7 @@ export default Vue.extend({
             // this.$store.commit('increment');
         },
         submitCell :function(obj:any){
-            obj.cell.check( this.$store.state.allow_location );
+            obj.cell.check( this.$store.state.user_setting.allow_location );
             this.cellPop = false;
             this.selectedCell = null;
             // this.$store.state.bingo.checkBingo();

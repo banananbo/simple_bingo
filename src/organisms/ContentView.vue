@@ -1,5 +1,6 @@
 <template>
-    <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas>
+    <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
+    <img :src="this.content.img_src" :width="size" :height="size" @click='select'>
 </template>
 <script lang="ts">
 import Vue from "vue"
@@ -39,7 +40,7 @@ export default Vue.extend({
           handler: function (val) {
               this.draw();
           }
-      }
+       }
     },
 
     created(){
@@ -53,17 +54,17 @@ export default Vue.extend({
 
     methods: {
         draw:function(){
-            let context = this.canvas.getContext( "2d" ) ;
-            if(!this.enable) context.globalAlpha = 0.3;
-            const chara = new Image();
-            chara.src =  this.content.img_src;
-            chara.onload = () => {
-                context.clearRect(0,0,this.size,this.size);
-                context.drawImage(chara, 0,  0, this.size,this.size);
-                // const textsize:TextMetrics = context.measureText(this.content.title);
-                // context.font = "14px 'ＭＳ ゴシック'"
-                // context.fillText(this.content.title, (this.size-textsize.width)/2 , this.size - 20 );
-            };
+            // let context = this.canvas.getContext( "2d" ) ;
+            // if(!this.enable) context.globalAlpha = 0.3;
+            // const chara = new Image();
+            // chara.src =  this.content.img_src;
+            // chara.onload = () => {
+            //     context.clearRect(0,0,this.size,this.size);
+            //     context.drawImage(chara, 0,  0, this.size,this.size);
+            //     // const textsize:TextMetrics = context.measureText(this.content.title);
+            //     // context.font = "14px 'ＭＳ ゴシック'"
+            //     // context.fillText(this.content.title, (this.size-textsize.width)/2 , this.size - 20 );
+            // };
         },
         select:function(){
             this.$emit('onClick',{content:this.content});
