@@ -5,7 +5,7 @@
             <h2 style="padding:30px">みつけた！ビンゴ</h2>
       </div>
       
-      <section class='info_box' v-if="this.$store.state.bingo" >
+      <section class='info_box_playing' v-if="this.$store.state.bingo" >
             <h5>プレイ中のビンゴ</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
             <section class="text-center">
@@ -86,7 +86,7 @@ export default Vue.extend({
       data():DataType{
       return {
             view_discardPop: false,
-            resultcardSize: screen.width - 100
+            resultcardSize: screen.width - 120
         };
       },
       methods:{
@@ -130,6 +130,14 @@ export default Vue.extend({
 	display: inline-block;
 	margin-left: 10px;
 	font-size: 14px; /* ulでサイズ0にしたのを戻す */
+}
+
+.info_box_playing{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    background: #FFF;
+    border: solid 3px #6091d3;/*線*/
+    border-radius: 10px;/*角の丸み*/  
 }
 
 .info_box {
