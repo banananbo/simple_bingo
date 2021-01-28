@@ -3,11 +3,11 @@
     <Header></Header>
     <h5>いままでのビンゴ</h5>
     <h6>サーバーデータ</h6>
-    <div  v-for="(bingo,idx) in this.$store.state.my_bingo_archives" :key="`s${idx}`">
+    <div  v-for="(bingo,idx) in this.$store.state.archives.my_bingo_archives" :key="`s${idx}`">
         <ResultCard :bingo="bingo" :location_link="true"></ResultCard>
     </div>
     <h6>端末データ</h6>
-    <div  v-for="(bingo,idx) in this.$store.state.my_bingo_archives_local" :key="`t${idx}`">
+    <div  v-for="(bingo,idx) in this.$store.state.archives.my_bingo_archives_local" :key="`t${idx}`">
         <ResultCard :bingo="bingo" :location_link="true"></ResultCard>
     </div>
     <Footer></Footer>
@@ -26,10 +26,10 @@ export type DataType ={
 }
 
 export default Vue.extend({
-    data(): DataType {
+    data: function(){
         return {
             bingo: null,
-        };
+        } as DataType;
     },
     computed:{
 

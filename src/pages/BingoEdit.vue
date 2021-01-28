@@ -59,7 +59,7 @@ export type DataType ={
 }
 
 export default Vue.extend({
-  data(): DataType {
+  data:function():DataType {
     return {
       size: screen.width - 40,
       cell_num: 3,

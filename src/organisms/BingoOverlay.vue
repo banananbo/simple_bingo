@@ -17,7 +17,7 @@ export type DataType ={
 }
 
 export default Vue.extend({
-    data(): DataType {
+    data:function():DataType {
         return {
             overlay_color: "#FFF6",
             text: "よーい",

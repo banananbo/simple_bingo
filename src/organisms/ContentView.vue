@@ -1,6 +1,6 @@
 <template>
     <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
-    <img :src="this.content.img_src" :width="size" :height="size" @click='select'>
+    <img :class="{unabled: !enable}" :src="this.content.img_src" :width="size" :height="size" @click='select'>
 </template>
 <script lang="ts">
 import Vue from "vue"
@@ -13,7 +13,7 @@ export type DataType ={
 
 export default Vue.extend({
 
-    data(): DataType {
+    data:function():DataType {
         return {
             canvas: null,
         };
@@ -67,11 +67,14 @@ export default Vue.extend({
             // };
         },
         select:function(){
+            if(!this.enable) return;
             this.$emit('onClick',{content:this.content});
         }
   },
 });
 </script>
 <style scoped>
-
+    .unabled{
+        opacity: 0.3;
+    }
 </style>

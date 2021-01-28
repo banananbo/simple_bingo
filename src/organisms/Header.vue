@@ -4,8 +4,8 @@
           <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
           みつけた！ビンゴ
         </a>
-        <button class='btn' @click="openSettingPop"><v-fa icon="cog" /> {{ $store.state.user.name}}</button>
-        <SettingPop v-if="settingPop" :user="$store.state.user" :allow_location='$store.state.user_setting.allow_location' @close="closeSettingPop"></SettingPop>
+        <button class='btn' @click="openSettingPop"><v-fa icon="cog" /> {{ $store.state.user.user.name}}</button>
+        <SettingPop v-if="settingPop" :user="$store.state.user.user" :allow_location='$store.state.user_setting.allow_location' @close="closeSettingPop"></SettingPop>
     　</div>
 </template>
 <script lang="ts">
@@ -17,7 +17,7 @@ export type DataType ={
 }
 
 export default Vue.extend({
-      data(): DataType {
+      data:function():DataType {
         return {
           settingPop: false
         };

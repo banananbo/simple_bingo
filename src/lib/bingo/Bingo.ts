@@ -38,7 +38,7 @@ export class Bingo extends EventEmitter{
 
     constructor(
         public cells:Array<Cell>,
-        public player:User = store.state.user,
+        public player:User = store.state.user.user,
         private _game_state:number = Bingo.BEFORE_PLAY,
         private _start_time:number = 0,
         private _end_time:number = 0,

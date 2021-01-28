@@ -38,7 +38,7 @@ export type DataType ={
 export default Vue.extend({
   methods:{
     movePage(route:string){
-      if (this.$route.name == route) return;
+      if (this.$route.path == route) return;
       this.$router.push(route);
     }
   }

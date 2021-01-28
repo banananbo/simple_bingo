@@ -13,6 +13,7 @@
                   <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
             </section>    
       </section>
+
       <!-- <section class="list">
       <ul>
             <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/009.png" style="width:50px;height:50px"></li>
@@ -30,7 +31,6 @@
             </ul>
       </section> -->
 
-      
       <section v-if="!this.$store.state.bingo" class="text-center">
             <button type="button" class="btn btn-primary" @click="$router.push('/game')">はじめる</button>
       </section>
@@ -83,7 +83,7 @@ export type DataType ={
 }
 
 export default Vue.extend({
-      data():DataType{
+      data: function():DataType{
       return {
             view_discardPop: false,
             resultcardSize: screen.width - 120

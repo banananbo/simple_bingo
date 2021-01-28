@@ -2,7 +2,7 @@
 <div>
     <Header></Header>
     <h5>みんなのビンゴ</h5>
-    <div  v-for="(bingo,idx) in this.$store.state.recent_archives" :key="idx">
+    <div  v-for="(bingo,idx) in this.$store.state.archives.recent_archives" :key="idx">
         <ResultCard :bingo="bingo"></ResultCard>
     </div>
     <Footer></Footer>
@@ -21,7 +21,7 @@ export type DataType ={
 }
 
 export default Vue.extend({
-    data(): DataType {
+    data:function():DataType {
         return {
             bingo: null,
         };

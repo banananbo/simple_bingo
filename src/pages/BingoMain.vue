@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="this.$store.state.bingo">
     <Header></Header>
     <BingoOverlay :width="bingo_w" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
     <div ref="bingoview">
@@ -60,7 +60,7 @@ export type DataType ={
 }
 
 export default Vue.extend({
-    data(): DataType {
+    data:function():DataType {
         return {
             size: screen.width - 40,
             cellPop: false,
@@ -101,13 +101,17 @@ export default Vue.extend({
         //     required: true
         // }
     },
-    created(){
+    beforeCreate(){
         if(!this.$store.state.bingo){
             // プレイ中のbingo無し
             this.$router.push("/create"); return; 
         }
     },
     mounted(){
+        if(!this.$store.state.bingo){
+            // プレイ中のbingo無し
+            return; 
+        }
         this.$store.state.bingo.checkBingo();
         this.timerObj = setInterval(() => {
             if (this.$store.state.bingo.time==0) return;

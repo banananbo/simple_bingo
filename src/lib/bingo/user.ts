@@ -10,6 +10,14 @@ export class User{
         
     }
 
+    get obj():Object{
+        return {
+            id:this.id,
+            name:this.name,
+            image:this.image
+        }
+    }
+
     get is_guest():boolean{
         return this.id == User.GUEST_ID;
     }

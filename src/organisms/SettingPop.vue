@@ -23,7 +23,7 @@
                 
                 <div class='info_box'>
                   <label>みつけた位置情報を記録するとさらに楽しめます。</label>
-                  <input type="checkbox" v-model="allow_location" @change="changeAllowLocation">
+                  <input type="checkbox" v-model="allow_location">
                   　位置情報を取得する
                   </label>
                 </div>
@@ -37,13 +37,14 @@
 
 import Vue from "vue"
 import {User} from "@lib/bingo/user.ts";
+import firebase from "firebase"
 
 export type DataType ={
     
 }
 
 export default Vue.extend({
-    data(): DataType {
+    data:function():DataType {
         return {
         };
     },
@@ -72,13 +73,13 @@ export default Vue.extend({
         this.$emit('close')
       },
       login: function(){
-            this.$store.dispatch('doLogin');
+            this.$store.dispatch('user/doLogin', new firebase.auth.GoogleAuthProvider());
       },
       logout: function(){
-            this.$store.dispatch('doLogout');
+            this.$store.dispatch('user/doLogout');
       },
       twlogin: function(){
-            this.$store.dispatch('doLoginTwitter');
+            this.$store.dispatch('user/doLogin',new firebase.auth.TwitterAuthProvider());
       },
     },
 });
