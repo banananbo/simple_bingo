@@ -208,9 +208,10 @@ export class Bingo extends EventEmitter{
         //     cells.push(row);
         // }
         let cells:Array<Cell> = [];
+        let contents:Array<Content> = Content.random_arr(cell_num*cell_num);
         for(let i:number=0;i<cell_num;i++){
             for(let j:number=0;j<cell_num;j++){
-                cells.push(new Cell(i,j,random? Content.random.id : 0));
+                cells.push(new Cell(i,j,random? contents[i*cell_num+j].id : 0));
             }
         }
         return new Bingo(cells);

@@ -53,9 +53,9 @@ export default Vue.extend({
 </script>
 <style>
 .mymodal{
-    height: 100vh;
+    height: 90vh;
     position: fixed;
-    top: 0;
+    top: 30px;
     width: 100%;
 }
 .modal__bg{

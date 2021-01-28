@@ -64,8 +64,12 @@ export class Content{
             'けいトラ','トラック'),
             new Content(23,
             'ふたり','ふたりであるいているひとをさがそう'),
-            new Content(24,
-            'きのみ','こうえんにあるかな'),
+            new Content(24,'きのみ','こうえんにあるかな'),
+            new Content(25,'ベンチ','こうえんにあるかな'),
+            new Content(26,'マンホール','したをむいてさがそう'),
+            new Content(27,'あおいやね','どんないえがあるかな'),
+            new Content(28,'あかいやね','めだついえがあるかな'),
+            new Content(29,'あかちゃん','だっこしていたり、ベビーカーにのっているかも'),
 
     ];
 
@@ -75,6 +79,18 @@ export class Content{
         );
     }
     
+    static random_arr(n:number):Array<Content>{
+        let contents:Array<Content> = Content.contents.concat()
+        for(let i=contents.length-1;i>0;i--){
+            let id = Math.floor( Math.random() * (i+1) );
+            let tmp = contents[i];
+            contents[i] = contents[id];
+            contents[id] = tmp;
+            if(contents.length-i >= n) break;
+        }
+        return contents.reverse().slice(0,n);
+    }
+
     static get random():Content{
         let id = Math.floor( Math.random() * (Content.contents.length-1) );
         return this.contents[id];
