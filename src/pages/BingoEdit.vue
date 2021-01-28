@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-9 col-sm-12">
             <div id="top_area">
-             <h5>ビンゴを作る</h5>
+             <h5>ビンゴを作る</h5> 
               <section id="cell_size_input">
                 セルの数：
                 <select name='cell_num' v-model='cell_num' @change="initBingo()">
@@ -17,6 +17,7 @@
               <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
             </div>
             <!-- <LocationSetting></LocationSetting> -->
+            <p>絵をクリックすると、変更できます</p>
             <button type="button" class="btn btn-primary" @click="startBingoGame">ビンゴを始める</button>
           </div>
           <!-- <button id="show-modal" @click="showModal = true">Show Modal</button>
