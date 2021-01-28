@@ -1,8 +1,8 @@
 <template>
-      <transition name="modal">
-        <div class="modal-mask" @click="closeModal">
+      <!-- <transition name="modal"> -->
+        <div class="modal-mask">
           <div class="modal-wrapper">
-            <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">
+            <div class="modal-container">
               <div class="modal-body rounded">
                   <p class="title">{{cell.content.title}}</p>
                   <div class="inline-block" style="float: left">
@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-      </transition>
+      <!-- </transition> -->
 </template>
 <script lang="ts">
 

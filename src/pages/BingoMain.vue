@@ -102,10 +102,12 @@ export default Vue.extend({
         // }
     },
     beforeCreate(){
+        console.log('before create start');
         if(!this.$store.state.bingo){
             // プレイ中のbingo無し
             this.$router.push("/create"); return; 
         }
+        console.log('before create end');
     },
     mounted(){
         if(!this.$store.state.bingo){
@@ -138,22 +140,15 @@ export default Vue.extend({
 
     methods: {
         async endGame(){
-            console.log('before save finish');
             this.$store.state.bingo.endGame();
             this.$store.commit('saveBingoData');
             // this.$store.commit('addToBingoArchives',this.$store.state.bingo);
-            console.log('save finish');
-
-            // firestore
-            const db = firebase.firestore();
-            let res  =  await db.collection('archives').add(JSON.parse(JSON.stringify(this.$store.state.bingo)));
-            this.$store.state.bingo.id = res.id;
-            
-            this.$store.commit('loadMyArchives');
-            this.$store.dispatch('doSaveFinished');
+            await this.$store.dispatch('archives/addToBingoDBArchives');
+            // context.commit('archives/addToBingoArchivesLocal');
 
             console.log('saved finish');
             const newId = this.$store.state.bingo.id;
+
             this.$store.commit('setBingoData',null);
             this.$router.push(`result/`+newId);
         },
@@ -175,9 +170,10 @@ export default Vue.extend({
             // this.$store.commit('increment');
         },
         submitCell :function(obj:any){
-            obj.cell.check( this.$store.state.user_setting.allow_location );
             this.cellPop = false;
             this.selectedCell = null;
+            obj.cell.check( this.$store.state.user_setting.allow_location );
+            
             // this.$store.state.bingo.checkBingo();
             this.$store.commit('saveBingoData');
         },

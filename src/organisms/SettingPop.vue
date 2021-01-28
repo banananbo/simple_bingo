@@ -20,7 +20,6 @@
                           <button class='btn' @click="logout"><v-fa icon="sign-out-alt" /> ログアウト</button>
                         </div>
       　        </div>
-                
                 <div class='info_box'>
                   <label>みつけた位置情報を記録するとさらに楽しめます。</label>
                   <input type="checkbox" v-model="allow_location">

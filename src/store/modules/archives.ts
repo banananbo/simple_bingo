@@ -22,7 +22,6 @@ export const archives = {
         query.get().then(
           data => {
             data.forEach(doc => {
-              console.log(doc.data());
               list.push(Bingo.createByObj(doc.data()));  
             });
             state.recent_archives = list;
@@ -46,7 +45,6 @@ export const archives = {
         query.get().then(
           data => {
             data.forEach(doc => {
-              console.log(doc.data());
               list.push(Bingo.createByObj(doc.data()));  
             });
             state.my_bingo_archives = list;
@@ -55,24 +53,24 @@ export const archives = {
             console.log('Error getting documents', err);
           })     
       },
-      async addToBingoDBArchives (state:ArchivesState) {
-        console.log("pushing");
-        // let database = firebase.database();
-        // let newPostRef  = database.ref('archives').push(JSON.parse(JSON.stringify(state.bingo)));
 
-        const db = firebase.firestore();
-        let res  =  await db.collection('archibes').add(JSON.parse(JSON.stringify(rootStore.state.bingo)));
-
-        let newid = res.id;
-        rootStore.state.bingo.id = newid;
-        console.log("pushed"+newid);
-      },
       initBingoArchives_local (state:ArchivesState,bingos:Array<Bingo>) {
         state.my_bingo_archives_local = bingos;
       },
     },
     actions: {
-
+      async addToBingoDBArchives (context:any) {
+        // firestore
+        const db = firebase.firestore();
+        // test的に参照を追加している
+        let bingobj:any = JSON.parse(JSON.stringify(context.rootState.bingo));
+        bingobj.user_ref = db.doc(`users/${context.rootState.user.user.id}`);
+        let res  =  await db.collection('archives').add(bingobj);
+        context.rootState.bingo.id = res.id;
+        context.commit('addToBingoArchivesLocal');
+        
+        context.commit('loadMyArchives');
+      },
     }
 }
 

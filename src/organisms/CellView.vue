@@ -70,6 +70,7 @@ export default Vue.extend({
         //     };
         // },
         select:function(){
+            console.log('click');
             this.$emit('cellClick',{cell:this.cell});
         }
   },

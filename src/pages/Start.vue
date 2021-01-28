@@ -63,8 +63,8 @@
             <button type="button" class="btn btn-primary" @click="$router.push('/game')">はじめる</button>
       </section>
 
-      <Footer></Footer>
       <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
+      <Footer></Footer>
 </section>
 </template>
 

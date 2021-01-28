@@ -47,6 +47,9 @@ export default Vue.extend({
     methods:{
       onClicked: function(obj:any){
         this.$emit("selected",obj);
+      },
+      closeModal: function(){
+
       }
     },
   components: {
@@ -54,7 +57,7 @@ export default Vue.extend({
   },
 })
 </script>
-<style>
+<style scoped>
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -94,9 +97,6 @@ export default Vue.extend({
   margin: 10px 0;
   overflow: auto;
 }
-
-
-
 
 /*
  * The following styles are auto-applied to elements with

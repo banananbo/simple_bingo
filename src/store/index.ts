@@ -53,10 +53,6 @@ mutations: {
 
 },
 actions: {
-  doSaveFinished (context:any) {
-      // context.commit('addToBingoDBArchives');    
-      context.commit('archives/addToBingoArchivesLocal');
-  },
   doLoad (context:any) {
     let strage_bingo = localStorage.mainBingo;
     if(strage_bingo == "null") strage_bingo = null;
