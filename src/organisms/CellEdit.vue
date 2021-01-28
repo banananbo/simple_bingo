@@ -1,14 +1,17 @@
 <template>
-<transition name="modal">
-  <div class="mymodal">
-     <div class="modal__bg"></div>
-     <div class="modal__content">
+      <transition name="modal">
+        <div class="modal-mask" @click="closeModal">
+          <div class="modal-wrapper">
+            <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">
+              <div class="modal-body rounded">
       <div v-for="(content, index) in contents" :key="index" class="box">
             <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="size" @onClick="onClicked"></ContentView>
             <p>{{content.title}}</p>
       </div>
-     </div>
-  </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </transition>
 </template>
 <script lang="ts">
@@ -52,29 +55,49 @@ export default Vue.extend({
 })
 </script>
 <style>
-.mymodal{
-    height: 90vh;
-    position: fixed;
-    top: 30px;
-    width: 100%;
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
 }
-.modal__bg{
-    background: rgba(0,0,0,0.8);
-    height: 100vh;
-    position: absolute;
-    width: 100%;
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
 }
-.modal__content{
-    background: #fff;
-    left: 50%;
-    padding: 10px;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    width: 90%;
-    overflow: auto;
-    height: 80vh;
+
+.modal-container {
+  width: 95vw;
+  height: 90vh;
+  overflow: auto;
+  margin: 0px auto;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
 }
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 10px 0;
+  overflow: auto;
+}
+
+
+
+
 /*
  * The following styles are auto-applied to elements with
  * transition="modal" when their visibility is toggled
@@ -84,19 +107,6 @@ export default Vue.extend({
  * these styles.
  */
 
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 
 .box{
   float: left;
@@ -106,11 +116,4 @@ export default Vue.extend({
   overflow: hidden;
 }
 
-.modal-dialog-fluid {
-  max-width: inherit;
-  width: 80%;
-  margin-left: 15px;
-  overflow-y: auto;
-  height: 80%;
-}
 </style>
