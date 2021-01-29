@@ -1,13 +1,16 @@
 {
     "ja": {
-    "title": "みつけてビンゴ",
+    "title": "おさんぽビンゴ",
     "lead": {
         "in_progress": "プレイ中のビンゴ",
         "not_start": "未プレイのビンゴ",
         "everyones_bingo": "みんなのビンゴ",
         "your_bingo": "あそんだビンゴ",
         "language_setting": "言語設定",
+        "create_bingo": "ビンゴをつくる",
+        "cell_num": "セルの数",
         "game_lang": "ゲームの言語",
+        "how_to": "あそびかた",
         "site_lang": "サイトの言語"
     },
     "function":{
@@ -34,8 +37,10 @@
         "home":"ホーム",
         "you":"あなた",
         "everyone":"みんな",
+        "record":"きろく",
+        "ready":"よーい",
+        "go":"スタート",
         "guest":"ゲスト"
-        
     }, 
     "message":{
         "logged_in": "ログイン中",
@@ -47,7 +52,11 @@
         "strolling": "おさんぽビンゴ！",
         "strolling_detail": "いつもの風景に、なにか違ったものが見つかるかも",
         "naturebingo": "自然散策でビンゴ！",
-        "naturebingo_detail": "虫やトリ、自然でなにが見つかるかな。見つけながらビンゴを楽しもう！"
+        "naturebingo_detail": "虫やトリ、自然でなにが見つかるかな。見つけながらビンゴを楽しもう！",
+        "bingo_create": "絵をクリックすると変更できます",
+        "finish_bingo_alert": "プレイ中のビンゴは消えてしまいます。よろしいですか？",
+        "finish_bingo_caption": "再開できません。中断する場合は「つづける」を押し、そのままブラウザを閉じてください。",
+        "finish_bingo": "ビンゴをおわりますか？"
     }
     },
     "en": {
@@ -58,8 +67,10 @@
         "everyones_bingo": "Everyone's bingo",
         "language_setting": "Language setting",
         "game_lang": "Game Language",
+        "create_bingo": "create bingo",
+        "cell_num": "cell num",
         "site_lang": "Site Language",
-        "how_to": "How tp play",
+        "how_to": "How to play",
         "your_bingo": "Bingos you have played"
 
       },
@@ -73,6 +84,7 @@
         "login": "login",
         "start": "start",
         "logout": "logout",
+        "remove": "discard",
         "enable_locale": "Record location information",
         "cancel": "cancel"
       },
@@ -84,9 +96,12 @@
         "time":"time",
         "memo":"memo",
         "home":"home",
-        "you":"you",
+        "you":"you",        
+        "ready":"READY",
+        "go":"GO",
         "everyone":"everyone",
         "japanese":"japanese",
+        "record":"record",
         "guest":"guest",
         "english":"english"
       },
@@ -101,8 +116,11 @@
         "strolling": "Stroll Bingo!",
         "strolling_detail": "There may be new discoveries in your usual walk!",
         "naturebingo": "Nature Bingo!",
-        "naturebingo_detail": "Insects, birds and flowers. What can you find in nature? Exciting!"
-
+        "naturebingo_detail": "Insects, birds and flowers. What can you find in nature? Exciting!",
+        "finish_bingo_alert": "The bingo you are playing will disappear. Is it OK?",
+        "finish_bingo_caption": "It cannot be resumed. To interrupt, press 'Continue' and close the browser as it is.",
+        "finish_bingo": "Do you want to end the bingo?",
+        "bingo_create": "Click to change the picture"
       }
     }
   }

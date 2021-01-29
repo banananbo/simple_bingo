@@ -5,14 +5,14 @@
             <div class="modal-container">
 
      <div class="modal-body rounded">
-         <h5>ビンゴをおわりますか？</h5>
-         <p style='font-size: 0.8em'>再開できません。中断する場合は「つづける」を押し、そのままブラウザを閉じてください。</p>
-         <h6>記録</h6>
+         <h5>{{$t("message.finish_bingo")}}</h5>
+         <p style='font-size: 0.8em'>{{$t("message.finish_bingo_caption")}}</p>
+         <h6>{{$t("noun.record")}}</h6>
             <table>
                 <tr>
-                    <th>スコア</th>
-                    <th>ビンゴ</th>
-                    <th>時間</th>
+                    <th>{{$t("noun.score")}}</th>
+                    <th>{{$t("noun.bingo")}}</th>
+                    <th>{{$t("noun.time")}}</th>
                 </tr>
                 <tr>
                     <td class="big">{{this.$store.state.bingo.score}}</td>
@@ -20,14 +20,14 @@
                     <td>{{timer}}</td>
                 </tr>
             </table>
-            <h6>ビンゴはどうでしたか？</h6>
+            <h6>{{$t("noun.memo")}}</h6>
          <div class="text-center">
             <textarea v-model="bingo.memo" style="width:80%" maxlength='100'></textarea>
          </div>
          <div class="text-center">
-          <button class="btn btn-primary" @click="submitContent">ビンゴをおわる</button>
-          <button class="btn btn-danger" @click="removeContent">つくりなおす</button>
-          <button class="btn btn-primary" @click="cancelContent">つづける</button>
+          <button class="btn btn-primary" @click="submitContent">{{$t("function.finish")}}</button>
+          <button class="btn btn-danger" @click="removeContent">{{$t("function.remove")}}</button>
+          <button class="btn btn-primary" @click="cancelContent">{{$t("function.continue")}}</button>
          </div>
     </div>
 

@@ -100,9 +100,11 @@ ContentView
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  overflow: auto;
 }
 
 .modal-container {
+  overflow: auto;
   width: 300px;
   margin: 0px auto;
   padding: 5px;
@@ -120,6 +122,7 @@ ContentView
 
 .modal-body {
   margin: 10px 0;
+  overflow: auto;
 }
 
 .modal-default-button {

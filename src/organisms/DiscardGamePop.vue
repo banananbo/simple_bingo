@@ -5,16 +5,15 @@
             <div class="modal-container">
 
      <div class="modal-body rounded">
-         <h5>プレイ中のビンゴをすててよろしいですか？</h5>
-         <h6>記録</h6>
+         <h5>{{$t("message.finish_bingo_alert")}}</h5>
+         <h6>{{$t("noun.record")}}</h6>
          <ul>
               <li class="list-group-item">{{$t("noun.score")}}:{{$store.state.bingo.score}}</li>
               <li class="list-group-item">{{$t("noun.bingo")}}:{{$store.state.bingo.bingonum}}</li>
-              <li class="list-group-item">{{$t("noun.time")}}:{{$store.state.bingo.current_time}}</li>
          </ul>
          <div class="text-center">
-          <button class="btn btn-danger" @click="discardGame">すてる</button>
-          <button class="btn btn-primary" @click="cancelDiscard">つづける</button>
+          <button class="btn btn-danger" @click="discardGame">{{$t("function.remove")}}</button>
+          <button class="btn btn-primary" @click="cancelDiscard">{{$t("function.continue")}}</button>
          </div>
     </div>
 

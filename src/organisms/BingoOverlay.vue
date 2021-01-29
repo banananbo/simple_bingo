@@ -7,6 +7,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
+import {i18n} from '@src/i18n.ts';
 
 export type DataType ={
     overlay_color:string,
@@ -42,7 +43,7 @@ export default Vue.extend({
        ready(){
            this.overlay_color = "#9996";
            this.show = true;
-           this.text = "よーい";
+           this.text = i18n.tc("noun.ready");
            this.transition_name = "fade";
            this.text_style = {
             "font-size":"5em",
@@ -59,15 +60,15 @@ export default Vue.extend({
            this.$store.state.bingo.once('start_game',this.start)
        },
        start(){
-           this.text = "スタート!!";
+           this.text = i18n.tc("noun.go");
            this.removeAfterTime(300);
        },
        bingo(event_obj:any){
            this.overlay_color = "#0000";
-           this.text = "ビンゴ!";
+           this.text = `${i18n.tc("noun.bingo")}!!`;
            this.transition_name = "bottom";
-           if(event_obj.num == 2) this.text = "Wビンゴ!";
-           if(event_obj.num > 2)  this.text = event_obj.num+"ビンゴ!";
+           if(event_obj.num == 2) this.text = `W${i18n.tc("noun.bingo")}!!`;
+           if(event_obj.num > 2)  this.text = `${event_obj.num}${i18n.tc("noun.bingo")}!`;
            this.show = true;
            this.text_style = {
             "font-size":"5em",
@@ -103,7 +104,7 @@ export default Vue.extend({
             "width":"100%",
             "height":"100%",
            }
-           this.removeAfterTime(3000,()=>{ console.log('after'), this.$emit('afterPerfectAnime')});
+           this.removeAfterTime(1000,()=>{ console.log('after'), this.$emit('afterPerfectAnime')});
        }
    },
     watch: {

@@ -22,19 +22,30 @@
       　        </div>
 
                 <div class='info_box'>
-                  <h6>{{$t("lead.Language setting")}}</h6>
+                  <h6>{{$t("lead.language_setting")}}</h6>
 
                   <label>{{$t("lead.game_lang")}}</label>
-                  <input type="radio" name="lang_contents" id="con_ja" value="ja" v-model="lang_contents">
-                    <label for="con_ja">{{$t("noun.japanese")}}</label>
-                  <input type="radio" name="lang_contents" id="con_en" value="en" v-model="lang_contents">
-                    <label for="con_en">{{$t("noun.english")}}</label>
-
+                  <ul>
+                    <li>
+                      <input type="radio" name="lang_contents" id="con_ja" value="ja" v-model="lang_contents">
+                      <label for="con_ja">{{$t("noun.japanese")}}</label>
+                    </li>
+                    <li>
+                    <input type="radio" name="lang_contents" id="con_en" value="en" v-model="lang_contents">
+                      <label for="con_en">{{$t("noun.english")}}</label>
+                    </li>
+                  </ul>
                   <label>{{$t("lead.site_lang")}}</label>
-                  <input type="radio" name="lang_site" id="site_ja" value="ja" v-model="lang_site">
-                    <label for="site_ja">{{$t("noun.japanese")}}</label>
-                  <input type="radio" name="lang_site" id="site_en" value="en" v-model="lang_site">
-                    <label for="site_en">{{$t("noun.english")}}</label>
+                  <ul>
+                    <li>
+                    <input type="radio" name="lang_site" id="site_ja" value="ja" v-model="lang_site">
+                      <label for="site_ja">{{$t("noun.japanese")}}</label>
+                  </li>
+                    <li>
+                    <input type="radio" name="lang_site" id="site_en" value="en" v-model="lang_site">
+                      <label for="site_en">{{$t("noun.english")}}</label>
+                    </li>
+                  </ul>
                 </div>
 
                 <div class='info_box'>
@@ -151,10 +162,13 @@ export default Vue.extend({
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  width: 100%;
+  height: 100%;
 }
 
 .modal-container {
   width: 80%;
+  height: 80%;
   margin: 0px auto;
   padding: 5px;
   background-color: #fff;
@@ -162,6 +176,7 @@ export default Vue.extend({
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  overflow: auto;
 }
 
 .modal-header h3 {
@@ -171,6 +186,7 @@ export default Vue.extend({
 
 .modal-body {
   margin: 20px 0;
+  overflow: auto;
 }
 
 .modal-default-button {

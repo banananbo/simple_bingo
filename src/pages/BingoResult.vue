@@ -2,7 +2,7 @@
 <div style="position:relative;">
     <Header></Header>
     <div style="position:absolute; 0%; right:10px;">
-    <a type="button" class="btn btn-primary" href="http://twitter.com/share?url=https//banananbo.github.io/simple_bingo/public&text=ぷらっとビンゴでお散歩しました！&hashtags=#furabingo" target="_blank">
+    <a type="button" class="btn btn-primary" :href="`http://twitter.com/share?url=https://bin5.xyz/%23/result/${$route.params.id}&text=おさんぽビンゴでお散歩しました！&hashtags=osanpo_bingo`" target="_blank">
     <v-fa :icon="['fab', 'twitter']" />シェアする
     </a>
     </div>
@@ -22,12 +22,14 @@ import firebase from "firebase"
 
 export type DataType ={
     bingo: Bingo,
+    mypageurl: String
 }
 
 export default Vue.extend({
     data:function():DataType {
         return {
             bingo: null,
+            mypageurl: encodeURI(window.location.href)
         };
     },
     computed:{
@@ -38,6 +40,7 @@ export default Vue.extend({
 
     },
     created(){
+        console.log(window.location.href);
 //         console.log(this.$route.params.id);
 // firebase.database().ref('archives/'+this.$route.params.id)
 // .once('value', (snapshot)=>{console.log(snapshot.val());console.log(this.bingo); this.bingo = Bingo.createByObj(snapshot.val());console.log("HOGA");console.log(this.bingo)})
