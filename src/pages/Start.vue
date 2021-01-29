@@ -2,15 +2,15 @@
 <section>
       <Header></Header>
       <div class="container-fluid text-center">
-            <h2 style="padding:30px">みつけた！ビンゴ</h2>
+            <h2 style="padding:30px">{{ $t("title") }}</h2>
       </div>
       
       <section class='info_box_playing' v-if="this.$store.state.bingo" >
-            <h5>プレイ中のビンゴ</h5>
+            <h5>{{ $t("lead.in_progress") }}</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
             <section class="text-center">
-                  <button type="button" class="btn btn-primary" @click="$router.push('/game')">続きをプレイ</button>
-                  <button type="button" class="btn btn-primary" @click="view_discardPop = true">破棄して新規作成</button>
+                  <button type="button" class="btn btn-primary" @click="$router.push('/game')">{{$t("function.continue") }}</button>
+                  <button type="button" class="btn btn-primary" @click="view_discardPop = true">{{$t("function.scratch") }}</button>
             </section>    
       </section>
 
@@ -32,35 +32,35 @@
       </section> -->
 
       <section v-if="!this.$store.state.bingo" class="text-center">
-            <button type="button" class="btn btn-primary" @click="$router.push('/game')">はじめる</button>
+            <button type="button" class="btn btn-primary" @click="$router.push('/game')">{{$t("function.start")}}</button>
       </section>
 
       <section class='info_box'>
-            <p class='title'>あそびかた</p>
+            <p class='title'>{{$t("lead.how_to")}}</p>
             <ul>
-                  <li>みつけたいものでビンゴをつくろう</li>
-                  <li>みつけたらチェックして、ビンゴをめざそう！</li>
+                  <li>{{$t("message.how_to_1")}}</li>
+                  <li>{{$t("message.how_to_2")}}</li>
             </ul>
       </section>
 
       <section class='info_box'>
-            <p class='title'>ビンゴをもって、近所をおさんぽ</p>
+            <p class='title'>{{$t("message.strolling")}}</p>
             <section class='info_main'>
                   <img src="https://1.bp.blogspot.com/-_DNRgqNKBDo/Xpa04l-ebHI/AAAAAAABYYc/SfGyu5kNEiAk-A-15wwKDAoq4-DVo9lywCNcBGAsYHQ/s500/mask_family_smile.png" height="150">
-                  <p>いつもの風景に、なにか違ったものが見つかるかも</p>
+                  <p>{{$t("message.strolling_detail")}}</p>
             </section>
       </section>
 
       <section class='info_box'>
-            <p class='title'>自然散策でビンゴ！</p>
+            <p class='title'>{{$t("message.naturebingo")}}</p>
             <section class='info_main'>
-                  <p>虫やトリ、お花。なにが見つかるかワクワク！</p>
+                  <p>{{$t("message.naturebingo_detail")}}</p>
                   <img src="https://1.bp.blogspot.com/-59_nvImHVnM/XkZdUFSPVeI/AAAAAAABXWQ/Vbu2acjd6dwZjOoQIhRGeYjKPY2EtUCewCNcBGAsYHQ/s400/yagai_kyoushitsu_casual_walk.png" height="150"> 
             </section>
       </section>
 
       <section v-if="!this.$store.state.bingo" class="text-center">
-            <button type="button" class="btn btn-primary" @click="$router.push('/game')">はじめる</button>
+            <button type="button" class="btn btn-primary" @click="$router.push('/game')">{{$t("function.start")}}</button>
       </section>
 
       <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>

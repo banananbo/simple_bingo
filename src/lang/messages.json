@@ -1,0 +1,108 @@
+{
+    "ja": {
+    "title": "みつけてビンゴ",
+    "lead": {
+        "in_progress": "プレイ中のビンゴ",
+        "not_start": "未プレイのビンゴ",
+        "everyones_bingo": "みんなのビンゴ",
+        "your_bingo": "あそんだビンゴ",
+        "language_setting": "言語設定",
+        "game_lang": "ゲームの言語",
+        "site_lang": "サイトの言語"
+    },
+    "function":{
+        "continue": "つづける",
+        "cancel": "とりけす",
+        "scratch": "つくりなおす",
+        "remove": "けす",
+        "found": "みつけた！",
+        "not_found": "まだ",
+        "finish": "おわる",
+        "close": "とじる",
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "start": "はじめる",
+        "enable_locale": "位置情報を記録する"
+    },
+    "noun":{
+        "bingo":"ビンゴ",
+        "score":"とくてん",
+        "start":"かいし",
+        "end":"おわり",
+        "time":"じかん",
+        "memo":"メモ",
+        "home":"ホーム",
+        "you":"あなた",
+        "everyone":"みんな",
+        "guest":"ゲスト"
+        
+    }, 
+    "message":{
+        "logged_in": "ログイン中",
+        "about_location": "みつけた位置情報を記録するとさらに楽しめます。",
+        "about_login": "ログインなしでも、ビンゴを楽しむことができます。",
+        "not_logged_in": "ログインしていません",
+        "how_to_1": "見つけたいものを決めて、自分だけのビンゴを作ろう",
+        "how_to_2": "見つけたらビンゴシートをチェック！いくつビンゴできるかな！？",
+        "strolling": "おさんぽビンゴ！",
+        "strolling_detail": "いつもの風景に、なにか違ったものが見つかるかも",
+        "naturebingo": "自然散策でビンゴ！",
+        "naturebingo_detail": "虫やトリ、自然でなにが見つかるかな。見つけながらビンゴを楽しもう！"
+    }
+    },
+    "en": {
+      "title": "Stroll Bingo",
+      "lead": {
+        "in_progress": "bingo in progress",
+        "not_start": "bingo is not started",
+        "everyones_bingo": "Everyone's bingo",
+        "language_setting": "Language setting",
+        "game_lang": "Game Language",
+        "site_lang": "Site Language",
+        "how_to": "How tp play",
+        "your_bingo": "Bingos you have played"
+
+      },
+      "function":{
+        "continue": "continue",
+        "scratch": "from scratch",
+        "found": "I got it!",
+        "not_found": "Not yet.",
+        "finish": "finish",
+        "close": "close",
+        "login": "login",
+        "start": "start",
+        "logout": "logout",
+        "enable_locale": "Record location information",
+        "cancel": "cancel"
+      },
+      "noun":{
+        "bingo":"bingo",
+        "score":"score",
+        "start":"start",
+        "end":"end",
+        "time":"time",
+        "memo":"memo",
+        "home":"home",
+        "you":"you",
+        "everyone":"everyone",
+        "japanese":"japanese",
+        "guest":"guest",
+        "english":"english"
+      },
+      "message":{
+        "logged_in": "logged in",
+        "about_location": "You can enjoy it even more by recording your location information.",
+        "about_login": "You can play without logging in",
+        "not_logged_in": "You are not logged in",
+        "how_to_1": "Decide what you want to find and make your own bingo",
+        "how_to_2": "If you find one, check the bingo sheet! How many bingo can you do! ??",
+      
+        "strolling": "Stroll Bingo!",
+        "strolling_detail": "There may be new discoveries in your usual walk!",
+        "naturebingo": "Nature Bingo!",
+        "naturebingo_detail": "Insects, birds and flowers. What can you find in nature? Exciting!"
+
+      }
+    }
+  }

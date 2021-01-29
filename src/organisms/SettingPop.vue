@@ -5,27 +5,46 @@
             <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">  
               <div class="modal-body rounded">
                 <div v-if="user.is_guest">
-                  <h5>ログインしていません</h5>
+                  <h5>{{$t("message.not_logged_in")}}</h5>
                   <p style='font-size: 0.8em'>
-                    ログインなしでも、ビンゴを楽しむことができます。
+                    {{$t("message.about_login")}}
                   </p>
                   <button class='btn' @click="login"><v-fa :icon="['fab', 'google']" /> Googleでログイン</button>
                   <button class='btn' @click="twlogin"><v-fa :icon="['fab', 'twitter']" /> Twitterでログイン</button>
                 </div>
                 <div v-else>
-                        <h6>ログイン中</h6>
+                        <h6>{{$t("message.logged_in")}}</h6>
                         <img :src="user.image" height="30">
                         <span>{{ user.name}}</span>
                         <div>
-                          <button class='btn' @click="logout"><v-fa icon="sign-out-alt" /> ログアウト</button>
+                          <button class='btn' @click="logout"><v-fa icon="sign-out-alt" /> {{$t("function.logout")}}</button>
                         </div>
       　        </div>
+
                 <div class='info_box'>
-                  <label>みつけた位置情報を記録するとさらに楽しめます。</label>
-                  <input type="checkbox" v-model="allow_location">
-                  　位置情報を取得する
+                  <h6>{{$t("lead.Language setting")}}</h6>
+
+                  <label>{{$t("lead.game_lang")}}</label>
+                  <input type="radio" name="lang_contents" id="con_ja" value="ja" v-model="lang_contents">
+                    <label for="con_ja">{{$t("noun.japanese")}}</label>
+                  <input type="radio" name="lang_contents" id="con_en" value="en" v-model="lang_contents">
+                    <label for="con_en">{{$t("noun.english")}}</label>
+
+                  <label>{{$t("lead.site_lang")}}</label>
+                  <input type="radio" name="lang_site" id="site_ja" value="ja" v-model="lang_site">
+                    <label for="site_ja">{{$t("noun.japanese")}}</label>
+                  <input type="radio" name="lang_site" id="site_en" value="en" v-model="lang_site">
+                    <label for="site_en">{{$t("noun.english")}}</label>
+                </div>
+
+                <div class='info_box'>
+                  <label>{{$t("message.about_location")}}</label>
+                  <input id="allow_location" type="checkbox" v-model="allow_location">
+                  　<label for="allow_location">{{$t("function.enable_locale")}}</label>
                   </label>
                 </div>
+
+                <button class="btn btn-primary" @click="cancel">{{$t("function.close")}}</button>
               </div>
             </div>
           </div>
@@ -61,6 +80,22 @@ export default Vue.extend({
         set(value:boolean ){
           this.$store.commit('user_setting/setAllowLocation',value);
         }
+      },
+      lang_site: {
+        get():boolean{
+          return this.$store.state.user_setting.lang_site
+        },
+        set(value:boolean ){
+          this.$store.commit('user_setting/setLangSite',value);
+        }
+      },
+      lang_contents: {
+        get():boolean{
+          return this.$store.state.user_setting.lang_contents
+        },
+        set(value:boolean ){
+          this.$store.commit('user_setting/setLangContents',value);
+        }
       }
     },
 
@@ -85,8 +120,7 @@ export default Vue.extend({
 </script>
 <style scoped>
 .btn{
-  padding: 5px;
-  border-width: 1em;
+  margin: 5px;
 }
 .inline-block {
     /* display: inline-block; */
@@ -120,7 +154,7 @@ export default Vue.extend({
 }
 
 .modal-container {
-  width: 300px;
+  width: 80%;
   margin: 0px auto;
   padding: 5px;
   background-color: #fff;

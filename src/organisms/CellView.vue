@@ -101,11 +101,12 @@ span {
   transform: translate(-50%,-50%);
   font-weight: bold;
   font-size: 0.8em;
-  background: #a22a40;
+  background: #145021;
+  opacity:0.7;
   color:#fff;
   line-height: 1.4;
   margin-bottom: 2px;
-  padding: 1px 2px;
+  padding: 2px 2px;
   border-radius: 5px;
 }
 </style>

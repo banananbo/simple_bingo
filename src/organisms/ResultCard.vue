@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td class="player">
-                        {{bingo.id}} by {{bingo.player.name}}
+                        by {{bingo.player.name}}
                     </td>
                 </tr>
             </table>
@@ -23,23 +23,23 @@
                     <BingoView :bingo="bingo" :size="size"></BingoView>
                     <div>
                         <dl>
-                            <dt>score</dt>
+                            <dt>{{$t("noun.score")}}</dt>
                             <dd>{{bingo.score}}</dd>
-                            <dt>bingo</dt>
+                            <dt>{{$t("noun.bingo")}}</dt>
                             <dd>{{bingo.bingonum}}</dd>
-                            <dt>開始</dt>
-                            <dd>{{format_to_date(bingo.start_time)}}</dd>
-                            <dt>終了</dt>
-                            <dd>{{format_to_date(bingo.end_time)}}</dd>
-                            <dt>時間</dt>
+                            <dt>{{$t("noun.start")}}</dt>
+                            <dd>{{$d(new Date(bingo.start_time),"long")}}</dd>
+                            <dt>{{$t("noun.end")}}</dt>
+                            <dd>{{$d(new Date(bingo.end_time),"long")}}</dd>
+                            <dt>{{$t("noun.time")}}</dt>
                             <dd>{{format_to_time(bingo.current_time)}}</dd>
-                            <dt>メモ</dt>
+                            <dt>{{$t("noun.memo")}}</dt>
                             <dd>{{bingo.memo}}</dd>
                         </dl>
                     </div>
                     <dl v-for="(cell,idx) in bingo.cells_checked.reverse()" :key="idx">
                         <dt><ContentView :content="cell.content" :size="50"></ContentView></dt>
-                        <dd>{{format_to_date(cell.checkInfo.time)}}
+                        <dd>{{$d(new Date(cell.checkInfo.time),"long")}}
                         <a v-if="cell.checkInfo.location_available && location_link" :href="`https://www.google.com/maps?q=${cell.checkInfo.location.lat},${cell.checkInfo.location.lon}`" target="_blank">
                             <v-fa icon="map-marker-alt" />
                         </a></dd>

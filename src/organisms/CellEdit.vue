@@ -77,7 +77,7 @@ export default Vue.extend({
 
 .modal-container {
   width: 95vw;
-  height: 90vh;
+  height: 80vh;
   overflow: auto;
   margin: 0px auto;
   padding: 5px;

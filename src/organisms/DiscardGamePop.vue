@@ -8,9 +8,9 @@
          <h5>プレイ中のビンゴをすててよろしいですか？</h5>
          <h6>記録</h6>
          <ul>
-              <li class="list-group-item">score:{{$store.state.bingo.score}}</li>
-              <li class="list-group-item">bingo:{{$store.state.bingo.bingonum}}</li>
-              <li class="list-group-item">time:{{$store.state.bingo.current_time}}</li>
+              <li class="list-group-item">{{$t("noun.score")}}:{{$store.state.bingo.score}}</li>
+              <li class="list-group-item">{{$t("noun.bingo")}}:{{$store.state.bingo.bingonum}}</li>
+              <li class="list-group-item">{{$t("noun.time")}}:{{$store.state.bingo.current_time}}</li>
          </ul>
          <div class="text-center">
           <button class="btn btn-danger" @click="discardGame">すてる</button>

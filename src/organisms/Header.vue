@@ -2,7 +2,7 @@
       <div class="navbar fixed-top">
         <a class="navbar-brand" href="#">
           <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
-          みつけた！ビンゴ
+          {{ $t("title") }}
         </a>
         <button class='btn' @click="openSettingPop"><v-fa icon="cog" /> {{ $store.state.user.user.name}}</button>
         <SettingPop v-if="settingPop" :user="$store.state.user.user" :allow_location='$store.state.user_setting.allow_location' @close="closeSettingPop"></SettingPop>
@@ -21,6 +21,8 @@ export default Vue.extend({
         return {
           settingPop: false
         };
+    },
+    created(){
     },
     components: {
       SettingPop

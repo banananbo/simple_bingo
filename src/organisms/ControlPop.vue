@@ -1,8 +1,8 @@
 <template>
       <!-- <transition name="modal"> -->
-        <div class="modal-mask">
+        <div class="modal-mask" @click="closeModal">
           <div class="modal-wrapper">
-            <div class="modal-container">
+            <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">
               <div class="modal-body rounded">
                   <p class="title">{{cell.content.title}}</p>
                   <div class="inline-block" style="float: left">
@@ -12,13 +12,14 @@
                     {{cell.content.caption}}
                   </div>
                   <div class="text-center" style="clear:both">
-                    <button class="btn btn-primary" v-if="!cell.checked" @click="submitContent">見つけた！</button>
-                    <button class="btn btn-primary" v-if="!cell.checked" @click="cancelContent">まだ</button>
-                    <p v-if="cell.checked">{{format_to_date(cell.checkInfo.time)}}に発見</p>
+                    <button class="btn btn-primary" v-if="!cell.checked" @click="submitContent">{{$t("function.found")}}</button>
+                    <button class="btn btn-primary" v-if="!cell.checked" @click="cancelContent">{{$t("function.not_found")}}</button>
+                    <p v-if="cell.checked">{{format_to_date(cell.checkInfo.time)}} {{$t("function.found")}}</p>
                     <!-- <a v-if="cell.location_available" :href="`https://www.google.com/maps?q=${cell.checkInfo.location.lat},${cell.checkInfo.location.lon}`" target="_blank">
                         <v-fa icon="map-marker-alt" />
                     </a> -->
-                    <button class="btn btn-primary" v-if="cell.checked" @click="cancelContent">とりけす</button>
+                    <button class="btn btn-primary" v-if="cell.checked" @click="cancelContent">{{$t("function.cancel")}}</button>
+                    <button class="btn btn-primary" v-if="cell.checked" @click="closeModal">{{$t("function.close")}}</button>
                   </div>
               </div>
             </div>

@@ -5,7 +5,8 @@
             <div class="modal-container">
 
      <div class="modal-body rounded">
-         <h5>ビンゴを終わりにしますか？</h5>
+         <h5>ビンゴをおわりますか？</h5>
+         <p style='font-size: 0.8em'>再開できません。中断する場合は「つづける」を押し、そのままブラウザを閉じてください。</p>
          <h6>記録</h6>
             <table>
                 <tr>
@@ -24,8 +25,8 @@
             <textarea v-model="bingo.memo" style="width:80%" maxlength='100'></textarea>
          </div>
          <div class="text-center">
-          <button class="btn btn-primary" @click="submitContent">記録して終わる</button>
-          <button class="btn btn-danger" @click="removeContent">すてる</button>
+          <button class="btn btn-primary" @click="submitContent">ビンゴをおわる</button>
+          <button class="btn btn-danger" @click="removeContent">つくりなおす</button>
           <button class="btn btn-primary" @click="cancelContent">つづける</button>
          </div>
     </div>
@@ -39,8 +40,6 @@
 
 import Vue from "vue"
 import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
-import Header from "@organisms/Header.vue";
-import BingoView from "@organisms/BingoView.vue";
 import ContentView from "@organisms/ContentView.vue";
 
 export type DataType ={
@@ -79,6 +78,9 @@ ContentView
 });
 </script>
 <style scoped>
+button{
+  margin: 5px;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;

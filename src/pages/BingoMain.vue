@@ -12,16 +12,16 @@
         <div v-if="this.$store.state.bingo.is_playing">
             <table>
                 <tr>
-                    <th>スコア</th>
-                    <th>ビンゴ</th>
-                    <th>時間</th>
+                    <th>{{$t("noun.score")}}</th>
+                    <th>{{$t("noun.bingo")}}</th>
+                    <th>{{$t("noun.time")}}</th>
                     <th></th>
                 </tr>
                 <tr>
                     <td class="big">{{this.$store.state.bingo.score}}</td>
                     <td class="big">{{this.$store.state.bingo.bingonum}}</td>
                     <td>{{timer}}</td>
-                    <td><button type="button" class="btn btn-primary" @click="clickEndBtn">おわる</button></td>
+                    <td><button type="button" class="btn btn-primary" @click="clickEndBtn">{{$t("function.finish")}}</button></td>
                 </tr>
             </table>
         </div>

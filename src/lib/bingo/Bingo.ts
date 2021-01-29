@@ -3,6 +3,7 @@ import {User} from "@lib/bingo/user.ts";
 import {ExDate} from "@lib/func/ex_date.ts";
 import {EventEmitter} from 'events';
 import store from '../../store/index.ts';
+import {i18n} from '../../i18n.ts';
 
 export class Bingo extends EventEmitter{
 
@@ -71,8 +72,8 @@ export class Bingo extends EventEmitter{
 
     public get title():String{
         if(this._title == ""){
-            if(!this._start_time) return "未プレイのビンゴ"
-            return ExDate.format_to_date(this._start_time)+"のビンゴ"
+            if(!this._start_time) return i18n.t("lead.not_start").toString();
+            return i18n.d(new Date(this._start_time),'long')+"のビンゴ"
         }
         return this._title;
     }

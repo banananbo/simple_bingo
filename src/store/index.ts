@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 import firebase from "firebase"
-import {user_setting} from './modules/user_setting.ts'
+import {user_setting,UserSettingState} from './modules/user_setting.ts'
 import {user,UserState} from './modules/user.ts'
 import {archives , ArchivesState} from './modules/archives.ts'
 import {User} from "@lib/bingo/user.ts";
@@ -13,7 +13,8 @@ interface State {
   bingo: Bingo,
   // modules
   user: UserState,
-  archives: ArchivesState
+  archives: ArchivesState,
+  user_setting: UserSettingState
 }
 
 export default new Vuex.Store({
@@ -73,7 +74,7 @@ actions: {
     context.commit("user/loadLoginUser");
     context.commit('archives/loadRecentArchives');
     context.commit('archives/loadMyArchives');
-    context.commit("user_setting/doLoad");
+    context.commit("user_setting/loadFromStrage");
   },
 
 }

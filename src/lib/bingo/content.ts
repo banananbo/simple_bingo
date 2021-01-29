@@ -1,3 +1,5 @@
+import store from '../../store/index.ts';
+
 export class Tag{
     constructor(public id:number,public title:string){
     }
@@ -11,7 +13,18 @@ export class Tag{
 
 export class Content{
 
-    constructor(public id:number,public title:string,public caption:string){
+    public get title():string{
+        if(store.state.user_setting.lang_contents =='ja') return this.title_ja;
+        if(store.state.user_setting.lang_contents =='en') return this.title_en;
+        return "";
+    }
+    public get caption():string{
+        if(store.state.user_setting.lang_contents =='ja') return this.caption_ja;
+        if(store.state.user_setting.lang_contents =='en') return this.caption_en;
+        return "";
+    }
+
+    constructor(public id:number,public title_ja:string,public caption_ja:string,public title_en:string, public caption_en:string){
     }
     static IMG_HOST:string = 'https://img.bin5.xyz/public/img/'
     public get img_src(){
@@ -19,69 +32,69 @@ export class Content{
     }
     static contents:Array<Content> = [
             new Content(1,      
-            'ねこ','いつものばしょにいるかも'),
+            'ねこ','いつものばしょにいるかも','CAT',"Let's find a place where its are always"),
             new Content(2,
-            'ポスト','ゆうびんきょくのまえにはある'),
+            'ポスト','ゆうびんきょくのまえにはある','POST',"Let's look in front of the post office"),
             new Content(3,
-            'とけい','こうえんにあるかな'),
+            'とけい','こうえんにあるかな','CLOCK','Tend to be in the park'),
             new Content(4,
-            'あかいはな','きれい'),
+            'あかいはな','きれい',"RED FLOWER",""),
             new Content(5,
-            'からす','そらをとんでるかも'),
+            'からす','そらをとんでるかも',"CROW",""),
             new Content(6,
-            'きいろいはな','きれい'),
+            'きいろいはな','きれい',"YELLOW FLOWER",""),
             new Content(7,
-            'つき','おそらのどこかにみえるかな'),
+            'つき','おそらのどこかにみえるかな',"MOON",""),
             new Content(8,
-            'パイロン','どうろにおいてあるかも'),
+            'パイロン','どうろにおいてあるかも',"PYLON",""),
             new Content(9,
-            'いぬ','さんぽしていないかな'),
+            'いぬ','さんぽしていないかな',"DOG",""),
             new Content(10,
-            'ちょうちょ','はなのちかくにいるよ'),
+            'ちょうちょ','はなのちかくにいるよ',"BUTTERFLY",""),
             new Content(11,
-            'あり','じめんをよくみてね'),
+            'あり','じめんをよくみてね',"ANT",""),
             new Content(12,
-            'あおいくるま','きをつけてみつけよう'),
+            'あおいくるま','きをつけてみつけよう',"BLUE CAR",""),
             new Content(13,
-            '７のもじ','どこにあるかな'),
+            '７のもじ','どこにあるかな',"LETTER 7","Let`s find letter 7"),
             new Content(14,
-            'あかいくるま','めだつ'),
+            'あかいくるま','めだつ',"RED CAR",""),
             new Content(15,
-            'だんごむし','いしのしたにいるかも'),
+            'だんごむし','いしのしたにいるかも',"Rory Poly","Let's look under the stone"),
             new Content(16,
-            'しんごう','どうろをさがそう'),
+            'しんごう','どうろをさがそう',"SIGNAL",""),
             new Content(17,
-            'じはんき','じどうはんばいき'),
+            'じはんき','じどうはんばいき',"VENDING MACHINE",""),
             new Content(18,
-            'はと','ふんにちゅうい'),
+            'はと','ふんにちゅうい',"PIGEON",""),
             new Content(19,
-            'むしくいば','あながあいているよ'),
+            'むしくいば','あながあいているよ',"Leaf eaten by wormhat",""),
             new Content(20,
-            'ぼうし','おしゃれなひとをさがそう'),
+            'ぼうし','おしゃれなひとをさがそう',"hat",""),
             new Content(21,
-            'じてんしゃ','かっこいい'),
+            'じてんしゃ','かっこいい',"BICYCLE",""),
             new Content(22,
-            'けいトラ','トラック'),
+            'けいトラ','トラック',"SMALL TRUCK",""),
             new Content(23,
-            'ふたり','ふたりであるいているひとをさがそう'),
-            new Content(24,'きのみ','こうえんにあるかな'),
-            new Content(25,'ベンチ','こうえんにあるかな'),
-            new Content(26,'マンホール','したをむいてさがそう'),
-            new Content(27,'あおいやね','どんないえがあるかな'),
-            new Content(28,'あかいやね','めだついえがあるかな'),
-            new Content(29,'あおいふく','きているひといるかな'),
-            new Content(30,'あかいふく','ちゅういしてさがしてみよう'),
-            new Content(31,'みどりふく','おしゃれなひといるかな'),
-            new Content(32,'くものす','よくみないと、みつからないかも'),
-            new Content(33,'どうぞう','えきまえや、こうえんにあるかな'),
-            new Content(34,'ひこうき','そらをさがしてみよう'),
-            new Content(35,'あかちゃん','だっこしていたり、ベビーカーにのっているかも'),
+            'ふたり','ふたりであるいているひとをさがそう',"COUPLE",""),
+            new Content(24,'きのみ','こうえんにあるかな',"NUTS",""),
+            new Content(25,'ベンチ','こうえんにあるかな',"BENTCH",""),
+            new Content(26,'マンホール','したをむいてさがそう',"MANHOLE",""),
+            new Content(27,'あおいやね','どんないえがあるかな',"BLUE ROOF",""),
+            new Content(28,'あかいやね','めだついえがあるかな',"RED ROOF",""),
+            new Content(29,'あおいふく','きているひといるかな',"BLUE CLOTHES",""),
+            new Content(30,'あかいふく','ちゅういしてさがしてみよう',"RED CLOTHES",""),
+            new Content(31,'みどりふく','おしゃれなひといるかな',"GREEN CLOTHES",""),
+            new Content(32,'くものす','よくみないと、みつからないかも',"SPIDERWEB",""),
+            new Content(33,'どうぞう','えきまえや、こうえんにあるかな',"BRONZE STATUE",""),
+            new Content(34,'ひこうき','そらをさがしてみよう',"AIRPLANE",""),
+            new Content(35,'あかちゃん','だっこしていたり、ベビーカーにのっているかも',"BABY","He/She may be kidnapped or in a stroller"),
 
     ];
 
     static get blank():Content{
         return new Content(0,
-            'blank','caption'
+            'blank','caption',"",""
         );
     }
     

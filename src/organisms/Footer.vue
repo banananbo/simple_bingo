@@ -5,25 +5,25 @@
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="movePage('/')">
         <v-fa icon="home" />
-        <span>ホーム</span>
+        <span>{{$t("noun.home")}}</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#" @click.prevent.stop="movePage('/game')">
         <v-fa icon="th" />
-        <span>ビンゴ</span>
+        <span>{{$t("noun.bingo")}}</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="movePage('/mypage')">
         <v-fa icon="user" />
-        <span>あなた</span>
+        <span>{{$t("noun.you")}}</span>
       </a>
     </li>
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="movePage('/archives')">
         <v-fa icon="users" />
-        <span>みんな</span>
+        <span>{{$t("noun.everyone")}}</span>
       </a>
     </li>
   </ul>
@@ -47,6 +47,7 @@ export default Vue.extend({
 <style scoped>
 .navbar{
     padding:0;
+    z-index: 1029;
 }
 .nav-item i {
   display: block;

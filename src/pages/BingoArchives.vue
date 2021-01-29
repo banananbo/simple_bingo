@@ -1,7 +1,7 @@
 <template>
 <div>
     <Header></Header>
-    <h5>みんなのビンゴ</h5>
+    <h5>{{$t("lead.everyones_bingo")}}</h5>
     <div  v-for="(bingo,idx) in this.$store.state.archives.recent_archives" :key="idx">
         <ResultCard :bingo="bingo"></ResultCard>
     </div>
