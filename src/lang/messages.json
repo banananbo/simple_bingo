@@ -1,6 +1,7 @@
 {
     "ja": {
     "title": "おさんぽビンゴ",
+    "sub_title": "みんなで！",
     "lead": {
         "in_progress": "プレイ中のビンゴ",
         "not_start": "未プレイのビンゴ",
@@ -66,6 +67,7 @@
     },
     "en": {
       "title": "Stroll Bingo",
+      "sub_title": "Let's!",
       "lead": {
         "in_progress": "bingo in progress",
         "not_start": "bingo is not started",

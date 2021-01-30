@@ -2,9 +2,9 @@
 <section>
       <Header></Header>
       <div class="container-fluid text-center">
-            <h2 style="padding:30px">{{ $t("title") }}</h2>
+            <!-- <h2 style="padding:30px">{{ $t("title") }}</h2> -->
+            <TitleLogo></TitleLogo>
       </div>
-      
       <section class='info_box_playing' v-if="this.$store.state.bingo" >
             <h5>{{ $t("lead.in_progress") }}</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
@@ -69,6 +69,7 @@
 import Vue from "vue" 
 import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
+import TitleLogo from "@atoms/TitleLogo.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
 import firebase from "firebase"
@@ -114,7 +115,8 @@ export default Vue.extend({
         Header,
         Footer,
         ResultCard,
-        DiscardGamePop
+        DiscardGamePop,
+        TitleLogo
       }
 })
 </script>

@@ -1,6 +1,6 @@
 <template>
       <div class="navbar fixed-top">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="#" @click="onTitleClicked">
           <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
           {{ $t("title") }}
         </a>
@@ -33,6 +33,10 @@ export default Vue.extend({
       },
       closeSettingPop(){
         this.settingPop=false;
+      },
+      onTitleClicked(){
+        if (this.$route.path == "/") return;
+        this.$router.push("/");
       }
     },
 });
