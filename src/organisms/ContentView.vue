@@ -67,8 +67,17 @@ export default Vue.extend({
             // };
         },
         select:function(){
+            // speech test
+            if(this.$store.state.user_setting.speech_mode) this.speech();
+
             if(!this.enable) return;
             this.$emit('onClick',{content:this.content});
+        },
+        speech:function(){
+            let u = new SpeechSynthesisUtterance();
+            u.lang = 'en-US';
+            u.text = this.content.title_en;
+            speechSynthesis.speak(u);
         }
   },
 });

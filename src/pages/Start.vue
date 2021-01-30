@@ -14,23 +14,6 @@
             </section>    
       </section>
 
-      <!-- <section class="list">
-      <ul>
-            <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/009.png" style="width:50px;height:50px"></li>
-            <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/002.png" style="width:50px;height:50px"></li>
-            <li><img src="https://banananbo.github.io/simple_bingo/public/img/contents/006.png" style="width:50px;height:50px"></li>
-      </ul>
-      </section> -->
-      <!-- <section class='info_box'>
-            <h5>あそびかた</h5>
-            <ul>
-                  <li> </li>
-                  <li>見つけたら、ビンゴ！ </li>
-                  <li>子どもの、発見の喜び　</li>
-                  <li>いつもの風景に、新たな発見を　</li>
-            </ul>
-      </section> -->
-
       <section v-if="!this.$store.state.bingo" class="text-center">
             <button type="button" class="btn btn-primary" @click="$router.push('/game')">{{$t("function.start")}}</button>
       </section>
@@ -56,6 +39,18 @@
             <section class='info_main'>
                   <p>{{$t("message.naturebingo_detail")}}</p>
                   <img src="https://1.bp.blogspot.com/-59_nvImHVnM/XkZdUFSPVeI/AAAAAAABXWQ/Vbu2acjd6dwZjOoQIhRGeYjKPY2EtUCewCNcBGAsYHQ/s400/yagai_kyoushitsu_casual_walk.png" height="150"> 
+            </section>
+      </section>
+
+      <section class='info_box'>
+            <p class='title'>{{$t("message.language_education")}}</p>
+            <section class='info_main'>
+                  <p>{{$t("message.language_education_detail")}}</p>
+                  <img src="/img/abc.jpg" width="200"> 
+            </section>
+            <section v-if="$store.state.user_setting.lang_site=='ja'">
+            <button v-if="!$store.getters['user_setting/eng_study_mode']" class="btn btn-success" @click="$store.commit('user_setting/setEnglishStudyMode',true);" >英語学習モードにする</button>
+            <button v-if="$store.getters['user_setting/eng_study_mode']" class="btn btn-success" @click="$store.commit('user_setting/setEnglishStudyMode',false);" >英語学習モードをやめる</button>
             </section>
       </section>
 
@@ -90,6 +85,9 @@ export default Vue.extend({
         };
       },
       methods:{
+            test: function(){
+
+            },
             discardGame: function(){
                   this.view_discardPop = false;
                   this.$router.push('game');

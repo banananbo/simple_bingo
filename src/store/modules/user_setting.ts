@@ -5,8 +5,14 @@ export const user_setting = {
     state: {
       allow_location: false,
       lang_site: 'ja',
-      lang_contents: 'ja'
+      lang_contents: 'ja',
+      speech_mode: false
     } as UserSettingState,
+    getters: {
+      eng_study_mode: (state:UserSettingState) =>{
+        return ((state.lang_contents == 'en') && state.speech_mode)
+      }
+    },
     mutations: {
       setAllowLocation (state:UserSettingState,allow_location:boolean) {
         state.allow_location = allow_location;
@@ -21,6 +27,15 @@ export const user_setting = {
         state.lang_contents = lang_contents;
         localStorage.setItem('settings', JSON.stringify(state));
       },
+      setSpeechMode (state:UserSettingState,speech_mode:Boolean) {
+        state.speech_mode = speech_mode;
+        localStorage.setItem('settings', JSON.stringify(state));
+      },
+      setEnglishStudyMode  (state:UserSettingState,mode:Boolean) {
+        state.speech_mode = mode;
+        state.lang_contents = (mode)? 'en' : 'ja';
+        localStorage.setItem('settings', JSON.stringify(state));
+      },
       loadFromStrage (state:UserSettingState) {
         let settings_json:string =localStorage.settings;
         if(settings_json){
@@ -28,6 +43,7 @@ export const user_setting = {
           if(obj.allow_location) state.allow_location = obj.allow_location;
           if(obj.lang_site) state.lang_site = obj.lang_site;
           if(obj.lang_contents) state.lang_contents = obj.lang_contents;
+          if(obj.speech_mode) state.speech_mode = obj.speech_mode;
         }
         i18n.locale  = state.lang_site;
       }
@@ -40,5 +56,6 @@ export const user_setting = {
 export interface UserSettingState {
   allow_location: Boolean,
   lang_site: string,
-  lang_contents: string
+  lang_contents: string,
+  speech_mode: Boolean
 }

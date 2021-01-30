@@ -25,7 +25,8 @@
         "login": "ログイン",
         "logout": "ログアウト",
         "start": "はじめる",
-        "enable_locale": "位置情報を記録する"
+        "enable_locale": "位置情報を記録する",
+        "enable_speech_mode": "英語読み上げをする"
     },
     "noun":{
         "bingo":"ビンゴ",
@@ -40,11 +41,13 @@
         "record":"きろく",
         "ready":"よーい",
         "go":"スタート",
+        "japanese":"にほんご",
+        "english":"えいご",
         "guest":"ゲスト"
     }, 
     "message":{
         "logged_in": "ログイン中",
-        "about_location": "みつけた位置情報を記録するとさらに楽しめます。",
+        "about_location": "みつけた位置情報を記録すると、さらに楽しめます。",
         "about_login": "ログインなしでも、ビンゴを楽しむことができます。",
         "not_logged_in": "ログインしていません",
         "how_to_1": "見つけたいものを決めて、自分だけのビンゴを作ろう",
@@ -56,7 +59,9 @@
         "bingo_create": "絵をクリックすると変更できます",
         "finish_bingo_alert": "プレイ中のビンゴは消えてしまいます。よろしいですか？",
         "finish_bingo_caption": "再開できません。中断する場合は「つづける」を押し、そのままブラウザを閉じてください。",
-        "finish_bingo": "ビンゴをおわりますか？"
+        "finish_bingo": "ビンゴをおわりますか？",
+        "language_education": "英語学習にも",
+        "language_education_detail": "英語でも遊べる！英語では何と言うのかな。見つけたものを言って見よう"
     }
     },
     "en": {
@@ -86,6 +91,7 @@
         "logout": "logout",
         "remove": "discard",
         "enable_locale": "Record location information",
+        "enable_speech_mode": "Read aloud in English",
         "cancel": "cancel"
       },
       "noun":{
@@ -117,6 +123,8 @@
         "strolling_detail": "There may be new discoveries in your usual walk!",
         "naturebingo": "Nature Bingo!",
         "naturebingo_detail": "Insects, birds and flowers. What can you find in nature? Exciting!",
+        "language_education": "Language Education",
+        "language_education_detail": "You can also play in Japanese! Let's say what you found in Japanese",
         "finish_bingo_alert": "The bingo you are playing will disappear. Is it OK?",
         "finish_bingo_caption": "It cannot be resumed. To interrupt, press 'Continue' and close the browser as it is.",
         "finish_bingo": "Do you want to end the bingo?",

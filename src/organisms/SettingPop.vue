@@ -49,6 +49,13 @@
                 </div>
 
                 <div class='info_box'>
+                  <!-- <label>{{$t("message.speech_mode")}}</label> -->
+                  <input id="speech_mode" type="checkbox" v-model="speech_mode">
+                  　<label for="speech_mode">{{$t("function.enable_speech_mode")}}</label>
+                  </label>
+                </div>
+
+                <div class='info_box'>
                   <label>{{$t("message.about_location")}}</label>
                   <input id="allow_location" type="checkbox" v-model="allow_location">
                   　<label for="allow_location">{{$t("function.enable_locale")}}</label>
@@ -90,6 +97,14 @@ export default Vue.extend({
         },
         set(value:boolean ){
           this.$store.commit('user_setting/setAllowLocation',value);
+        }
+      },
+      speech_mode: {
+        get():boolean{
+          return this.$store.state.user_setting.speech_mode
+        },
+        set(value:boolean ){
+          this.$store.commit('user_setting/setSpeechMode',value);
         }
       },
       lang_site: {

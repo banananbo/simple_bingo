@@ -68,7 +68,7 @@ export class Content{
             new Content(18,
             'はと','ふんにちゅうい',"PIGEON",""),
             new Content(19,
-            'むしくいば','あながあいているよ',"Leaf eaten by wormhat",""),
+            'むしくいば','あながあいているよ',"Leaf eaten by worm",""),
             new Content(20,
             'ぼうし','おしゃれなひとをさがそう',"hat",""),
             new Content(21,
