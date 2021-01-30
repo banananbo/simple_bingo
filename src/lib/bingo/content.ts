@@ -89,7 +89,15 @@ export class Content{
             new Content(33,'どうぞう','えきまえや、こうえんにあるかな',"BRONZE STATUE",""),
             new Content(34,'ひこうき','そらをさがしてみよう',"AIRPLANE",""),
             new Content(35,'あかちゃん','だっこしていたり、ベビーカーにのっているかも',"BABY","He/She may be kidnapped or in a stroller"),
-
+            new Content(36,'みがなるき','よくみると、みがなっている',"Fruiting tree",""),
+            new Content(37,'おまわりさん','',"Policeman",""),
+            new Content(38,'コンビニ','',"Convenience store",""),
+            new Content(39,'パトカー','',"Police car",""),
+            new Content(40,'おうだんほどう','',"Crosswalk",""),
+            new Content(41,'はいしゃ','',"Dental clinic",""),
+            new Content(42,'みずたまり','',"Puddle",""),
+            new Content(43,'とりい','',"torii",""),
+            new Content(44,'でんちゅう','',"Utility pole",""),
     ];
 
     static get blank():Content{

@@ -49,8 +49,9 @@
                   <img src="/img/abc.jpg" width="200"> 
             </section>
             <section v-if="$store.state.user_setting.lang_site=='ja'">
-            <button v-if="!$store.getters['user_setting/eng_study_mode']" class="btn btn-success" @click="$store.commit('user_setting/setEnglishStudyMode',true);" >英語学習モードにする</button>
-            <button v-if="$store.getters['user_setting/eng_study_mode']" class="btn btn-success" @click="$store.commit('user_setting/setEnglishStudyMode',false);" >英語学習モードをやめる</button>
+                  <button v-if="!$store.getters['user_setting/eng_study_mode']" class="btn btn-success" @click="$store.commit('user_setting/setEnglishStudyMode',true);" >英語学習モードにする</button>
+                  <button v-if="$store.getters['user_setting/eng_study_mode']" class="btn btn-success" @click="$store.commit('user_setting/setEnglishStudyMode',false);" >英語学習モードをやめる</button>
+                  <p style='font-size:0.8em'>※iOSでは音声がおかしくなる不具合があります</p>
             </section>
       </section>
 
