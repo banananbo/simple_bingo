@@ -3,7 +3,7 @@
     <Header></Header>
     <h5>{{$t("lead.everyones_bingo")}}</h5>
     <div  v-for="(bingo,idx) in this.$store.state.archives.recent_archives" :key="idx">
-        <ResultCard :bingo="bingo"></ResultCard>
+        <ResultCard :bingo="bingo" :enable_copy="true"></ResultCard>
     </div>
     <Footer></Footer>
 </div>

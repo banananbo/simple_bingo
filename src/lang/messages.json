@@ -27,7 +27,8 @@
         "logout": "ログアウト",
         "start": "はじめる",
         "enable_locale": "位置情報を記録する",
-        "enable_speech_mode": "英語読み上げをする"
+        "enable_speech_mode": "英語読み上げをする",
+        "copy_and_play": "このビンゴであそぶ"
     },
     "noun":{
         "bingo":"ビンゴ",
@@ -94,7 +95,8 @@
         "remove": "discard",
         "enable_locale": "Record location information",
         "enable_speech_mode": "Read aloud in English",
-        "cancel": "cancel"
+        "cancel": "cancel",
+        "copy_and_play": "copy and play"
       },
       "noun":{
         "bingo":"bingo",
