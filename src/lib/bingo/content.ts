@@ -31,6 +31,9 @@ export class Content{
     public get img_src(){
         return  `${Content.IMG_HOST}contents/${('00'+this.id).slice(-3)}.png`
     }
+    static getById(id:number){
+        return Content.contents[id-1]
+    }
     static contents:Array<Content> = [
             new Content(1,      
             'ねこ','いつものばしょにいるかも','CAT',"Let's find a place where its are always"),
@@ -122,9 +125,5 @@ export class Content{
     static get random():Content{
         let id = Math.floor( Math.random() * (Content.contents.length-1) );
         return this.contents[id];
-    }
-    static createById(id:number):Content{
-        return Content.contents[id-1];
-        // return new Content(obj.id,obj.title,obj.caption);
     }
 }

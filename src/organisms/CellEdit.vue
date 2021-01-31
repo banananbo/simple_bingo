@@ -2,12 +2,12 @@
       <transition name="modal">
         <div class="modal-mask" @click="closeModal">
           <div class="modal-wrapper">
-            <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">
-              <div class="modal-body rounded">
-      <div v-for="(content, index) in contents" :key="index" class="box">
-            <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="size" @onClick="onClicked"></ContentView>
-            <p>{{content.title}}</p>
-      </div>
+            <div class="modal-container rounded" @click="(event)=>{ event.stopPropagation(); }">
+              <div class="modal-body">
+                <div v-for="(content, index) in contents" :key="index" class="box">
+                      <ContentView :enable="!except_id_list.includes(content.id)" :content='content' :size="size" @onClick="onClicked"></ContentView>
+                      <p>{{content.title}}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default Vue.extend({
 
 .modal-body {
   margin: 10px 0;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 /*

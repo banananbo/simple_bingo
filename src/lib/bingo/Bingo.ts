@@ -247,7 +247,7 @@ export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
 
     public get content():Content{
-        return Content.contents[this.content_id-1];
+        return Content.getById(this.content_id);
     }
 
     public set content(content:Content){

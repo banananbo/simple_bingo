@@ -1,7 +1,6 @@
 <template>
     <div class="rounded celldiv" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
         <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
-        <!-- <FreeContents :size="size"></FreeContents> -->
         <span v-if="show_title" class="title">{{cell.content.title}}</span>
     </div>
 </template>
@@ -10,7 +9,6 @@ import Vue from "vue"
 
 import {Cell} from "@lib/bingo/Bingo.ts";
 import {Content} from "@lib/bingo/content.ts"
-import FreeContents from "@atoms/FreeContents.vue";
 import ContentView from "@organisms/ContentView.vue"
 
 export type DataType ={
@@ -46,7 +44,6 @@ export default Vue.extend({
 
     components: {
         ContentView,
-        FreeContents
     },
 
     created(){
