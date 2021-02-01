@@ -103,6 +103,7 @@ export class Bingo extends EventEmitter{
     
     public get current_time():number{
         if(this._start_time == 0) return 0;
+        if(this._end_time != 0) return this.spentTime;
         return Date.now()- this._start_time;
     }
 
