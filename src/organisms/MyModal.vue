@@ -1,8 +1,8 @@
 <template>
       <transition name="modal">
         <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-container">
+          <div class="modal-wrapper" @click="close">
+            <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">
 
               <div class="modal-body">
                 <slot name="body">
@@ -13,7 +13,7 @@
               <div class="modal-footer">
                 <slot name="footer">
                   default footer
-                  <button class="modal-default-button" @click="$emit('close')">
+                  <button class="modal-default-button" @click="close">
                     OK
                   </button>
                 </slot>
@@ -26,7 +26,12 @@
 <script lang="ts">
     import Vue from 'vue'
     export default Vue.extend({
-        
+      methods: {
+        close(){
+          console.log("lets");
+          this.$emit('close')
+        }
+      }
     })
 </script>
 <style scoped>
@@ -48,7 +53,9 @@
 }
 
 .modal-container {
-  width: 300px;
+  width: 90%;
+  height: 80vh;
+  overflow: auto;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -65,32 +72,15 @@
 
 .modal-body {
   margin: 20px 0;
+  width: 90%;
+  height: 80vh;
+}
+
+.modal-footer {
+  height: 50px;
 }
 
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-/* 
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-} */
 </style>

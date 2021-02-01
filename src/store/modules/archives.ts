@@ -22,7 +22,7 @@ export const archives = {
         query.get().then(
           data => {
             data.forEach(doc => {
-              list.push(Bingo.createByObj(doc.data()));  
+              list.push(Bingo.createByObj(doc.data(),doc.id));
             });
             state.recent_archives = list;
           })

@@ -10,11 +10,22 @@ export class Bingo extends EventEmitter{
     public static BEFORE_PLAY:number = 0;
     public static PLAYING:number = 1;
     public static PLAYED:number = 2;
+    
+    private _template_id:string = "";
 
     public bingonum:number = 0;
     public all_clear:Boolean = false;
 
     public nice_point:number=0;
+
+    public get template_id():string{
+        if(this._template_id=="") return this.id;
+        return this._template_id;
+    }
+
+    public set template_id(val:string){
+        this._template_id = val;
+    }
 
     public get cells_multi():Array<Array<Cell>>{
         let c:Array<Array<Cell>> = [];
@@ -201,14 +212,6 @@ export class Bingo extends EventEmitter{
     }
 
     static createNew(cell_num:number,random:Boolean=false){
-        // let cells:Array<Array<Cell>> = [];
-        // for(let i:number=0;i<cell_num;i++){
-        //     let row:Array<Cell> = [];
-        //     for(let j:number=0;j<cell_num;j++){
-        //         row.push(new Cell(i,j,random? Content.random : Content.blank));
-        //     }
-        //     cells.push(row);
-        // }
         let cells:Array<Cell> = [];
         let contents:Array<Content> = Content.random_arr(cell_num*cell_num);
         for(let i:number=0;i<cell_num;i++){
@@ -219,20 +222,24 @@ export class Bingo extends EventEmitter{
         return new Bingo(cells);
     }
 
-    static createByObj(obj:any):Bingo{
-        // let cells:Array<Array<Cell>> = [];
-        // for(let i:number=0;i<obj.cells.length;i++){
-        //     let row:Array<Cell> = [];
-        //         for(let j:number=0;j<obj.cells[i].length;j++){
-        //         row.push(Cell.createByObj(obj.cells[i][j]));
-        //     }
-        //     cells.push(row);
-        // }
+    static copyFromBingo(origin:Bingo):Bingo{
+        let cells:Array<Cell> = [];
+        for(let i:number=0; i < origin.cell_num; i++){
+            for(let j:number=0; j < origin.cell_num; j++){
+                cells.push(new Cell(i,j, origin.cells[i*origin.cell_num+j].content.id));
+            }
+        }
+        const bingo:Bingo = new Bingo(cells);
+        bingo.template_id = origin.id;
+        return bingo;
+    }
+
+    static createByObj(obj:any,id:String=""):Bingo{
         let cells:Array<Cell> = [];
         for(let i:number=0;i<obj.cells.length;i++){
             cells.push(Cell.createByObj(obj.cells[i]));
         }
-        const bingo:Bingo = new Bingo(cells,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo,obj.id);
+        const bingo:Bingo = new Bingo(cells,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo,(id!="")?id:obj.id);
         bingo.checkBingo();
         return bingo
     }
@@ -248,7 +255,7 @@ export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
 
     public get content():Content{
-        return Content.contents[this.content_id-1];
+        return Content.getById(this.content_id);
     }
 
     public set content(content:Content){

@@ -4,6 +4,7 @@ import BingoMain from '@pages/BingoMain.vue';
 import BingoResult from '@pages/BingoResult.vue';
 import MyPage from '@pages/MyPage.vue';
 import BingoArchives from '@pages/BingoArchives.vue';
+import TestPage from '@pages/TestPage.vue';
 
 
 export default [
@@ -13,4 +14,5 @@ export default [
   { path: '/result/:id', component: BingoResult },
   { path: '/mypage', component: MyPage },
   { path: '/archives', component: BingoArchives },
+  { path: '/test', component: TestPage },
 ];

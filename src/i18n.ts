@@ -39,7 +39,8 @@ const dateTimeFormats = {
   let locale:string = 'en';
   
   let brouser_lang:string = navigator.language;
-  if(['ja','ja-JP'].includes(brouser_lang)){
+  console.log(brouser_lang);
+  if(['ja','ja-JP','ja-jp'].includes(brouser_lang)){
     locale = 'ja';
   }
   

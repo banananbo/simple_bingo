@@ -8,7 +8,7 @@
     </div>
     <!-- <h6>端末データ</h6> -->
     <div  v-for="(bingo,idx) in this.$store.state.archives.my_bingo_archives_local" :key="`t${idx}`">
-        <ResultCard :bingo="bingo" :location_link="true"></ResultCard>
+        <ResultCard :bingo="bingo" :location_link="true" :enable_copy="true"></ResultCard>
     </div>
     <Footer></Footer>
 </div>
@@ -21,7 +21,7 @@ import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 
-export type DataType ={
+export type DataType = {
     bingo: Bingo
 }
 

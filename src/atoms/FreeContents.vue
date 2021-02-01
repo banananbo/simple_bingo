@@ -1,7 +1,8 @@
 <template>
-<div class="wrap" :style="{width:`${size}px`}">
-  <div class="sticker" :style="{width:`${size}px`,height:`${size}px`}"></div>
-  <div class="msg" :style="{width:`${size}px`}">FREE</div>
+<!-- <div class="gizagiza">GIZAGIZA LINE</div> -->
+<div class="img_con" :style="{width:`${size}px`,height:`${size}px`}">
+    <img src="/img/giza.svg">
+    <p>FREE</p>
 </div>
 </template>
 <script lang="ts">
@@ -25,41 +26,30 @@ export default Vue.extend({
     },
 
     methods: {
-        toggleSetting:function(){
-            this.$store.state.allow_location = !this.$store.state.allow_location
-        },
-  },
+  　},
 });
 </script>
 <style scoped>
-body {padding:4em; background:#fcfcfc;}
-
-.wrap {margin:auto;  z-index:1;}
-
-.msg {
-  color: whitesmoke;
-  text-align:center;
-  font-family: 'Bree Serif', Courier, monospaced;
-  font-size:3.5em;
-  position:absolute;
-  margin:55px 0 0 2px;
-  pointer-events: none; 
+.img_con{
+    position: relative;
 }
-
-.sticker {
-  position:absolute;
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/13034/sticker.png) top center no-repeat; 
-  animation: spin 10s linear infinite;
-  /*Set our animation play state to paused initially */
-  animation-play-state: paused; 
+.img_con img {
+  width: 100%;
+  }
+.img_con p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    margin:0;
+    padding:0;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    font-family :Quicksand, sans-serif;
 }
-
-.sticker:hover {
-  /* Toggle our animation play state to running when we are hovering over our sticker */
-  animation-play-state: running;
-}
-
-
 @keyframes spin {
   100% {transform: rotate(1turn); }
 }

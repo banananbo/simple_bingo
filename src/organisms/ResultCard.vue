@@ -21,6 +21,7 @@
             <div v-if="detail_view" class="container-fluid">
                 <div>
                     <BingoView :bingo="bingo" :size="size"></BingoView>
+                    <div class="text-right"><CopyBingoBtn v-if="enable_copy" :bingo="bingo"></CopyBingoBtn></div>
                     <div>
                         <dl>
                             <dt>{{$t("noun.score")}}</dt>
@@ -54,6 +55,7 @@ import Vue from "vue"
 import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 import BingoView from "@organisms/BingoView.vue";
 import ContentView from "@organisms/ContentView.vue";
+import CopyBingoBtn from "@organisms/CopyBingoBtn.vue";
 import DateFunc from "@mixin/date_func.ts";
 
 export type DataType ={
@@ -92,6 +94,11 @@ export default Vue.extend({
             type: Boolean,
             required: false,
             default: false
+        },
+        enable_copy:{
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     created(){
@@ -100,7 +107,8 @@ export default Vue.extend({
 
     components: {
         BingoView,
-        ContentView
+        ContentView,
+        CopyBingoBtn
     },
 
     methods: {
@@ -131,24 +139,24 @@ export default Vue.extend({
     }
 
 
-.slide-fade-enter-active {
-    transition: all .3s ease;
-}
-.slide-fade-leave-active {
-    transition: all .3s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateY(-20px);
-    opacity: 0;
-}
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active below version 2.1.8 */ {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
 
 dl {
 overflow: hidden;
 zoom: 1;
 	}
 dt {
-width: 50px;
+width: 80px;
 float: left;
 clear: both;
 font-weight: bold;
