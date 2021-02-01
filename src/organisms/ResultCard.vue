@@ -29,9 +29,9 @@
                             <dt>{{$t("noun.bingo")}}</dt>
                             <dd>{{bingo.bingonum}}</dd>
                             <dt>{{$t("noun.start")}}</dt>
-                            <dd>{{$d(new Date(bingo.start_time),"long")}}</dd>
+                            <dd>{{ (bingo.start_time!=0)? $d(new Date(bingo.start_time),"long") : '-'}}</dd>
                             <dt>{{$t("noun.end")}}</dt>
-                            <dd>{{$d(new Date(bingo.end_time),"long")}}</dd>
+                            <dd>{{ (bingo.end_time!=0)? $d(new Date(bingo.end_time),"long") : '-'}}</dd>
                             <dt>{{$t("noun.time")}}</dt>
                             <dd>{{format_to_time(bingo.current_time)}}</dd>
                             <dt>{{$t("noun.memo")}}</dt>
