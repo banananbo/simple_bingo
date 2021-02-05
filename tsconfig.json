@@ -8,9 +8,10 @@
         "sourceMap": true,
         "strictNullChecks": false,
         "baseUrl": "./src",
-        // "paths": {
-        //     "@lib/*":["src/lib/*"]
-        // },
+        "paths": {
+            "@src/*":["*"],
+            "@lib/*":["lib/*"],
+        },
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "noImplicitThis": true,

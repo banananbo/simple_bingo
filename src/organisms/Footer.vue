@@ -1,6 +1,5 @@
 <template>
     <nav class="navbar fixed-bottom">
-      <!-- <router-link to="/create">再作成</router-link> -->
         <ul class="nav-list">
     <li class="nav-item">
       <a href="#"  @click.prevent.stop="movePage('/')">

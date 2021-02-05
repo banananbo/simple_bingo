@@ -62,7 +62,10 @@ module.exports = {
       '@atoms': path.join(__dirname, 'src/atoms'),
       '@mixin': path.join(__dirname, 'src/mixin'),
       vue: 'vue/dist/vue.esm.js',
-    }
+    },
+    extensions: [
+      '.ts','js'
+    ]
   },
   plugins: [
     new VueLoaderPlugin()

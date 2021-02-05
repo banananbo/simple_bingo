@@ -1,4 +1,4 @@
-import {i18n} from '../../i18n.ts';
+import {i18n} from '@src/i18n';
 
 export const user_setting = {
     namespaced: true,

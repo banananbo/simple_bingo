@@ -10,8 +10,8 @@
 <script lang="ts">
 import Vue from "vue"
 import CellView from "@organisms/CellView.vue";
-import {Bingo} from "@lib/bingo/Bingo.ts";
-import {Content} from "@lib/bingo/content.ts";
+import {Bingo} from "@lib/bingo/Bingo";
+import {Content} from "@lib/bingo/content";
 
 export type DataType ={
 }

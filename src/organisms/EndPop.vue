@@ -39,7 +39,7 @@
 <script lang="ts">
 
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import {Bingo,Cell} from "@lib/bingo/Bingo";
 import ContentView from "@organisms/ContentView.vue";
 
 export type DataType ={

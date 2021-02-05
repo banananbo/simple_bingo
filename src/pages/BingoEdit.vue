@@ -41,8 +41,8 @@ import BingoView from "@organisms/BingoView.vue";
 import CellEdit from "@organisms/CellEdit.vue";
 import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
-import {Content} from "@lib/bingo/content.ts";
-import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import {Content} from "@lib/bingo/content";
+import {Bingo,Cell} from "@lib/bingo/Bingo";
 // import LocationSetting from "@atoms/LocationSetting.vue";
 
 Vue.component("modal", {

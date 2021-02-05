@@ -1,9 +1,9 @@
-import {Content} from "@lib/bingo/content.ts";
-import {User} from "@lib/bingo/user.ts";
-import {ExDate} from "@lib/func/ex_date.ts";
+import {Content} from "@lib/bingo/content";
+import {User} from "@lib/bingo/user";
+import {ExDate} from "@lib/func/ex_date";
 import {EventEmitter} from 'events';
-import store from '../../store/index.ts';
-import {i18n} from '../../i18n.ts';
+import store from '../../store/index';
+import {i18n} from '../../i18n';
 
 export class Bingo extends EventEmitter{
 

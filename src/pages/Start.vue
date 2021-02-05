@@ -2,7 +2,6 @@
 <section>
       <Header></Header>
       <div class="container-fluid text-center">
-            <!-- <h2 style="padding:30px">{{ $t("title") }}</h2> -->
             <TitleLogo></TitleLogo>
       </div>
       <section class='info_box_playing' v-if="this.$store.state.bingo" >

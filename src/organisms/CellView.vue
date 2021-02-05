@@ -7,8 +7,8 @@
 <script lang="ts">
 import Vue from "vue"
 
-import {Cell} from "@lib/bingo/Bingo.ts";
-import {Content} from "@lib/bingo/content.ts"
+import {Cell} from "@lib/bingo/Bingo";
+import {Content} from "@lib/bingo/content"
 import ContentView from "@organisms/ContentView.vue"
 
 export type DataType ={

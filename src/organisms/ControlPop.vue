@@ -30,11 +30,11 @@
 <script lang="ts">
 
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import {Bingo,Cell} from "@lib/bingo/Bingo";
 import Header from "@organisms/Header.vue";
 import BingoView from "@organisms/BingoView.vue";
 import ContentView from "@organisms/ContentView.vue";
-import DateFunc from "@mixin/date_func.ts";
+import DateFunc from "@mixin/date_func";
 
 export type DataType ={
     

@@ -1,6 +1,6 @@
-import {Bingo} from "@lib/bingo/Bingo.ts";
+import {Bingo} from "@lib/bingo/Bingo";
 import firebase from "firebase"
-import rootStore from '../index.ts';
+import rootStore from '../index';
 
 export const archives = {
     namespaced: true,

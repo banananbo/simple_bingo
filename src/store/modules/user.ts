@@ -1,4 +1,4 @@
-import {User} from "@lib/bingo/user.ts";
+import {User} from "@lib/bingo/user";
 import firebase from "firebase"
 
 export interface UserState {

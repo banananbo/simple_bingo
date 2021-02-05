@@ -7,7 +7,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {i18n} from '@src/i18n.ts';
+import {i18n} from '@src/i18n';
 
 export type DataType ={
     overlay_color:string,

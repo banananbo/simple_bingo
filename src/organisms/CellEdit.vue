@@ -18,8 +18,8 @@
 
 import Vue from "vue"
 import ContentView from "@organisms/ContentView.vue";
-import {Content} from "@lib/bingo/content.ts"
-import {Bingo} from "@lib/bingo/Bingo.ts"
+import {Content} from "@lib/bingo/content"
+import {Bingo} from "@lib/bingo/Bingo"
 
 export type DataType ={
       contents: Array<Content>,

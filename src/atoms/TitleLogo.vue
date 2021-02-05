@@ -52,7 +52,8 @@ export default Vue.extend({
 
 .logo_inner .blue{
   font-size: 1.2em;
-  color: #06d9a5;
+  color: #5856d0;
+  font-style: bold;
 }
 
 .logo_inner .last{

@@ -1,5 +1,5 @@
 import Vue from "vue"
-import {ExDate} from "@lib/func/ex_date.ts"
+import {ExDate} from "@lib/func/ex_date"
 
 // export type DataType ={
 

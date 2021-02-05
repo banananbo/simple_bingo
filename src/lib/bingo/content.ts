@@ -1,4 +1,4 @@
-import store from '../../store/index.ts';
+import store from '@src/store/index';
 
 export class Tag{
     constructor(public id:number,public title:string){
