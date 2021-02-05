@@ -28,10 +28,6 @@ export default Vue.extend({
             type: Number,
             required: true
         },
-        // contents: {
-        //     type: Array,
-        //     required: true
-        // },
         bingo: {
             type: Bingo,
             required: false
@@ -53,8 +49,6 @@ export default Vue.extend({
     },
 
     mounted(){
-        // this.canvas = <HTMLCanvasElement>document.getElementById( "target" );
-        // this.refleshBingo();
     },
 
     methods: {
@@ -65,5 +59,12 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-
+table {
+  border: 1px solid #b1c12c;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #e8f5d0;
+}
 </style>

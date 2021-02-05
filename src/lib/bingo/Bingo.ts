@@ -1,9 +1,10 @@
 import {Content} from "@lib/bingo/content";
 import {User} from "@lib/bingo/user";
-import {ExDate} from "@lib/func/ex_date";
 import {EventEmitter} from 'events';
 import store from '../../store/index';
 import {i18n} from '../../i18n';
+import {ExDate} from "@lib/func/ex_date";
+
 
 export class Bingo extends EventEmitter{
 
@@ -25,6 +26,10 @@ export class Bingo extends EventEmitter{
 
     public set template_id(val:string){
         this._template_id = val;
+    }
+
+    public get current_time_str():String{
+        return ExDate.format_to_time(this.current_time);
     }
 
     public get cells_multi():Array<Array<Cell>>{

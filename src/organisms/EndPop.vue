@@ -8,7 +8,7 @@
          <h5>{{$t("message.finish_bingo")}}</h5>
          <p style='font-size: 0.8em'>{{$t("message.finish_bingo_caption")}}</p>
          <h6>{{$t("noun.record")}}</h6>
-            <table>
+            <!-- <table>
                 <tr>
                     <th>{{$t("noun.score")}}</th>
                     <th>{{$t("noun.bingo")}}</th>
@@ -19,7 +19,8 @@
                     <td class="big">{{this.$store.state.bingo.bingonum}}</td>
                     <td>{{timer}}</td>
                 </tr>
-            </table>
+            </table> -->
+            <ScoreView :bingo="this.bingo" :timer="this.timer"></ScoreView>
             <h6>{{$t("noun.memo")}}</h6>
          <div class="text-center">
             <textarea v-model="bingo.memo" style="width:80%" maxlength='100'></textarea>
@@ -41,6 +42,7 @@
 import Vue from "vue"
 import {Bingo,Cell} from "@lib/bingo/Bingo";
 import ContentView from "@organisms/ContentView.vue";
+import ScoreView from "@atoms/ScoreView.vue";
 
 export type DataType ={
     
@@ -61,7 +63,8 @@ export default Vue.extend({
     },
 
     components: {
-ContentView
+      ContentView,
+      ScoreView
     },
 
     methods: {
@@ -120,85 +123,5 @@ button{
 
 .modal-default-button {
   float: right;
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-/* 
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-} */
-
-table{
-  width: 100%;
-  border-collapse:separate;
-  border-spacing: 0;
-  padding: 5px 20px;
-}
-
-table th:first-child{
-  border-radius: 5px 0 0 0;
-}
-
-table th:last-child{
-  border-radius: 0 5px 0 0;
-  border-right: 1px solid #3c6690;
-}
-
-table th{
-  text-align: center;
-  color:white;
-  background: linear-gradient(#829ebc,#225588);
-  border-left: 1px solid #3c6690;
-  border-top: 1px solid #3c6690;
-  border-bottom: 1px solid #3c6690;
-  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
-  width: 25%;
-  padding: 5px 0;
-  font-size: 80%;
-}
-
-table td{
-  text-align: center;
-  border-left: 1px solid #a8b7c5;
-  border-bottom: 1px solid #a8b7c5;
-  border-top:none;
-  box-shadow: 0px -3px 5px 1px #eee inset;
-  width: 25%;
-  padding: 10px 0;
-}
-
-.big{
-    font-size: 140%;
-    /* font-weight: 600; */
-    font-family: Impact,Charcoal;
-}
-
-table td:last-child{
-  border-right: 1px solid #a8b7c5;
-}
-
-table tr:last-child td:first-child {
-  border-radius: 0 0 0 5px;
-}
-
-table tr:last-child td:last-child {
-  border-radius: 0 0 5px 0;
 }
 </style>

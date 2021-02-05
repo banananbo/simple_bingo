@@ -1,5 +1,5 @@
 <template>
-<div class="main card row" @click="toggleView">
+<div class="main card row shadow" @click="toggleView">
         <div style="float:left">
             <table>
                 <tr>
@@ -83,7 +83,7 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width -60
+            default: screen.width - 80
         },
         detail_mode:{
             type: Boolean,

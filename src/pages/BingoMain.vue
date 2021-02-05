@@ -9,21 +9,12 @@
         <div v-if="!this.$store.state.bingo.is_playing" class="text-center ">
             <button @click="startGame" class="btn btn-primary">スタート！</button>
         </div>
-        <div v-if="this.$store.state.bingo.is_playing">
-            <table>
-                <tr>
-                    <th>{{$t("noun.score")}}</th>
-                    <th>{{$t("noun.bingo")}}</th>
-                    <th>{{$t("noun.time")}}</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td class="big">{{this.$store.state.bingo.score}}</td>
-                    <td class="big">{{this.$store.state.bingo.bingonum}}</td>
-                    <td>{{timer}}</td>
-                    <td><button type="button" class="btn btn-primary" @click="clickEndBtn">{{$t("function.finish")}}</button></td>
-                </tr>
-            </table>
+        <div id="score_container" v-if="this.$store.state.bingo.is_playing">
+            <ScoreView :timer="timer" :bingo="$store.state.bingo"></ScoreView>
+             <section class="inline">
+                    <button type="button" class="btn btn-primary" @click="clickEndBtn">{{$t("function.finish")}}</button>
+            </section>
+
         </div>
     </div>
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell" @close="cellPop = false;"></ControlPop>
@@ -38,6 +29,7 @@ import {Bingo,Cell} from "@lib/bingo/Bingo";
 import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
 import BingoView from "@organisms/BingoView.vue";
+import ScoreView from "@atoms/ScoreView.vue";
 import CellView from "@organisms/CellView.vue";
 import ControlPop from "@organisms/ControlPop.vue";
 import EndPop from "@organisms/EndPop.vue";
@@ -135,7 +127,8 @@ export default Vue.extend({
         EndPop,
         CellView,
         BingoOverlay,
-        DiscardGamePop
+        DiscardGamePop,
+        ScoreView
     },
 
     methods: {
@@ -199,60 +192,8 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-table{
-  width: 100%;
-  border-collapse:separate;
-  border-spacing: 0;
-  /* padding: 5px 20px; */
-}
-
-table th:first-child{
-  border-radius: 5px 0 0 0;
-}
-
-table th:last-child{
-  border-radius: 0 5px 0 0;
-  border-right: 1px solid #3c6690;
-}
-
-table th{
-  text-align: center;
-  color:white;
-  background: linear-gradient(#829ebc,#225588);
-  border-left: 1px solid #3c6690;
-  border-top: 1px solid #3c6690;
-  border-bottom: 1px solid #3c6690;
-  box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
-  width: 25%;
-  padding: 5px 0;
-  font-size: 80%;
-}
-
-table td{
-  text-align: center;
-  border-left: 1px solid #a8b7c5;
-  border-bottom: 1px solid #a8b7c5;
-  border-top:none;
-  box-shadow: 0px -3px 5px 1px #eee inset;
-  width: 25%;
-  padding: 10px 0;
-}
-
-.big{
-    font-size: 140%;
-    /* font-weight: 600; */
-    font-family: Impact,Charcoal;
-}
-
-table td:last-child{
-  border-right: 1px solid #a8b7c5;
-}
-
-table tr:last-child td:first-child {
-  border-radius: 0 0 0 5px;
-}
-
-table tr:last-child td:last-child {
-  border-radius: 0 0 5px 0;
+.inline{
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

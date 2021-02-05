@@ -1,6 +1,6 @@
 <template>
-    <div class="rounded celldiv" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo},'rounded']">
-        <ContentView :content="cell.content" :size="size" @onClick="select"></ContentView>
+    <div class="rounded celldiv" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo, no_check: !cell.checked},'rounded']">
+        <ContentView :content="cell.content" :size="content_size" @onClick="select"></ContentView>
         <span v-if="show_title" class="title">{{cell.content.title}}</span>
     </div>
 </template>
@@ -32,6 +32,11 @@ export default Vue.extend({
             type: Boolean,
             default: true
         }
+    },
+    computed: {
+        content_size:function():number{
+            return this.size-4 // 線幅
+        }       
     },
 
     watch: {
@@ -77,20 +82,26 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-.checked{
-    color: red;
-    background-color: rgb(231, 127, 123);
-}
-
-.bingocell{
-    border-color: red;
-    border-width: 5em;
-    background-color: rgb(32, 25, 214);
-}
 
 .celldiv {/*親div*/
-  position: relative;
+    border-style: solid;    
+    border-width: 2 px;
+    border-radius: 6px;
+    position: relative;
 }
+.no_check{
+    background-color: #f7faef;
+    border-color: #f7faef;
+}
+.checked{
+    background-color: #F7E174;
+    border-color: #fddc37;
+}
+.bingocell{
+    background-color: #ED766D;
+    border-color: #7B3461;
+}
+
 
 span {
   position: absolute;/*絶対配置*/

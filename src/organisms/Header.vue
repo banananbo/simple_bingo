@@ -1,5 +1,5 @@
 <template>
-      <div class="navbar fixed-top">
+      <div class="navbar fixed-top shadow">
         <a class="navbar-brand" href="#" @click="onTitleClicked">
           <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px">
           {{ $t("title") }}
@@ -45,5 +45,7 @@ export default Vue.extend({
   .navbar{
     padding:4px 16px;
   }
-
+  .navbar-brand{
+    font-weight: bolder;
+  }
 </style>
