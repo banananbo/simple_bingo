@@ -84,7 +84,7 @@ export default Vue.extend({
     methods: {
         rotate: function(){
             this.rotate_animation = true;
-            (this.$refs["main"] as HTMLElement).addEventListener('animationend', () => {
+            (this.$el as HTMLElement).addEventListener('animationend', () => {
                 this.rotate_animation = false;
             });
         },
