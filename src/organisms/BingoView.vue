@@ -2,7 +2,7 @@
 <table>
     <tr v-for="(row, index1) in bingo.cells_multi" :key="index1">
         <td v-for="(cell, index2) in row" :key="index2">
-            <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100"></CellView>
+            <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing"></CellView>
         </td>
     </tr>
 </table>
@@ -64,7 +64,7 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   border-radius: 6px;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: #e8f5d0;
 }
 </style>

@@ -1,6 +1,14 @@
 <template>
-    <div class="rounded celldiv" :width="size" :class="[{checked:cell.checked, bingocell:cell.is_bingo, no_check: !cell.checked},'rounded']">
-        <ContentView :content="cell.content" :size="content_size" @onClick="select"></ContentView>
+    <div class="rounded celldiv" :width="size" ref="main" @click="select"
+    :class="[{
+        checked:cell.checked, 
+        bingocell:cell.is_bingo, 
+        no_check:!cell.checked,
+        rotate_animation: rotate_animation,
+        reach_animation: !cell.is_bingo&&cell.is_reach&&playing
+        },'rounded']"
+        @animationend="onAnimationEnd">
+        <ContentView :content="cell.content" :size="content_size"></ContentView>
         <span v-if="show_title" class="title">{{cell.content.title}}</span>
     </div>
 </template>
@@ -8,17 +16,20 @@
 import Vue from "vue"
 
 import {Cell} from "@lib/bingo/Bingo";
-import {Content} from "@lib/bingo/content"
 import ContentView from "@organisms/ContentView.vue"
 
 export type DataType ={
-    canvas: HTMLCanvasElement
+    rotate_animation: Boolean,
 }
 
 export default Vue.extend({
-    data: {
 
+    data:function():DataType {
+        return {
+          rotate_animation: false,
+        };
     },
+
     props: {
         size: {
             type: Number,
@@ -31,18 +42,37 @@ export default Vue.extend({
         show_title: {
             type: Boolean,
             default: true
+        },
+        playing: {
+            type: Boolean,
+            default: false
         }
     },
+
     computed: {
         content_size:function():number{
             return this.size-4 // 線幅
         }       
     },
 
+    mounted(){
+        this.cell.on('bingo',this.rotate);
+    },
+
     watch: {
-    //   'content': {
+      'cell':{
+          handler: function (val, oldVal) {
+            // val.on('bingo',this.rotate);
+          }
+      },
+    //   'cell.checked': {
     //       handler: function (val) {
-    //           this.draw();
+    //           this.rotate();
+    //       }
+    //   },
+    //   'cell.is_bingo': {
+    //       handler: function (val) {
+    //           this.rotate();
     //       }
     //   }
     },
@@ -51,43 +81,44 @@ export default Vue.extend({
         ContentView,
     },
 
-    created(){
-
-    },
-
-    mounted(){
-        // this.canvas = <HTMLCanvasElement>this.$refs.canvas;
-        // this.draw();
-    },
-
     methods: {
-        // draw:function(){
-        //     let context = this.canvas.getContext( "2d" ) ;
-        //     context.clearRect(0,0,this.size,this.size);
-        //     const chara = new Image();
-        //     chara.src =  this.cell.content.img_src;
-        //     chara.onload = () => {
-        //         console.log(this.size);
-        //         context.drawImage(chara, 0,  0, this.size,this.size);
-        //         const textsize:TextMetrics = context.measureText(this.cell.content.title);
-        //         context.font = "14px 'ＭＳ ゴシック'"
-        //         context.fillText(this.cell.content.title, (this.size-textsize.width)/2 , this.size - 20 );
-        //     };
-        // },
+        rotate: function(){
+            this.rotate_animation = true;
+            (this.$refs["main"] as HTMLElement).addEventListener('animationend', () => {
+                this.rotate_animation = false;
+            });
+        },
         select:function(){
-            console.log('click');
             this.$emit('cellClick',{cell:this.cell});
+        },
+        onAnimationEnd:function(e:any){
+            // console.log(e);
         }
   },
 });
 </script>
 <style scoped>
 
+@keyframes rotation{
+  0%{ transform:rotateY(0);}
+  100%{ transform:rotateY(360deg); }
+}
+
+.rotate_animation{
+  animation: 0.5s linear rotation;
+}
+
+.reach_animation{
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+  animation: 1.5s infinite linear pop;
+}
+
 .celldiv {/*親div*/
     border-style: solid;    
     border-width: 2 px;
     border-radius: 6px;
     position: relative;
+    transform-origin: bottom;
 }
 .no_check{
     background-color: #f7faef;
@@ -119,5 +150,23 @@ span {
   margin-bottom: 2px;
   padding: 2px 2px;
   border-radius: 5px;
+}
+
+@keyframes pop {
+    0% { transform: translate(0%, -5%) scale(1.1, 0.90); }
+    50% { transform: translate(0%, -10%) scale(1, 1); }
+    55% { transform: translate(0%, -10%) rotate(5deg); }
+    60% { transform: translate(0%, -10%) rotate(-5deg); }
+    65% { transform: translate(0%, -10%) rotate(5deg); }
+    70% { transform: translate(0%, -10%) rotate(-5deg); }
+    100% { transform: translate(0%, -5%) scale(1.1, 0.9); }
+
+    /* 0% { transform: translate(-50%, -50%) scale(1.25, 0.75); } */
+    /* 50% { transform: translate(-50%, -150%) scale(1, 1); } */
+    /* 55% { transform: translate(-50%, -150%) rotate(15deg); }
+    60% { transform: translate(-50%, -150%) rotate(-15deg); }
+    65% { transform: translate(-50%, -150%) rotate(15deg); }
+    70% { transform: translate(-50%, -150%) rotate(-15deg); }
+    100% { transform: translate(-50%, -50%) scale(1.25, 0.75); } */
 }
 </style>

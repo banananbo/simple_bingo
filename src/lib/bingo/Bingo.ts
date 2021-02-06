@@ -5,6 +5,42 @@ import store from '../../store/index';
 import {i18n} from '../../i18n';
 import {ExDate} from "@lib/func/ex_date";
 
+class BingoGroup{
+    public is_bingo:Boolean = false;
+    constructor(
+        public cells:Array<Cell>
+    ){
+    }
+    public checkBingo():Boolean{
+        // check not checked
+        let not_checked:Cell[] = this.cells.filter(c =>  !c.checked)
+        if(not_checked.length == 0){
+            // Bingo
+            this.cells.forEach(c => {
+                c.is_bingo = true;
+                if(!this.is_bingo){
+                    // new bingo
+                    ( c as EventEmitter).emit("bingo");
+                }
+            });
+            this.is_bingo = true;
+                
+        }else{
+
+            if(this.is_bingo){
+                // lost bingo
+                this.is_bingo = false;
+            }
+
+            if(not_checked.length == 1){
+                // reach
+                (not_checked[0] as Cell).is_reach = true;
+            }
+
+        }
+        return this.is_bingo;
+    }
+}
 
 export class Bingo extends EventEmitter{
 
@@ -32,19 +68,19 @@ export class Bingo extends EventEmitter{
         return ExDate.format_to_time(this.current_time);
     }
 
-    public get cells_multi():Array<Array<Cell>>{
-        let c:Array<Array<Cell>> = [];
-        let cell_idx:number=0;
-        for(let i:number=0;i<this.cell_num;i++){
-            let row:Array<Cell> = [];
-            for(let j:number=0;j<this.cell_num;j++){
-                row.push(this.cells[cell_idx]);
-                cell_idx++;
-            }
-            c.push(row);
-        }
-        return c;
-    }
+    // public get cells_multi():Array<Array<Cell>>{
+    //     let c:Array<Array<Cell>> = [];
+    //     let cell_idx:number=0;
+    //     for(let i:number=0;i<this.cell_num;i++){
+    //         let row:Array<Cell> = [];
+    //         for(let j:number=0;j<this.cell_num;j++){
+    //             row.push(this.cells[cell_idx]);
+    //             cell_idx++;
+    //         }
+    //         c.push(row);
+    //     }
+    //     return c;
+    // }
 
     public user_id:string = '0';
 
@@ -64,11 +100,44 @@ export class Bingo extends EventEmitter{
         public id:string = '',
          ){
             super();
+            console.log(`ビンゴ初期化します ${id}`);
             this.user_id = player.id;
             this.cells.forEach(
               c => { c.on( 'checked',()=> this.checkBingo() ) }
-        )
+            )
+            this.initBingoGroups();
     }
+
+    private initBingoGroups(){
+        let c:Array<Array<Cell>> = [];
+        let cell_idx:number=0;
+        for(let i:number=0;i<this.cell_num;i++){
+            let row:Array<Cell> = [];
+            for(let j:number=0;j<this.cell_num;j++){
+                row.push(this.cells[cell_idx]);
+                cell_idx++;
+            }
+            c.push(row);
+        }
+        this.cells_multi = c;
+
+        this.bingo_groups =  this.cells_multi.map( cells => new BingoGroup(cells) );  // row bingo
+
+        for(let i:number=0;i<this.cell_num;i++){
+            this.bingo_groups.push(
+                new BingoGroup(this.cells_multi.map( row => row[i])as Array<Cell>));
+        }
+        // ななめ
+        this.bingo_groups.push(
+            new BingoGroup(this.cells_multi.map( (row, index) => row[index])as Array<Cell>));
+
+        this.bingo_groups.push(
+            new BingoGroup(this.cells_multi.map( (row, index) => row[this.cell_num-index-1])as Array<Cell>));
+
+    }
+
+    private bingo_groups:Array<BingoGroup>;
+    public cells_multi:Array<Array<Cell>>;
 
     public get cell_last_checked():Cell{
         return this.cells_checked.slice(-1)[0];
@@ -149,53 +218,62 @@ export class Bingo extends EventEmitter{
     }
 
     private clearBingoFlag(){
-        this.cells.forEach( c => c.is_bingo = false );
+        this.cells.forEach( c => {c.is_bingo = false;c.is_reach = false} );
     }
 
     public checkBingo(){
         this.clearBingoFlag(); 
         let bingonum = 0;
-        let cells_multi = this.cells_multi;
-        // 横
-        cells_multi.forEach(
-            row => {
-                if(row.every(c =>  c.checked)){
-                   bingonum++;
-                   row.forEach(c => c.is_bingo = true);
 
+        this.bingo_groups.forEach(
+            group =>{
+                if(group.checkBingo()){
+                    bingonum++;
                 }
             }
-        )
-        // 縦
-        for(let i:number=0;i<this.cell_num;i++){
-            if(cells_multi.every(
-                row => {
-                    return row[i].checked
-                }
-            )){
-                bingonum++;
-                cells_multi.forEach(c => c[i].is_bingo = true);
+        );
+        
+        // let cells_multi = this.cells_multi;
+        // // 横
+        // cells_multi.forEach(
+        //     row => {
+        //         if(row.every(c =>  c.checked)){
+        //            bingonum++;
+        //            row.forEach(c => c.is_bingo = true);
 
-            };
-        }
-        // 斜め
-        if(cells_multi.every(
-            (row,index) => {
-                return row[index].checked
-            }
-        )){
-            bingonum++;
-            cells_multi.forEach( (c,index) => c[index].is_bingo = true);
+        //         }
+        //     }
+        // )
+        // // 縦
+        // for(let i:number=0;i<this.cell_num;i++){
+        //     if(cells_multi.every(
+        //         row => {
+        //             return row[i].checked
+        //         }
+        //     )){
+        //         bingonum++;
+        //         cells_multi.forEach(c => c[i].is_bingo = true);
 
-        };
-        if(cells_multi.every(
-            (row,index) => {
-                return row[this.cell_num-index-1].checked
-            }
-        )){
-            bingonum++;
-            cells_multi.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
-        };
+        //     };
+        // }
+        // // 斜め
+        // if(cells_multi.every(
+        //     (row,index) => {
+        //         return row[index].checked
+        //     }
+        // )){
+        //     bingonum++;
+        //     cells_multi.forEach( (c,index) => c[index].is_bingo = true);
+
+        // };
+        // if(cells_multi.every(
+        //     (row,index) => {
+        //         return row[this.cell_num-index-1].checked
+        //     }
+        // )){
+        //     bingonum++;
+        //     cells_multi.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
+        // };
 
         // あたらしくビンゴ
         const newbingo:number = bingonum - this.bingonum;
@@ -258,6 +336,7 @@ export class Bingo extends EventEmitter{
 
 export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
+    private _is_reach:Boolean = false;
 
     public get content():Content{
         return Content.getById(this.content_id);
@@ -307,6 +386,12 @@ export class Cell extends EventEmitter {
     }
     public set is_bingo(val:Boolean){
         this._is_bingo = val;
+    }
+    public get is_reach():Boolean{
+        return this._is_reach
+    }
+    public set is_reach(val:Boolean){
+        this._is_reach= val;
     }
     public get checkInfo():CheckMetaData{
         return this._check;

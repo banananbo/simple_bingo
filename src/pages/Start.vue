@@ -8,8 +8,8 @@
             <h5>{{ $t("lead.in_progress") }}</h5>
                   <ResultCard :bingo="this.$store.state.bingo" :size="resultcardSize" :location_link="true"></ResultCard>
             <section class="text-center">
-                  <button type="button" class="btn btn-primary" @click="$router.push('/game')">{{$t("function.continue") }}</button>
-                  <button type="button" class="btn btn-primary" @click="view_discardPop = true">{{$t("function.scratch") }}</button>
+                  <button type="button" class="btn btn-success" @click="$router.push('/game')">{{$t("function.continue") }}</button>
+                  <button type="button" class="btn btn-success" @click="view_discardPop = true">{{$t("function.scratch") }}</button>
             </section>    
       </section>
 
