@@ -68,25 +68,24 @@ export class Bingo extends EventEmitter{
         return ExDate.format_to_time(this.current_time);
     }
 
-    // public get cells_multi():Array<Array<Cell>>{
-    //     let c:Array<Array<Cell>> = [];
-    //     let cell_idx:number=0;
-    //     for(let i:number=0;i<this.cell_num;i++){
-    //         let row:Array<Cell> = [];
-    //         for(let j:number=0;j<this.cell_num;j++){
-    //             row.push(this.cells[cell_idx]);
-    //             cell_idx++;
-    //         }
-    //         c.push(row);
-    //     }
-    //     return c;
-    // }
-
     public user_id:string = '0';
 
     public setPlayer(user:User){
         this.player = user;
         this.user_id = user.id;
+    }
+
+    public get serialized(){
+        return {
+            cells: this.cells.map(c=>c.serialized),
+            player: this.player.serialized,
+            _game_state: this._game_state,
+            _start_time: this._start_time,
+            _end_time: this._end_time,
+            _title: this._title,
+            memo: this.memo,
+            id: this.id
+        }
     }
 
     constructor(
@@ -233,48 +232,6 @@ export class Bingo extends EventEmitter{
             }
         );
         
-        // let cells_multi = this.cells_multi;
-        // // 横
-        // cells_multi.forEach(
-        //     row => {
-        //         if(row.every(c =>  c.checked)){
-        //            bingonum++;
-        //            row.forEach(c => c.is_bingo = true);
-
-        //         }
-        //     }
-        // )
-        // // 縦
-        // for(let i:number=0;i<this.cell_num;i++){
-        //     if(cells_multi.every(
-        //         row => {
-        //             return row[i].checked
-        //         }
-        //     )){
-        //         bingonum++;
-        //         cells_multi.forEach(c => c[i].is_bingo = true);
-
-        //     };
-        // }
-        // // 斜め
-        // if(cells_multi.every(
-        //     (row,index) => {
-        //         return row[index].checked
-        //     }
-        // )){
-        //     bingonum++;
-        //     cells_multi.forEach( (c,index) => c[index].is_bingo = true);
-
-        // };
-        // if(cells_multi.every(
-        //     (row,index) => {
-        //         return row[this.cell_num-index-1].checked
-        //     }
-        // )){
-        //     bingonum++;
-        //     cells_multi.forEach( (c,index) => c[this.cell_num-index-1].is_bingo = true);
-        // };
-
         // あたらしくビンゴ
         const newbingo:number = bingonum - this.bingonum;
         if( 0 < newbingo){
@@ -329,7 +286,6 @@ export class Bingo extends EventEmitter{
 
     static createByJson(json:string):Bingo{
         let obj:any = JSON.parse(json);
-        // obj = JSON.parse(obj)
         return Bingo.createByObj(obj);
     }
 }
@@ -354,20 +310,26 @@ export class Cell extends EventEmitter {
         ){
             super();
     }
+
+    public get serialized(){
+        return {
+            _check: (this._check)? this._check.serialized : null,
+            x: this.x,
+            y: this.y,
+            content_id: this.content_id
+        }
+    }
+
     static createByObj(obj:any):Cell{
         const check:any = (obj._check)? new CheckMetaData(obj._check.time,obj._check.location) : null;
-        // const content:Content = Content.createByObj(obj.content_id);
         return new Cell(obj.x,obj.y,obj.content_id,check);
     }
+
     public check(save_location:boolean = false){
         this._check = new CheckMetaData(Date.now());
         if(save_location){
             navigator.geolocation.getCurrentPosition((position)=>{
-                console.log(position.coords.latitude);
-                console.log(position.coords.longitude);
-                console.log(this._check);
                 if(this._check){
-                    console.log('whywhy');
                     this._check.location = {lat:position.coords.latitude,lon:position.coords.longitude}
                 }
             });
@@ -402,7 +364,13 @@ export class Cell extends EventEmitter {
     }
 }
 
-export class CheckMetaData{
+class CheckMetaData{
+    public get serialized(){
+        return {
+            time: this.time,
+            location: this.location
+        }
+    }
     // public location = {lat:0,lon:0}
     public get location_available(){
         return (this.location.lat!=0 && this.location.lon!=0)

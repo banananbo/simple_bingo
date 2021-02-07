@@ -10,6 +10,14 @@ export class User{
         
     }
 
+    public get serialized(){
+        return {
+            id: this.id,
+            name: this.name,
+            image: this.image
+        }
+    }
+
     get obj():Object{
         return {
             id:this.id,

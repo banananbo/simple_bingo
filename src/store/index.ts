@@ -43,7 +43,6 @@ mutations: {
       }
     },
     saveBingoData (state:State) {
-      console.log('save');
       localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
     },
 

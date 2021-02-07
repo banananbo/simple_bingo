@@ -1,5 +1,5 @@
 <template>
-<div class="main card row shadow" @click="toggleView">
+<div class="main card row" @click="toggleView">
         <div style="float:left">
             <table>
                 <tr>
@@ -29,9 +29,9 @@
                             <dt>{{$t("noun.bingo")}}</dt>
                             <dd>{{bingo.bingonum}}</dd>
                             <dt>{{$t("noun.start")}}</dt>
-                            <dd>{{ (bingo.start_time!=0)? $d(new Date(bingo.start_time),"long") : '-'}}</dd>
+                            <dd>{{$d(new Date(bingo.start_time),"long")}}</dd>
                             <dt>{{$t("noun.end")}}</dt>
-                            <dd>{{ (bingo.end_time!=0)? $d(new Date(bingo.end_time),"long") : '-'}}</dd>
+                            <dd>{{$d(new Date(bingo.end_time),"long")}}</dd>
                             <dt>{{$t("noun.time")}}</dt>
                             <dd>{{format_to_time(bingo.current_time)}}</dd>
                             <dt>{{$t("noun.memo")}}</dt>
@@ -52,11 +52,11 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo";
+import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
 import BingoView from "@organisms/BingoView.vue";
 import ContentView from "@organisms/ContentView.vue";
 import CopyBingoBtn from "@organisms/CopyBingoBtn.vue";
-import DateFunc from "@mixin/date_func";
+import DateFunc from "@mixin/date_func.ts";
 
 export type DataType ={
     detail_view: Boolean,
@@ -83,7 +83,7 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width - 80
+            default: screen.width -60
         },
         detail_mode:{
             type: Boolean,
