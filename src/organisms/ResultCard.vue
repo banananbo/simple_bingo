@@ -1,5 +1,5 @@
 <template>
-<div class="main card row" @click="toggleView">
+<div :v-if="bingo" class="main card row" @click="toggleView">
         <div style="float:left">
             <table>
                 <tr>

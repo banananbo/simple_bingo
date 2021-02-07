@@ -78,13 +78,14 @@ export class Bingo extends EventEmitter{
     public get serialized(){
         return {
             cells: this.cells.map(c=>c.serialized),
-            player: this.player.serialized,
+            // player: this.player.serialized,
             _game_state: this._game_state,
             _start_time: this._start_time,
             _end_time: this._end_time,
             _title: this._title,
             memo: this.memo,
-            id: this.id
+            id: this.id,
+            user_id: this.user_id
         }
     }
 

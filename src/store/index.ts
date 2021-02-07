@@ -30,7 +30,11 @@ modules: {
 mutations: {
     setBingoData (state:State,bingo:Bingo) {
         state.bingo = bingo;
-        localStorage.setItem('mainBingo', JSON.stringify(bingo));
+        localStorage.setItem('mainBingo', JSON.stringify(bingo.serialized));
+    },
+    removeBingoData (state:State){
+      state.bingo = null;
+      localStorage.setItem('mainBingo', null);
     },
     setBingoId (state:State,id:string) {
       state.bingo.id = id;
@@ -43,7 +47,7 @@ mutations: {
       }
     },
     saveBingoData (state:State) {
-      localStorage.setItem('mainBingo', JSON.stringify(state.bingo));
+      localStorage.setItem('mainBingo', JSON.stringify(state.bingo.serialized));
     },
 
     discardPlayingGame (state:State){

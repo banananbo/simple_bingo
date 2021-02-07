@@ -142,7 +142,7 @@ export default Vue.extend({
             console.log('saved finish');
             const newId = this.$store.state.bingo.id;
 
-            this.$store.commit('setBingoData',null);
+            this.$store.commit('removeBingoData',null);
             this.$router.push(`result/`+newId);
         },
         clickEndBtn(){
