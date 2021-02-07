@@ -6,12 +6,14 @@
           <div class="col-md-9 col-sm-12">
             <div id="top_area">
              <h5>{{$t("lead.create_bingo")}}</h5> 
-              <section id="cell_size_input">
+              <section id="cell_size_input" style="padding:10px">
                 {{$t("lead.cell_num")}}：
-                <select name='cell_num' v-model='cell_num' @change="initBingo()">
+                <select name='cell_num' v-model='cell_num' @change="initBingo()" style="font-size:1.2em;width:100px;padding:5px;margin-right:50px">
                   <option v-for="num,idx in cell_nums" :key="idx"> {{num}} </option>
                 </select>
+                <button type="button" class="btn btn-primary" @click="resetBingo">{{$t("function.regenerate")}}</button>
               </section>
+
             </div>
             <div v-if="this.bingo">
               <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
@@ -20,14 +22,7 @@
             <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="startBingoGame">{{$t("function.start")}}</button>
           </div>
-          <!-- <button id="show-modal" @click="showModal = true">Show Modal</button>
-          <div class="sidebar_fixed no-print card col-md-3 col-sm-12 p-3 mb-2 bg-primary text-white" >
-            <ul class="no-print">
-              <li>サイズ：<input v-model="size" type="number" min="200" max="1000" step="50"></li>
-              <li>セルの数：<input v-model="cell_num" type="number" min="3" max="8"></li>
-            </ul>
-          </div> -->
-          <CellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged"></CellEdit>
+          <CellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></CellEdit>
          </div>
       </div>
       <Footer></Footer>
@@ -86,7 +81,10 @@ export default Vue.extend({
     startBingoGame:function(){
       this.$store.commit('setBingoData',this.bingo);
       this.$router.push('game');
-    }
+    },
+    resetBingo: function(){
+      this.bingo = Bingo.createNew(this.cell_num,true);
+    },
   },
   watch: {
       // 'size': {

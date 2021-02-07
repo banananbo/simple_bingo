@@ -60,10 +60,14 @@ export const archives = {
     },
     actions: {
       async addToBingoDBArchives (context:any) {
+      
+
         // firestore
         const db = firebase.firestore();
         // test的に参照を追加している
         let bingobj:any = JSON.parse(JSON.stringify(context.rootState.bingo));
+        bingobj.cells_multi = null;
+        bingobj.bingo_groups = null;
         bingobj.user_ref = db.doc(`users/${context.rootState.user.user.id}`);
         let res  =  await db.collection('archives').add(bingobj);
         context.rootState.bingo.id = res.id;

@@ -49,7 +49,7 @@ export default Vue.extend({
         this.$emit("selected",obj);
       },
       closeModal: function(){
-
+        this.$emit("cancel");
       }
     },
   components: {
