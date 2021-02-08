@@ -54,6 +54,9 @@ export class Bingo extends EventEmitter{
     public all_clear:Boolean = false;
 
     public nice_point:number=0;
+    
+    private bingo_groups:Array<BingoGroup> = [];
+    public cells_multi:Array<Array<Cell>> = [];
 
     public get template_id():string{
         if(this._template_id=="") return this.id;
@@ -85,7 +88,9 @@ export class Bingo extends EventEmitter{
             _title: this._title,
             memo: this.memo,
             id: this.id,
-            user_id: this.user_id
+            user_id: this.user_id,
+            _template_id: this._template_id,
+            nice_point: this.nice_point
         }
     }
 
@@ -135,9 +140,6 @@ export class Bingo extends EventEmitter{
             new BingoGroup(this.cells_multi.map( (row, index) => row[this.cell_num-index-1])as Array<Cell>));
 
     }
-
-    private bingo_groups:Array<BingoGroup>;
-    public cells_multi:Array<Array<Cell>>;
 
     public get cell_last_checked():Cell{
         return this.cells_checked.slice(-1)[0];
