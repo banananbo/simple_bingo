@@ -31,10 +31,21 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
+
+@keyframes fuwa {
+  /* 0% { transform: translateY(-10px) }
+  50% { transform: translateY(10px) }
+  100% { transform: translateY(-10px) } */
+    0% { transform:scale(1,1); }
+  50% { transform:scale(1.1,1.1); }
+  100% { transform:scale(1,1); }
+}
+
 .logo {
   margin: 0 auto;
   /* width: 310px; */
   padding: 10px;
+  animation: fuwa 3s ease-in-out infinite;
 }
 
 .logo_inner {
@@ -53,7 +64,7 @@ export default Vue.extend({
 .logo_inner .blue{
   font-size: 1.2em;
   color: #5856d0;
-  font-style: bold;
+  font-weight: 900;
 }
 
 .logo_inner .last{
