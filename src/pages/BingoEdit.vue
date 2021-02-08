@@ -1,6 +1,5 @@
 <template>
 <section>
-<Header></Header>
       <div class="container-fluid text-center">
         <div class="row">
           <div class="col-md-9 col-sm-12">
@@ -18,14 +17,12 @@
             <div v-if="this.bingo">
               <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
             </div>
-            <!-- <LocationSetting></LocationSetting> -->
             <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="startBingoGame">{{$t("function.start")}}</button>
           </div>
           <CellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></CellEdit>
          </div>
       </div>
-      <Footer></Footer>
 </section>
 </template>
 
@@ -34,11 +31,8 @@
 import Vue from "vue" 
 import BingoView from "@organisms/BingoView.vue";
 import CellEdit from "@organisms/CellEdit.vue";
-import Header from "@organisms/Header.vue";
-import Footer from "@organisms/Footer.vue";
 import {Content} from "@lib/bingo/content";
 import {Bingo,Cell} from "@lib/bingo/Bingo";
-// import LocationSetting from "@atoms/LocationSetting.vue";
 
 Vue.component("modal", {
   template: "#modal-template"
@@ -87,11 +81,6 @@ export default Vue.extend({
     },
   },
   watch: {
-      // 'size': {
-      //     handler: function () {
-      //         this.initBingo();
-      //     }
-      // },
       'cell_num': {
           handler: function () {
             console.log("change cell num");
@@ -114,17 +103,12 @@ export default Vue.extend({
     }
     
     this.initBingo();
-    // this.cell_num = this.$store.state.bingo.cell_num;
   },
   mounted(){
-    // this.initBingo();
   },
   components: {
     BingoView,
     CellEdit,
-    Header,
-    Footer,
-    // LocationSetting
   }
 })
 </script>

@@ -1,6 +1,5 @@
 <template>
 <div v-if="this.$store.state.bingo">
-    <Header></Header>
     <BingoOverlay :width="bingo_w" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
     <div ref="bingoview">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
@@ -20,14 +19,11 @@
     <ControlPop v-if="cellPop" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell" @close="cellPop = false;"></ControlPop>
     <EndPop v-if="endPop" :bingo="this.$store.state.bingo" :timer="timer" @submit="endGame" @cancel="endPop=false" @remove="confirmDiscard"></EndPop>
     <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
-    <Footer></Footer>
 </div>
 </template>
 <script lang="ts">
 import Vue from "vue"
 import {Bingo,Cell} from "@lib/bingo/Bingo";
-import Header from "@organisms/Header.vue";
-import Footer from "@organisms/Footer.vue";
 import BingoView from "@organisms/BingoView.vue";
 import ScoreView from "@atoms/ScoreView.vue";
 import CellView from "@organisms/CellView.vue";
@@ -36,7 +32,6 @@ import EndPop from "@organisms/EndPop.vue";
 import BingoOverlay from "@organisms/BingoOverlay.vue";
 import DateFunc from "@mixin/date_func";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
-import firebase from "firebase"
 
 
 export type DataType ={
@@ -70,36 +65,16 @@ export default Vue.extend({
 
     },
     watch: {
-    //   'size': {
-    //       handler: function () {
-    //           this.initBingo();
-    //       }
-    //   },
-      // 'cell_num': {
-      //     handler: function () {
-      //       console.log("change cell num");
-      //       this.initBingo();
-      //     }
-      // }
-  },
+     },
 
     props: {
-        // cell_size: {
-        //     type: Number,
-        //     required: true
-        // },
-        // bingo: {
-        //     type: Bingo,
-        //     required: true
-        // }
+
     },
     beforeCreate(){
-        console.log('before create start');
         if(!this.$store.state.bingo){
             // プレイ中のbingo無し
             this.$router.push("/create"); return; 
         }
-        console.log('before create end');
     },
     mounted(){
         if(!this.$store.state.bingo){
@@ -120,8 +95,6 @@ export default Vue.extend({
 
 
     components: {
-        Header,
-        Footer,
         BingoView,
         ControlPop,
         EndPop,

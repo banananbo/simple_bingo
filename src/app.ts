@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import VueRouter from 'vue-router';
 import routes from './router/router.ts';
 import store from './store/index.ts';
+import Basic from "@templates/Basic.vue";
 import {i18n} from './i18n.ts';
 
 
@@ -43,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     i18n: i18n,
     router: router,
     store: store,
+    components: {Basic},
+    template: "<Basic/>",
     beforeCreate(){
       this.$store.dispatch('doLoad')
     }

@@ -22,6 +22,7 @@ export const user_setting = {
         state.lang_site = lang_site;
         i18n.locale  = state.lang_site;
         localStorage.setItem('settings', JSON.stringify(state));
+        document.title = i18n.tc("title");
       },
       setLangContents (state:UserSettingState,lang_contents:string) {
         state.lang_contents = lang_contents;
@@ -46,6 +47,7 @@ export const user_setting = {
           if(obj.speech_mode) state.speech_mode = obj.speech_mode;
         }
         i18n.locale  = state.lang_site;
+        document.title = i18n.tc("title");
       }
     },
     actions: {

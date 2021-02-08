@@ -1,6 +1,5 @@
 <template>
 <div style="position:relative;">
-    <Header></Header>
     <div style="position:absolute; 0%; right:10px;">
     <a type="button" class="btn btn-primary" :href="`http://twitter.com/share?url=https://bin5.xyz/%23/result/${$route.params.id}&text=おさんぽビンゴでお散歩しました！&hashtags=osanpo_bingo`" target="_blank">
     <v-fa :icon="['fab', 'twitter']" />シェアする
@@ -8,15 +7,12 @@
     </div>
     <h5 style="padding-bottom:20px">ビンゴけっか</h5>
     <ResultCard v-if="bingo" :bingo="bingo" :datail_view="true" :detail_mode="true"></ResultCard>
-    <Footer></Footer>
 </div>
 
 </template>
 <script lang="ts">
 import Vue from "vue"
 import {Bingo,Cell} from "@lib/bingo/Bingo";
-import Header from "@organisms/Header.vue";
-import Footer from "@organisms/Footer.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import firebase from "firebase"
 
@@ -60,8 +56,6 @@ db.collection('archives').doc(this.$route.params.id).get().then(
     },
 
     components: {
-        Header,
-        Footer,
         ResultCard,
     },
 

@@ -59,6 +59,7 @@ module.exports = {
       '@lib': path.join(__dirname, 'src/lib'),
       '@pages': path.join(__dirname, 'src/pages'),
       '@organisms': path.join(__dirname, 'src/organisms'),
+      '@templates': path.join(__dirname, 'src/templates'),
       '@atoms': path.join(__dirname, 'src/atoms'),
       '@mixin': path.join(__dirname, 'src/mixin'),
       vue: 'vue/dist/vue.esm.js',

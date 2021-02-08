@@ -1,6 +1,5 @@
 <template>
 <section>
-      <Header></Header>
       <div class="container-fluid text-center">
             <TitleLogo></TitleLogo>
       </div>
@@ -59,15 +58,12 @@
       </section>
 
       <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
-      <Footer></Footer>
 </section>
 </template>
 
 <script lang="ts">
 
-import Vue from "vue" 
-import Header from "@organisms/Header.vue";
-import Footer from "@organisms/Footer.vue";
+import Vue from "vue"
 import TitleLogo from "@atoms/TitleLogo.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
@@ -111,8 +107,6 @@ export default Vue.extend({
             }
       },
       components:{
-        Header,
-        Footer,
         ResultCard,
         DiscardGamePop,
         TitleLogo
