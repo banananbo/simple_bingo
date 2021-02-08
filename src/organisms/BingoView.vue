@@ -36,7 +36,7 @@ export default Vue.extend({
 
     computed:{
       cell_size:function():number{
-          return Math.floor(this.size/this.bingo.cell_num);
+          return Math.floor((this.size-this.bingo.cell_num*4)/this.bingo.cell_num);
       },
   },
 

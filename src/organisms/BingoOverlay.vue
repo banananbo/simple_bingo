@@ -46,6 +46,7 @@ export default Vue.extend({
            this.text = i18n.tc("noun.ready");
            this.transition_name = "fade";
            this.text_style = {
+            "border-radius": "6px;",
             "font-size":"5em",
             "text-align":"center",
             "line-height":"0.95em",
