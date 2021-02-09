@@ -40,7 +40,7 @@
 <script lang="ts">
 
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo";
+import {Bingo} from "@lib/bingo/Bingo";
 import ContentView from "@organisms/ContentView.vue";
 import ScoreView from "@atoms/ScoreView.vue";
 

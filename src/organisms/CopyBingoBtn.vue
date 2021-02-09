@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo";
+import {Bingo} from "@lib/bingo/Bingo";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
 
 export type DataType ={

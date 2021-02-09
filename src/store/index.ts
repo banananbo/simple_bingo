@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {Bingo,Cell} from "@lib/bingo/Bingo";
-import firebase from "firebase"
+import {Bingo} from "@lib/bingo/Bingo";
 import {user_setting,UserSettingState} from './modules/user_setting'
 import {user,UserState} from './modules/user'
 import {archives , ArchivesState} from './modules/archives'

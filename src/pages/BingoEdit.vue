@@ -32,7 +32,8 @@ import Vue from "vue"
 import BingoView from "@organisms/BingoView.vue";
 import CellEdit from "@organisms/CellEdit.vue";
 import {Content} from "@lib/bingo/content";
-import {Bingo,Cell} from "@lib/bingo/Bingo";
+import {Bingo} from "@lib/bingo/Bingo";
+import {Cell} from "@lib/bingo/Cell";
 
 Vue.component("modal", {
   template: "#modal-template"

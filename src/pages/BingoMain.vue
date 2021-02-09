@@ -23,7 +23,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo";
+import {Cell} from "@lib/bingo/Cell";
 import BingoView from "@organisms/BingoView.vue";
 import ScoreView from "@atoms/ScoreView.vue";
 import CellView from "@organisms/CellView.vue";

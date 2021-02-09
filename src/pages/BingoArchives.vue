@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo.ts";
+import {Bingo} from "@lib/bingo/Bingo.ts";
 import ResultCard from "@organisms/ResultCard.vue";
 
 export type DataType ={

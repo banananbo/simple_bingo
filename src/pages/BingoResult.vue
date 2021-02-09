@@ -12,7 +12,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue"
-import {Bingo,Cell} from "@lib/bingo/Bingo";
+import {Bingo} from "@lib/bingo/Bingo";
 import ResultCard from "@organisms/ResultCard.vue";
 import firebase from "firebase"
 
@@ -36,10 +36,6 @@ export default Vue.extend({
 
     },
     created(){
-        console.log(window.location.href);
-//         console.log(this.$route.params.id);
-// firebase.database().ref('archives/'+this.$route.params.id)
-// .once('value', (snapshot)=>{console.log(snapshot.val());console.log(this.bingo); this.bingo = Bingo.createByObj(snapshot.val());console.log("HOGA");console.log(this.bingo)})
 const db = firebase.firestore();
 db.collection('archives').doc(this.$route.params.id).get().then(
     doc => {

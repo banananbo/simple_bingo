@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from "vue"
 
-import {Cell} from "@lib/bingo/Bingo";
+import {Cell} from "@lib/bingo/Cell";
 import ContentView from "@organisms/ContentView.vue"
 
 export type DataType ={
