@@ -73,6 +73,11 @@ export class Cell extends EventEmitter {
         if(!this._check) return false;
         return this._check.location_available
     }
+    public swapContents(cell:Cell){
+        let tmp = this.content_id;
+        this.content_id = cell.content_id ;
+        cell.content_id = tmp;
+    }
 }
 
 class CheckMetaData{

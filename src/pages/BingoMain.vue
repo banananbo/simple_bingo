@@ -49,7 +49,7 @@ export type DataType ={
 export default Vue.extend({
     data:function():DataType {
         return {
-            size: screen.width - 40,
+            size: screen.width - 20,
             cellPop: false,
             endPop: false,
             selectedCell: null,
@@ -112,7 +112,6 @@ export default Vue.extend({
             await this.$store.dispatch('archives/addToBingoDBArchives');
             // context.commit('archives/addToBingoArchivesLocal');
 
-            console.log('saved finish');
             const newId = this.$store.state.bingo.id;
 
             this.$store.commit('removeBingoData',null);

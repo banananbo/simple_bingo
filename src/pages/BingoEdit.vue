@@ -15,7 +15,7 @@
 
             </div>
             <div v-if="this.bingo">
-              <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
+              <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
             </div>
             <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="startBingoGame">{{$t("function.start")}}</button>
@@ -52,7 +52,7 @@ export type DataType ={
 export default Vue.extend({
   data:function():DataType {
     return {
-      size: screen.width - 40,
+      size: screen.width - 20,
       cell_num: 3,
       showModal: false,
       editCell: null,
