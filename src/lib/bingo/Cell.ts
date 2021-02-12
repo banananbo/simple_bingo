@@ -74,7 +74,7 @@ export class Cell extends EventEmitter {
         return this._check.location_available
     }
     public swapContents(cell:Cell){
-        let tmp = this.content_id;
+        let tmp:number = this.content_id;
         this.content_id = cell.content_id ;
         cell.content_id = tmp;
     }

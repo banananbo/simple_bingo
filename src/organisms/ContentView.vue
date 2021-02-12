@@ -1,6 +1,7 @@
 <template>
-    <!-- <canvas ref="canvas" :width="size" :height="size" @click='select'></canvas> -->
-    <img :class="{unabled: !enable}" :src="this.content.img_src" :width="size" :height="size" @click='select'>
+    <div>
+     <img v-if="content" :class="{unabled: !enable}" :src="this.content.img_src" :width="size" :height="size" @click='select'>
+    </div>
 </template>
 <script lang="ts">
 import Vue from "vue"
@@ -35,13 +36,13 @@ export default Vue.extend({
         },
     },
 
-    watch: {
-      'content': {
-          handler: function (val) {
-              this.draw();
-          }
-       }
-    },
+    // watch: {
+    //   'content': {
+    //       handler: function (val) {
+    //           this.draw();
+    //       }
+    //    }
+    // },
 
     created(){
 

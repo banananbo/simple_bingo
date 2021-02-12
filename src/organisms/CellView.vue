@@ -51,7 +51,7 @@ export default Vue.extend({
 
     computed: {
         content_size:function():number{
-            return this.size - 6 // 線幅
+            return this.size // 線幅
         }       
     },
 

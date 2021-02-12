@@ -9,23 +9,25 @@
         </td>
 </tr>
 </table> -->
-            <draggable v-model="bingo.cells" :style="draggable_style" element="ul" :options="options" @end="ondraggend" :move="handleMove">
-            <li v-for="(cell, index) in bingo.cells" :key="index">
-                <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing"></CellView>
+            <draggable v-model="bingo.cells" :style="draggable_style" element="ul" :options="options" @change="onChange" @start="ondraggstart" @end="ondraggend" :move="handleMove">
+            <li v-for="(cell, index) in bingo.cells" :key="index" @mouseup ="onMouseup" @mousedown="onMouseDown">
+                <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing" @mousemove="()=>{console.log('enter')}"></CellView>
             </li>
             </draggable>
 </template>
 <script lang="ts">
 import Vue from "vue"
 import CellView from "@organisms/CellView.vue";
+import ContentView from "@organisms/ContentView.vue";
 import {Bingo} from "@lib/bingo/Bingo";
+import {Cell} from "@lib/bingo/Cell";
 import {Content} from "@lib/bingo/content";
  import draggable from 'vuedraggable'
 
 export type DataType ={
     options: any,
-    movingIndex: any,
-    futureIndex: any,
+    movingCell: Cell,
+    futureCell: Cell
 }
 
 export default Vue.extend({
@@ -37,8 +39,8 @@ export default Vue.extend({
                 group: 'cell',
                 disabled: !this.draggable
             },
-            movingIndex: null,
-            futureIndex: null,
+            movingCell: null,
+            futureCell: null
 
         };
     },
@@ -80,7 +82,8 @@ export default Vue.extend({
 
     components: {
         CellView,
-        draggable
+        draggable,
+        ContentView
     },
 
     created(){
@@ -91,14 +94,39 @@ export default Vue.extend({
     },
 
     methods: {
-        ondraggend:function(event:any){
-            this.bingo.cells[this.movingIndex].swapContents(this.bingo.cells[this.futureIndex]);
+        onMouseDown:function(event:any){
+            console.log(" mouse down ");
+            console.log(event);
+        },
+        onMouseup:function(event:any){
+            console.log(" mouse up ");
+            console.log(event);
+        },
+        ondraggend:function(e:any){
+            console.log("swap swap");
+            // console.log(e);
+            console.log(e.item);
+            // console.log(event);
+            this.movingCell.swapContents(this.futureCell);
+        },
+        ondraggstart:function(e:any){
+            console.log("drag start");
+            console.log(e.item);
+            let li = e.item;
+            li.addEventListener( "mousemove", () =>{ console.log(99) } ) ;
+            
+            this.movingCell = this.bingo.cells[e.oldIndex];
+            // this.movingCell.content = Content.BLANK;
+            // this.bingo.cells[e.oldIndex].content  = Content.BLANK;
         },
         handleMove(event:any) {
-            console.log(event.draggedContext);
+            
             const { index, futureIndex } = event.draggedContext
-            this.movingIndex = index
-            this.futureIndex = futureIndex
+
+            // this.movingContent = this.bingo.cells[this.movingIndex].content;
+            this.futureCell = this.bingo.cells[futureIndex];
+
+            // this.bingo.cells[this.movingIndex].content = Content.BLANK;
             return false // disable sort
         },
         onCellClicked:function(obj:any){

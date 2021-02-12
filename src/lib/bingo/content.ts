@@ -30,9 +30,18 @@ export class Content{
     public get img_src(){
         return  `${Content.IMG_HOST}contents/${('00'+this.id).slice(-3)}.png`
     }
+
+    static BLANK:Content = new Content(0,'なし','','',"");
+
     static getById(id:number){
+        if(id==0) return Content.BLANK;
         return Content.contents[id-1]
     }
+
+    public get is_blank():Boolean{
+        return this.id == Content.BLANK.id;
+    }
+
     static contents:Array<Content> = [
             new Content(1,      
             'ねこ','いつものばしょにいるかも','CAT',"Let's find a place where its are always"),
