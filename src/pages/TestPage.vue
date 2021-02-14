@@ -9,7 +9,7 @@
         <ResultCard :bingo="$store.state.bingo" :size="200"></ResultCard>
         <BingoView :bingo="localbingo" :size="200"></BingoView>
         <ResultCard :bingo="localbingo" :size="200" :datail_view="true"></ResultCard>
-        <TestPop v-if="show_modal" @close="show_modal=false"></TestPop>
+        <CellEdit2 v-if="show_modal" @close="show_modal=false" :bingo="this.localbingo"></CellEdit2>
     <Footer></Footer>
 </div>
 
@@ -20,6 +20,7 @@ import Header from "@organisms/Header.vue";
 import Footer from "@organisms/Footer.vue";
 import TestModal from "@organisms/TestModal.vue";
 import TestPop from "@organisms/TestPop.vue";
+import CellEdit2 from "@organisms/CellEdit2.vue";
 import BingoView from "@organisms/BingoView.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import FreeContents from "@atoms/FreeContents.vue";
@@ -45,6 +46,7 @@ export default Vue.extend({
 
     },
     created(){
+      this.localbingo = Bingo.createNew(3,true);
     },
 
     components: {
@@ -54,7 +56,8 @@ export default Vue.extend({
         TestModal,
         BingoView,
         ResultCard,
-        TestPop
+        TestPop,
+        CellEdit2
     },
 
     methods: {

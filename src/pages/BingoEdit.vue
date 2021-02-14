@@ -20,7 +20,7 @@
             <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="startBingoGame">{{$t("function.start")}}</button>
           </div>
-          <CellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></CellEdit>
+          <CellEdit2 :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></CellEdit2>
          </div>
       </div>
 </section>
@@ -30,7 +30,7 @@
 
 import Vue from "vue" 
 import BingoView from "@organisms/BingoView.vue";
-import CellEdit from "@organisms/CellEdit.vue";
+import CellEdit2 from "@organisms/CellEdit2.vue";
 import {Content} from "@lib/bingo/content";
 import {Bingo} from "@lib/bingo/Bingo";
 import {Cell} from "@lib/bingo/Cell";
@@ -109,7 +109,8 @@ export default Vue.extend({
   },
   components: {
     BingoView,
-    CellEdit,
+    // CellEdit,
+    CellEdit2
   }
 })
 </script>

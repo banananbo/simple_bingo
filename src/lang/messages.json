@@ -64,7 +64,8 @@
         "finish_bingo_caption": "再開できません。中断する場合は「つづける」を押し、そのままブラウザを閉じてください。",
         "finish_bingo": "ビンゴをおわりますか？",
         "language_education": "英語学習にも",
-        "language_education_detail": "英語でも遊べる！英語では何と言うのかな。見つけたものを言って見よう"
+        "language_education_detail": "英語でも遊べる！英語では何と言うのかな。見つけたものを言って見よう",
+        "choose_cell": "セルを選ぶ"
     }
     },
     "en": {
@@ -134,7 +135,8 @@
         "finish_bingo_alert": "The bingo you are playing will disappear. Is it OK?",
         "finish_bingo_caption": "It cannot be resumed. To interrupt, press 'Continue' and close the browser as it is.",
         "finish_bingo": "Do you want to end the bingo?",
-        "bingo_create": "Click to change the picture"
+        "bingo_create": "Click to change the picture",
+        "choose_cell": "Choose cell"
       }
     }
   }

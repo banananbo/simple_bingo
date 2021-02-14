@@ -1,6 +1,6 @@
 <template>
-    <div>
-     <img v-if="content" :class="{unabled: !enable}" :src="this.content.img_src" :width="size" :height="size" @click='select'>
+    <div @click='select'>
+     <img v-if="content" :class="{unabled: !enable}" :src="this.content.img_src" :width="size" :height="size">
     </div>
 </template>
 <script lang="ts">

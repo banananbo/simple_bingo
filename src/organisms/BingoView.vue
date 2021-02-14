@@ -109,6 +109,8 @@ export default Vue.extend({
             console.log(e.item);
             // console.log(event);
             this.movingCell.swapContents(this.futureCell);
+            this.movingCell = null;
+            this.futureCell = null;
         },
         ondraggstart:function(e:any){
             console.log("drag start");
@@ -137,9 +139,7 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-img {
-  pointer-events: none;
-}
+
 
 /* .grid-container {
   display: grid;

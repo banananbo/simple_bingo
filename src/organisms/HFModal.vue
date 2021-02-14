@@ -1,43 +1,23 @@
 <template>
-<div class="wrapper">
+<div class="wrapper" @click="$emit('outclick')">
 <div class="contents1">
 <div class="contents2">
-    <div class="title">ウォッチリストの条件設定（新規登録時）</div>
+    <slot name="header"></slot>
     <div class="scroll">
-                    <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-                        <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃMOU</p>
-            <p>どういうこっちゃ</p>
-            <p>どういうこっちゃEND</p>
+        <slot></slot>
     </div><!-- /scroll -->
     <div class="fixed">
-        <button class="button">OK</button>
-        <button class="button">NG</button>
+        <slot name="footer"></slot>
     </div>
 </div>
 
 </div></div>
 </template>
 <script lang="ts">
-export default {
-    
-}
+import Vue from "vue"
+export default Vue.extend({
+
+});
 </script>
 <style lang="css" scoped>
 .wrapper {
@@ -80,12 +60,12 @@ export default {
     line-height: 1.2;
 }
 .scroll{
-    max-height: 65vh;
+    max-height: 70vh;
     padding: 16px;
     overflow-y: auto;
 }
 .fixed{
-    max-height: 15vh;
+    /* max-height: 10vh; */
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
@@ -98,7 +78,7 @@ export default {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding: 16px;
+    padding: 5px;
     border-top: 1px solid #ccc;
     background: white;
 }
