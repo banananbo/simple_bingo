@@ -26,7 +26,7 @@ export class Content{
 
     constructor(public id:number,public title_ja:string,public caption_ja:string,public title_en:string, public caption_en:string){
     }
-    static IMG_HOST:string = '/img/'
+    static IMG_HOST:string = 'https://bin5.xyz/img/'
     public get img_src(){
         return  `${Content.IMG_HOST}contents/${('00'+this.id).slice(-3)}.png`
     }
