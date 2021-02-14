@@ -1,5 +1,5 @@
 import {Bingo} from "@lib/bingo/Bingo";
-import firebase from "firebase"
+import firebase from "firebase/app"
 import {User} from "@lib/bingo/user";
 
 export default class Archives{

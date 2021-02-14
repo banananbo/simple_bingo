@@ -1,6 +1,6 @@
 import {Bingo} from "@lib/bingo/Bingo";
 import {User} from "@lib/bingo/user";
-import firebase from "firebase"
+import firebase from "firebase/app"
 import rootStore from '../index';
 import Archives from "@lib/db/archives";
 

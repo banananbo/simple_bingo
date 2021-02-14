@@ -67,7 +67,7 @@ import Vue from "vue"
 import TitleLogo from "@atoms/TitleLogo.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
-import firebase from "firebase"
+import firebase from "firebase/app"
 
 export type DataType ={
       view_discardPop:Boolean,
@@ -78,7 +78,7 @@ export default Vue.extend({
       data: function():DataType{
       return {
             view_discardPop: false,
-            resultcardSize: screen.width - 120
+            resultcardSize: screen.width - 70
         };
       },
       methods:{

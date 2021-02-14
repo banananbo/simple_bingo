@@ -62,6 +62,7 @@
   },
   "scripts": {
     "dev": "webpack --watch",
+    "build": "webpack --mode=production",
     "test": "jest"
   }
 }

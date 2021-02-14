@@ -73,7 +73,7 @@
 
 import Vue from "vue"
 import {User} from "@lib/bingo/user";
-import firebase from "firebase"
+import firebase from "firebase/app"
 
 export type DataType ={
     

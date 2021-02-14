@@ -1,5 +1,5 @@
 import {User} from "@lib/bingo/user";
-import firebase from "firebase"
+import firebase from "firebase/app"
 
 export interface UserState {
     user: User,

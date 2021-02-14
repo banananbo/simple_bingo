@@ -26,7 +26,6 @@ import BingoView from "@organisms/BingoView.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import FreeContents from "@atoms/FreeContents.vue";
 import {Bingo} from "@lib/bingo/Bingo";
-import firebase from "firebase"
 // import {QueryDocumentSnapshot} from "firebase/firestore"
 import {User} from "@lib/bingo/user";
 import Archives from "@lib/db/archives";

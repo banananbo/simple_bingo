@@ -84,7 +84,7 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width -60
+            default: screen.width -40
         },
         detail_mode:{
             type: Boolean,
@@ -121,7 +121,7 @@ export default Vue.extend({
 </script>
 <style scoped>
     div .main{
-        margin: 10px;
+        margin: 5px 0;
         padding: 5px;
         cursor: hand;
     }

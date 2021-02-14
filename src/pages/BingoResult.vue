@@ -14,7 +14,7 @@
 import Vue from "vue"
 import {Bingo} from "@lib/bingo/Bingo";
 import ResultCard from "@organisms/ResultCard.vue";
-import firebase from "firebase"
+import firebase from "firebase/app"
 
 export type DataType ={
     bingo: Bingo,
