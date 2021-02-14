@@ -1,19 +1,9 @@
 <template>
-<!-- <table>
-    <tr v-for="(row, index1) in bingo.cells_multi" :key="index1">
-        
-        <td v-for="(cell, index2) in row" :key="index2">
-            <draggable :options="options" @end="ondraggend" :move="()=> false">
-            <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing"></CellView>
-            </draggable>
-        </td>
-</tr>
-</table> -->
-            <draggable v-model="bingo.cells" :style="draggable_style" element="ul" :options="options" @change="onChange" @start="ondraggstart" @end="ondraggend" :move="handleMove">
-            <li v-for="(cell, index) in bingo.cells" :key="index" @mouseup ="onMouseup" @mousedown="onMouseDown">
-                <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing" @mousemove="()=>{console.log('enter')}"></CellView>
-            </li>
-            </draggable>
+    <draggable v-model="bingo.cells" :style="draggable_style" element="ul" :options="options" @start="ondraggstart" @end="ondraggend" :move="handleMove">
+    <li v-for="(cell, index) in bingo.cells" :key="index">
+        <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing"></CellView>
+    </li>
+    </draggable>
 </template>
 <script lang="ts">
 import Vue from "vue"
@@ -95,19 +85,9 @@ export default Vue.extend({
     },
 
     methods: {
-        onMouseDown:function(event:any){
-            console.log(" mouse down ");
-            console.log(event);
-        },
-        onMouseup:function(event:any){
-            console.log(" mouse up ");
-            console.log(event);
-        },
         ondraggend:function(e:any){
             console.log("swap swap");
-            // console.log(e);
-            console.log(e.item);
-            // console.log(event);
+            if(!this.movingCell||!this.futureCell) return;
             this.movingCell.swapContents(this.futureCell);
             this.movingCell = null;
             this.futureCell = null;
@@ -139,13 +119,6 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
-
-
-/* .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 139px);
-  gap: 2px;
-} */
 
 ul {
   border: 3px solid #b1c12c;

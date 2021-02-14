@@ -4,6 +4,7 @@
         <FreeContents :size="120"></FreeContents>
         <button @click="test">test</button>
         <button @click="show_modal=!show_modal">OPEN</button>
+        <button @click="test2">test2</button>
         <BingoView :bingo="$store.state.bingo" :size="200"></BingoView>
         <!-- <BingoView :bingo="localbingo" :size="200"></BingoView> -->
         <ResultCard :bingo="$store.state.bingo" :size="200"></ResultCard>
@@ -25,6 +26,10 @@ import BingoView from "@organisms/BingoView.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import FreeContents from "@atoms/FreeContents.vue";
 import {Bingo} from "@lib/bingo/Bingo";
+import firebase from "firebase"
+// import {QueryDocumentSnapshot} from "firebase/firestore"
+import {User} from "@lib/bingo/user";
+import Archives from "@lib/db/archives";
 
 export type DataType ={
     show_modal: boolean,
@@ -61,6 +66,39 @@ export default Vue.extend({
     },
 
     methods: {
+        test2:async function(){
+            let a = new Archives();
+            let list =await a.fetchRecentArchives();
+            console.log(4)
+            console.log(list);
+        },
+        // test3: async function(){
+        //     const db = firebase.firestore();
+        //     let datas = await db.collection("archives").orderBy("_end_time","desc").limit(3).get();
+            
+        //      datas.docs.map(
+        //         await this.createBingoData
+        //     );
+
+        //     for(let i=0;i<datas.docs.length;i++){
+        //         await this.createBingoData(datas.docs[i]);
+        //     }
+
+        //     console.log(3);
+
+        // },
+        // createBingoData: async function(doc:any){
+        //     let data = doc.data();
+
+        //     if(data.user_id == 0){
+        //         data.player = User.GUEST_USER;
+        //         console.log(data.player);
+        //     }else{
+        //         let player = await data.user_ref.get();
+        //         data.player = player.data();
+        //         console.log(data.player);
+        //     }
+        // },
         test:function(){
             console.log(
                 // JSON.parse(JSON.stringify(this.$store.state.bingo))
