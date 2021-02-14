@@ -1,4 +1,5 @@
 import {Bingo} from "@lib/bingo/Bingo";
+import {User} from "@lib/bingo/user";
 import firebase from "firebase"
 import rootStore from '../index';
 
@@ -14,16 +15,29 @@ export const archives = {
         const db = firebase.firestore();
         let room = "archives";
         let list:any[] = [];
-        let query = db.collection(room).orderBy("_end_time","desc").limit(5);
+        let query = db.collection(room).orderBy("_end_time","desc").limit(10);
         query.onSnapshot(querySnapshot => { 
-          console.log( `変わったよ ${querySnapshot}`)
+          // console.log( `変わったよ ${querySnapshot}`)
         })
   
         query.get().then(
           data => {
             data.forEach(doc => {
-              list.push(Bingo.createByObj(doc.data(),doc.id));
+                let data = doc.data();
+                if(data.user_id == 0){
+                  data.player = User.GUEST_USER;
+                }else{
+                  data.user_ref.get().then(
+                    (player:any) => {
+                      console.log(player.data());
+                      data.player = player.data();
+                    }
+                  )
+
+                }
+              list.push(Bingo.createByObj(data,doc.id));
             });
+
             state.recent_archives = list;
           })
           .catch(err => {
@@ -32,8 +46,6 @@ export const archives = {
       },
       addToBingoArchivesLocal (state:ArchivesState) {
         if(!rootStore.state.user.user.is_guest) return; // ゲストでない場合はローカルに記録しない
-        state.my_bingo_archives_local.unshift(rootStore.state.bingo);
-        localStorage.setItem('my_bingo_archives_local', JSON.stringify(state.my_bingo_archives_local));
       },
       
       loadMyArchives (state:ArchivesState) {
@@ -41,11 +53,11 @@ export const archives = {
         const db = firebase.firestore();
         let room = "archives";
         let list:any[] = [];
-        let query = db.collection(room).where(`user_id`,`==`,rootStore.state.user.user.id).orderBy("_end_time","desc").limit(5);
+        let query = db.collection(room).where(`user_id`,`==`,rootStore.state.user.user.id).orderBy("_end_time","desc").limit(10);
         query.get().then(
           data => {
             data.forEach(doc => {
-              list.push(Bingo.createByObj(doc.data()));  
+              list.push(Bingo.createByObj(doc.data(),doc.id));
             });
             state.my_bingo_archives = list;
           })

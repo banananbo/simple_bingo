@@ -84,6 +84,9 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
+img {
+  pointer-events: none;
+}
     .unabled{
         opacity: 0.3;
     }

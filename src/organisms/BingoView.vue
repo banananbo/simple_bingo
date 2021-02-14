@@ -36,6 +36,7 @@ export default Vue.extend({
         return {
             options: {
                 animation: 200,
+                delay: 200,
                 group: 'cell',
                 disabled: !this.draggable
             },
@@ -136,6 +137,9 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
+img {
+  pointer-events: none;
+}
 
 /* .grid-container {
   display: grid;
