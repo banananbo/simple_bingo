@@ -19,6 +19,7 @@ components:{
         Footer
       }
 })
+
 </script>
 <style>
 div#main{

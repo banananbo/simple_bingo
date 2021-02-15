@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     i18n: i18n,
     router: router,
     store: store,
-    components: {Basic},
-    template: "<Basic/>",
+    // components: {Basic},
+    // template: "<Basic/>",
     beforeCreate(){
       this.$store.dispatch('doLoad')
     }
