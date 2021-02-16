@@ -1,10 +1,10 @@
 <template>
     <div @click='select'>
-     <img v-if="content" :class="{unabled: !enable}" :src="this.content.img_src" :width="size" :height="size">
+     <img v-if="content" :class="{unabled: !enable}" :src="this.content.img_src" :height="size">
     </div>
 </template>
 <script lang="ts">
-import Vue from "vue"
+import Vue, { PropType }  from "vue"
 
 import {Content} from "@lib/bingo/content"
 
@@ -31,7 +31,7 @@ export default Vue.extend({
             required: false
         },
         content: {
-            type: Content,
+            type: Object as PropType<Content>,
             required: true
         },
     },
@@ -77,7 +77,7 @@ export default Vue.extend({
         speech:function(){
             let u = new SpeechSynthesisUtterance();
             u.lang = 'en-US';
-            u.text = this.content.title_en;
+            u.text = this.content.title;
             speechSynthesis.speak(u);
         }
   },

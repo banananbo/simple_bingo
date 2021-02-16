@@ -10,7 +10,7 @@
                 <select name='cell_num' v-model='cell_num' @change="initBingo()" style="font-size:1.2em;width:100px;padding:5px;margin-right:50px">
                   <option v-for="num,idx in cell_nums" :key="idx"> {{num}} </option>
                 </select>
-                <button type="button" class="btn btn-primary" @click="resetBingo">{{$t("function.regenerate")}}</button>
+                <button type="button" class="btn btn-primary" @click="initBingo">{{$t("function.regenerate")}}</button>
               </section>
 
             </div>
@@ -71,14 +71,11 @@ export default Vue.extend({
       this.editCell.content = obj.content;
     },
     initBingo: function(){
-      this.bingo = Bingo.createNew(this.cell_num,true);
+      this.bingo =  new Bingo( Cell.createByRandomMitsuketaContents(  this.cell_num ) );
     },
     startBingoGame:function(){
       this.$store.commit('setBingoData',this.bingo);
       this.$router.push('game');
-    },
-    resetBingo: function(){
-      this.bingo = Bingo.createNew(this.cell_num,true);
     },
   },
   watch: {

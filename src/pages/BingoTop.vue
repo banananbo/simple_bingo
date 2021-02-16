@@ -46,48 +46,16 @@ export default Vue.extend({
     };
   },
   methods:{
-    onCellClicked:function(obj:any){
-      this.editCell = obj.cell;
-      this.showModal = true;
-    },
-    cellChanged:function(obj:any){
-      this.showModal = false;
-      this.editCell.content = obj.content;
-    },
-    initBingo: function(){
-      this.bingo = Bingo.createNew(this.cell_num,true);
-    },
-    startBingoGame:function(){
-      this.$store.commit('setBingoData',this.bingo);
-      this.$router.push('game');
-    },
-    resetBingo: function(){
-      this.bingo = Bingo.createNew(this.cell_num,true);
-    },
+
   },
   watch: {
-      'cell_num': {
-          handler: function () {
-            console.log("change cell num");
-            this.initBingo();
-          }
-      }
+
   },
   computed:{
-      cell_size:function():number{
-          return Math.floor(this.size/this.cell_num);
-      },
-      count():number {
-          return this.$store.state.count;
-      }
+
   },
   created() { 
-    if( this.$store.state.bingo && this.$store.state.bingo.is_playing){
-        this.$router.push('game');
-        return;
-    }
-    
-    this.initBingo();
+
   },
   mounted(){
   },

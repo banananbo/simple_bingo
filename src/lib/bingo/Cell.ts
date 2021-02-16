@@ -1,22 +1,20 @@
 import {EventEmitter} from 'events';
-import {Content} from "@lib/bingo/content";
+import {Content,MitsuketaContent,BlankContent} from "@lib/bingo/content";
 
 export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
     private _is_reach:Boolean = false;
 
-    public get content():Content{
-        return Content.getById(this.content_id);
-    }
+    // public get content():Content{
+    //     return MitsuketaContent.getById(this.content_id);
+    // }
 
-    public set content(content:Content){
-        this.content_id = content.id;
-    }
+    // public set content(content:Content){
+    //     this.content_id = content.id;
+    // }
 
     constructor( 
-        public x:number,
-        public y:number, 
-        public content_id:number=0,
+        public content:Content,
         private _check:any=null
         ){
             super();
@@ -25,15 +23,37 @@ export class Cell extends EventEmitter {
     public get serialized(){
         return {
             _check: (this._check)? this._check.serialized : null,
-            x: this.x,
-            y: this.y,
-            content_id: this.content_id
+            content_id: this.content.id,
+            ctype: this.content.ctype
         }
+    }
+
+    static createByRandomMitsuketaContents(cell_num:number):Array<Cell>{
+        let cells:Array<Cell> = [];
+        let contents:Array<Content> = MitsuketaContent.random_arr(cell_num*cell_num);
+        for(let i:number=0;i<cell_num;i++){
+            for(let j:number=0;j<cell_num;j++){
+                cells.push(new Cell(contents[i*cell_num+j]));
+            }
+        }
+        return cells
+    }
+
+    static createBlankCell(cell_num:number):Array<Cell>{
+        let cells:Array<Cell> = [];
+        for(let i:number=0;i<cell_num;i++){
+            for(let j:number=0;j<cell_num;j++){
+                cells.push(new Cell(new BlankContent()));
+            }
+        }
+        return cells
     }
 
     static createByObj(obj:any):Cell{
         const check:any = (obj._check)? new CheckMetaData(obj._check.time,obj._check.location) : null;
-        return new Cell(obj.x,obj.y,obj.content_id,check);
+        const ctype:string = (obj.ctype)? obj.ctype : "mitsuketa"
+        const content:Content = (ctype=="mitsuketa")? MitsuketaContent.getById(obj.content_id) : null;
+        return new Cell(content,check);
     }
 
     public check(save_location:boolean = false){
@@ -74,9 +94,9 @@ export class Cell extends EventEmitter {
         return this._check.location_available
     }
     public swapContents(cell:Cell){
-        let tmp:number = this.content_id;
-        this.content_id = cell.content_id ;
-        cell.content_id = tmp;
+        let tmp:Content = this.content;
+        this.content = cell.content;
+        cell.content = tmp;
     }
 }
 

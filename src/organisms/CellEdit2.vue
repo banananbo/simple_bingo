@@ -19,7 +19,7 @@
 import Vue from "vue"
 import HFModal from "@organisms/HFModal.vue";
 import ContentView from "@organisms/ContentView.vue";
-import {Content} from "@lib/bingo/content"
+import {Content,MitsuketaContent} from "@lib/bingo/content"
 import {Bingo} from "@lib/bingo/Bingo"
 
 export type DataType ={
@@ -30,13 +30,13 @@ export type DataType ={
 export default Vue.extend({
     data:function():DataType {
         return {
-            contents: Content.contents,
+            contents: MitsuketaContent.contents,
             size : (screen.width -100)/4
         };
     },
    computed:{
-      except_id_list():Array<number>{
-          return this.bingo.contents.map(c=>c.id);
+      except_id_list():Array<string>{
+          return this.bingo.contents.map( c=>c.id );
       }
   },
     props: {

@@ -11,8 +11,34 @@ export class Tag{
     ]
 }
 
-export class Content{
+export interface Content{
+    id:string;
+    title:string;
+    caption:string;
+    ctype:string;
+    img_src:string;
+}
 
+export class AContent implements Content{
+    constructor(public id:string){
+    }
+    public title="-"
+    public caption="-"
+    public ctype="blank"
+    public img_src = `https://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=${this.id}&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=banananbo01-22&language=ja_JP`
+}
+
+export class BlankContent implements Content{
+    public id="0"
+    public title="-"
+    public caption="-"
+    public ctype="blank"
+    public img_src="https://custom-net.co.jp/test2019/wp-content/themes/affinger5/images/no-img.png"
+}
+
+export class MitsuketaContent implements Content{
+    public ctype:string = "mitsuketa"
+    public id:string = "";
     public get title():string{
         if(store.state.user_setting.lang_contents =='ja') return this.title_ja;
         if(store.state.user_setting.lang_contents =='en') return this.title_en;
@@ -24,102 +50,100 @@ export class Content{
         return "";
     }
 
-    constructor(public id:number,public title_ja:string,public caption_ja:string,public title_en:string, public caption_en:string){
+    constructor(public _id:number,public title_ja:string,public caption_ja:string,public title_en:string, public caption_en:string){
+        this.id = _id.toString();
     }
+    
     static IMG_HOST:string = 'https://bin5.xyz/img/'
     public get img_src(){
-        return  `${Content.IMG_HOST}contents/${('00'+this.id).slice(-3)}.png`
+        return  `${MitsuketaContent.IMG_HOST}contents/${('00'+this.id).slice(-3)}.png`
     }
 
-    static BLANK:Content = new Content(0,'なし','','',"");
+    static BLANK:MitsuketaContent = new MitsuketaContent(0,'なし','','',"");
 
-    static getById(id:number){
-        if(id==0) return Content.BLANK;
-        return Content.contents[id-1]
-    }
-
-    public get is_blank():Boolean{
-        return this.id == Content.BLANK.id;
+    static getById(id:string){
+        let index:number = Number(id)-1
+        return MitsuketaContent.contents[index]
     }
 
     static contents:Array<Content> = [
-            new Content(1,      
+            new MitsuketaContent(1,      
             'ねこ','いつものばしょにいるかも','CAT',"Let's find a place where its are always"),
-            new Content(2,
+            new MitsuketaContent(2,
             'ポスト','ゆうびんきょくのまえにはある','POST',"Let's look in front of the post office"),
-            new Content(3,
+            new MitsuketaContent(3,
             'とけい','こうえんにあるかな','CLOCK','Tend to be in the park'),
-            new Content(4,
+            new MitsuketaContent(4,
             'あかいはな','きれい',"RED FLOWER",""),
-            new Content(5,
+            new MitsuketaContent(5,
             'からす','そらをとんでるかも',"CROW",""),
-            new Content(6,
+            new MitsuketaContent(6,
             'きいろいはな','きれい',"YELLOW FLOWER",""),
-            new Content(7,
+            new MitsuketaContent(7,
             'つき','おそらのどこかにみえるかな',"MOON",""),
-            new Content(8,
+            new MitsuketaContent(8,
             'パイロン','どうろにおいてあるかも',"PYLON",""),
-            new Content(9,
+            new MitsuketaContent(9,
             'いぬ','さんぽしていないかな',"DOG",""),
-            new Content(10,
+            new MitsuketaContent(10,
             'ちょうちょ','はなのちかくにいるよ',"BUTTERFLY",""),
-            new Content(11,
+            new MitsuketaContent(11,
             'あり','じめんをよくみてね',"ANT",""),
-            new Content(12,
+            new MitsuketaContent(12,
             'あおいくるま','きをつけてみつけよう',"BLUE CAR",""),
-            new Content(13,
+            new MitsuketaContent(13,
             '７のもじ','どこにあるかな',"LETTER 7","Let`s find letter 7"),
-            new Content(14,
+            new MitsuketaContent(14,
             'あかいくるま','めだつ',"RED CAR",""),
-            new Content(15,
+            new MitsuketaContent(15,
             'だんごむし','いしのしたにいるかも',"Rory Poly","Let's look under the stone"),
-            new Content(16,
+            new MitsuketaContent(16,
             'しんごう','どうろをさがそう',"SIGNAL",""),
-            new Content(17,
+            new MitsuketaContent(17,
             'じはんき','じどうはんばいき',"VENDING MACHINE",""),
-            new Content(18,
+            new MitsuketaContent(18,
             'はと','ふんにちゅうい',"PIGEON",""),
-            new Content(19,
+            new MitsuketaContent(19,
             'むしくいば','あながあいているよ',"Leaf eaten by worm",""),
-            new Content(20,
+            new MitsuketaContent(20,
             'ぼうし','おしゃれなひとをさがそう',"hat",""),
-            new Content(21,
+            new MitsuketaContent(21,
             'じてんしゃ','かっこいい',"BICYCLE",""),
-            new Content(22,
+            new MitsuketaContent(22,
             'けいトラ','トラック',"SMALL TRUCK",""),
-            new Content(23,
+            new MitsuketaContent(23,
             'ふたり','ふたりであるいているひとをさがそう',"COUPLE",""),
-            new Content(24,'きのみ','こうえんにあるかな',"NUTS",""),
-            new Content(25,'ベンチ','こうえんにあるかな',"BENTCH",""),
-            new Content(26,'マンホール','したをむいてさがそう',"MANHOLE",""),
-            new Content(27,'あおいやね','どんないえがあるかな',"BLUE ROOF",""),
-            new Content(28,'あかいやね','めだついえがあるかな',"RED ROOF",""),
-            new Content(29,'あおいふく','きているひといるかな',"BLUE CLOTHES",""),
-            new Content(30,'あかいふく','ちゅういしてさがしてみよう',"RED CLOTHES",""),
-            new Content(31,'みどりふく','おしゃれなひといるかな',"GREEN CLOTHES",""),
-            new Content(32,'くものす','よくみないと、みつからないかも',"SPIDERWEB",""),
-            new Content(33,'どうぞう','えきまえや、こうえんにあるかな',"BRONZE STATUE",""),
-            new Content(34,'ひこうき','そらをさがしてみよう',"AIRPLANE",""),
-            new Content(35,'あかちゃん','だっこしていたり、ベビーカーにのっているかも',"BABY","He/She may be kidnapped or in a stroller"),
-            new Content(36,'みがなるき','よくみると、みがなっている',"Fruiting tree",""),
-            new Content(37,'おまわりさん','',"Policeman",""),
-            new Content(38,'コンビニ','',"Convenience store",""),
-            new Content(39,'パトカー','',"Police car",""),
-            new Content(40,'おうだんほどう','',"Crosswalk",""),
-            new Content(41,'はいしゃ','',"Dental clinic",""),
-            new Content(42,'みずたまり','',"Puddle",""),
-            new Content(43,'とりい','',"torii",""),
-            new Content(44,'でんちゅう','',"Utility pole",""),
+            new MitsuketaContent(24,'きのみ','こうえんにあるかな',"NUTS",""),
+            new MitsuketaContent(25,'ベンチ','こうえんにあるかな',"BENTCH",""),
+            new MitsuketaContent(26,'マンホール','したをむいてさがそう',"MANHOLE",""),
+            new MitsuketaContent(27,'あおいやね','どんないえがあるかな',"BLUE ROOF",""),
+            new MitsuketaContent(28,'あかいやね','めだついえがあるかな',"RED ROOF",""),
+            new MitsuketaContent(29,'あおいふく','きているひといるかな',"BLUE CLOTHES",""),
+            new MitsuketaContent(30,'あかいふく','ちゅういしてさがしてみよう',"RED CLOTHES",""),
+            new MitsuketaContent(31,'みどりふく','おしゃれなひといるかな',"GREEN CLOTHES",""),
+            new MitsuketaContent(32,'くものす','よくみないと、みつからないかも',"SPIDERWEB",""),
+            new MitsuketaContent(33,'どうぞう','えきまえや、こうえんにあるかな',"BRONZE STATUE",""),
+            new MitsuketaContent(34,'ひこうき','そらをさがしてみよう',"AIRPLANE",""),
+            new MitsuketaContent(35,'あかちゃん','だっこしていたり、ベビーカーにのっているかも',"BABY","He/She may be kidnapped or in a stroller"),
+            new MitsuketaContent(36,'みがなるき','よくみると、みがなっている',"Fruiting tree",""),
+            new MitsuketaContent(37,'おまわりさん','',"Policeman",""),
+            new MitsuketaContent(38,'コンビニ','',"Convenience store",""),
+            new MitsuketaContent(39,'パトカー','',"Police car",""),
+            new MitsuketaContent(40,'おうだんほどう','',"Crosswalk",""),
+            new MitsuketaContent(41,'はいしゃ','',"Dental clinic",""),
+            new MitsuketaContent(42,'みずたまり','',"Puddle",""),
+            new MitsuketaContent(43,'とりい','',"torii",""),
+            new MitsuketaContent(44,'でんちゅう','',"Utility pole",""),
     ];
 
     static get blank():Content{
-        return new Content(0,
+        return new MitsuketaContent(0,
             'blank','caption',"",""
         );
     }
     
     static random_arr(n:number):Array<Content>{
-        let contents:Array<Content> = Content.contents.concat()
+        let contents:Array<Content> = MitsuketaContent.contents.concat()
         for(let i=contents.length-1;i>0;i--){
             let id = Math.floor( Math.random() * (i+1) );
             let tmp = contents[i];
@@ -131,7 +155,7 @@ export class Content{
     }
 
     static get random():Content{
-        let id = Math.floor( Math.random() * (Content.contents.length-1) );
+        let id = Math.floor( Math.random() * (MitsuketaContent.contents.length-1) );
         return this.contents[id];
     }
 }

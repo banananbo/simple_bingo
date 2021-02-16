@@ -26,9 +26,11 @@ import BingoView from "@organisms/BingoView.vue";
 import ResultCard from "@organisms/ResultCard.vue";
 import FreeContents from "@atoms/FreeContents.vue";
 import {Bingo} from "@lib/bingo/Bingo";
+import {Cell} from "@lib/bingo/Cell";
 // import {QueryDocumentSnapshot} from "firebase/firestore"
 import {User} from "@lib/bingo/user";
 import Archives from "@lib/db/archives";
+import {AContent} from "@lib/bingo/content";
 
 export type DataType ={
     show_modal: boolean,
@@ -50,7 +52,19 @@ export default Vue.extend({
 
     },
     created(){
-      this.localbingo = Bingo.createNew(3,true);
+    //   this.localbingo = new Bingo( Cell.createBlankCell(  3 ) );
+    let cells:Cell[] = [ 
+        new Cell(new AContent("4873115655")),
+        new Cell(new AContent("B07HQ58BLM")),
+        new Cell(new AContent("4774142042")),
+        new Cell(new AContent("4274068560")),
+        new Cell(new AContent("4822248976")),
+        new Cell(new AContent("B00UX9VJGW")),
+        new Cell(new AContent("B00GRKD6XU")),
+        new Cell(new AContent("4048930656")),
+        new Cell(new AContent("477419218X")),
+    ];
+    this.localbingo = new Bingo(cells);
     },
 
     components: {

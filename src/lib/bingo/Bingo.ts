@@ -106,7 +106,6 @@ export class Bingo extends EventEmitter{
         public id:string = '',
          ){
             super();
-            console.log(`ビンゴ初期化します ${id}`);
             this.user_id = player.id;
             this.cells.forEach(
               c => { c.on( 'checked',()=> this.checkBingo() ) }
@@ -255,22 +254,16 @@ export class Bingo extends EventEmitter{
         return Math.sqrt(this.cells.length);
     }
 
-    static createNew(cell_num:number,random:Boolean=false){
-        let cells:Array<Cell> = [];
-        let contents:Array<Content> = Content.random_arr(cell_num*cell_num);
-        for(let i:number=0;i<cell_num;i++){
-            for(let j:number=0;j<cell_num;j++){
-                cells.push(new Cell(i,j,random? contents[i*cell_num+j].id : 0));
-            }
-        }
-        return new Bingo(cells);
-    }
+    // static createNew(cells){
+        
+    //     return new Bingo(cells);
+    // }
 
     static copyFromBingo(origin:Bingo):Bingo{
         let cells:Array<Cell> = [];
         for(let i:number=0; i < origin.cell_num; i++){
             for(let j:number=0; j < origin.cell_num; j++){
-                cells.push(new Cell(i,j, origin.cells[i*origin.cell_num+j].content.id));
+                cells.push(new Cell(origin.cells[i*origin.cell_num+j].content));
             }
         }
         const bingo:Bingo = new Bingo(cells);
