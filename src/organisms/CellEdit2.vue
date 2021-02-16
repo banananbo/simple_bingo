@@ -35,9 +35,7 @@ export default Vue.extend({
         };
     },
    computed:{
-      except_id_list():Array<string>{
-          return this.bingo.contents.map( c=>c.id );
-      }
+
   },
     props: {
         bingo: {

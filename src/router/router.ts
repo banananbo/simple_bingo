@@ -6,6 +6,7 @@ import MyPage from '@pages/MyPage.vue';
 import BingoArchives from '@pages/BingoArchives.vue';
 import BingoTop from '@pages/BingoTop.vue';
 import TestPage from '@pages/TestPage.vue';
+import ABingoEdit from '@pages/edit/ABingoEdit.vue';
 import Basic from '@templates/Basic.vue';
 
 export default [
@@ -20,5 +21,5 @@ export default [
       { path: '/test', component: TestPage },
     ]
   },
-  { path: '/bingo', component: BingoTop },
+  { path: '/bingo', component: ABingoEdit },
 ];

@@ -1,6 +1,6 @@
 <template>
-<div class="wrapper" @click="$emit('outclick')">
-<div class="contents1">
+<div class="wrapper" @click.self="$emit('outclick')">
+<div class="contents1" @click.self="$emit('outclick')">
 <div class="contents2">
     <slot name="header"></slot>
     <div class="scroll">

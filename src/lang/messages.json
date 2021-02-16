@@ -29,7 +29,8 @@
         "enable_locale": "位置情報を記録する",
         "enable_speech_mode": "英語読み上げをする",
         "copy_and_play": "このビンゴであそぶ",
-        "regenerate": "再作成"
+        "regenerate": "再作成",
+        "submit": "けってい"
     },
     "noun":{
         "bingo":"ビンゴ",
@@ -99,7 +100,8 @@
         "enable_speech_mode": "Read aloud in English",
         "cancel": "cancel",
         "copy_and_play": "copy and play",
-        "regenerate": "re-generate"
+        "regenerate": "re-generate",
+        "submit": "submit"
       },
       "noun":{
         "bingo":"bingo",
