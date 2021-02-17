@@ -7,9 +7,9 @@ export default class Archives{
         const db = firebase.firestore();
         let datas = await db.collection("archives").orderBy("_end_time","desc").limit(10).get();
         
-         datas.docs.map(
-            await this.createBingoData
-        );
+        //  datas.docs.map(
+        //     await this.createBingoData
+        // );
         
         let bingo_list:Bingo[] = [];
 

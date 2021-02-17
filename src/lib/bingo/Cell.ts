@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import {Content,MitsuketaContent,BlankContent} from "@lib/bingo/content";
+import {Content,ContentBuilder,MitsuketaContent,BlankContent} from "@lib/bingo/content";
 
 export class Cell extends EventEmitter {
     private _is_bingo:Boolean = false;
@@ -43,7 +43,7 @@ export class Cell extends EventEmitter {
         let cells:Array<Cell> = [];
         for(let i:number=0;i<cell_num;i++){
             for(let j:number=0;j<cell_num;j++){
-                cells.push(new Cell(new BlankContent()));
+                cells.push(new Cell(BlankContent.instance));
             }
         }
         return cells
@@ -51,8 +51,7 @@ export class Cell extends EventEmitter {
 
     static createByObj(obj:any):Cell{
         const check:any = (obj._check)? new CheckMetaData(obj._check.time,obj._check.location) : null;
-        const ctype:string = (obj.ctype)? obj.ctype : "mitsuketa"
-        const content:Content = (ctype=="mitsuketa")? MitsuketaContent.getById(obj.content_id) : null;
+        let content:Content = ContentBuilder.getContentByObj(obj);
         return new Cell(content,check);
     }
 

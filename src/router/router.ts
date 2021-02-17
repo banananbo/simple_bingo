@@ -7,7 +7,10 @@ import BingoArchives from '@pages/BingoArchives.vue';
 import BingoTop from '@pages/BingoTop.vue';
 import TestPage from '@pages/TestPage.vue';
 import ABingoEdit from '@pages/edit/ABingoEdit.vue';
+import Template from '@pages/edit/Template.vue';
+import YomeMyPage from '@pages/edit/MyPage.vue';
 import Basic from '@templates/Basic.vue';
+import Yome from '@templates/Yome.vue';
 
 export default [
   { path: '/', component: Basic,
@@ -22,4 +25,13 @@ export default [
     ]
   },
   { path: '/bingo', component: ABingoEdit },
+  { path: '/template/:id', component: Template },
+  { path: '/yome', component: Yome,
+      children: [
+        {path: "",component: ABingoEdit},
+        {path: "mypage", component: YomeMyPage},
+        { path: 'template/:id', component: Template },
+      ]
+  },
+  // { path: '*', component: TestPage },
 ];

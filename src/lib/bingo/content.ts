@@ -19,25 +19,44 @@ export interface Content{
     img_src:string;
 }
 
+export class ContentBuilder{
+    static getContentByObj(obj:any):Content{
+        switch(obj.ctype){
+            case AContent.content_type:
+                return new AContent(obj.content_id);
+            case BlankContent.content_type:
+                return BlankContent.instance;
+            case MitsuketaContent.content_type:
+                return MitsuketaContent.getById(obj.content_id)
+            default:
+                return MitsuketaContent.getById(obj.content_id)
+        }
+    }
+}
+
 export class AContent implements Content{
+    static content_type:string = "amazon"
     constructor(public id:string){
     }
     public title="-"
     public caption="-"
-    public ctype="blank"
+    public ctype=AContent.content_type
     public img_src = `https://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=${this.id}&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=banananbo01-22&language=ja_JP`
 }
 
 export class BlankContent implements Content{
+    static instance:BlankContent = new BlankContent();
+    static content_type:string = "blank"
     public id="0"
     public title="-"
     public caption="-"
-    public ctype="blank"
+    public ctype = "blank"
     public img_src="https://custom-net.co.jp/test2019/wp-content/themes/affinger5/images/no-img.png"
 }
 
 export class MitsuketaContent implements Content{
-    public ctype:string = "mitsuketa"
+    static content_type:string = "mitsuketa"
+    public ctype:string = MitsuketaContent.content_type
     public id:string = "";
     public get title():string{
         if(store.state.user_setting.lang_contents =='ja') return this.title_ja;

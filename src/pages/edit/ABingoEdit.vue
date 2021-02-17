@@ -7,10 +7,11 @@
              <h5>{{$t("lead.create_bingo")}}</h5> 
             </div>
             <div v-if="this.bingo">
-              <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
+              <textarea v-model="bingo.title"></textarea>
+              <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
             </div>
             <p>{{$t("message.bingo_create")}}</p>
-            <button type="button" class="btn btn-primary" @click="startBingoGame">{{$t("function.start")}}</button>
+            <button type="button" class="btn btn-primary" @click="saveTemplate">save template</button>
           </div>
           <ACellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></ACellEdit>
          </div>
@@ -26,6 +27,7 @@ import ACellEdit from "@organisms/ACellEdit.vue";
 import {Content,AContent} from "@lib/bingo/content";
 import {Bingo} from "@lib/bingo/Bingo";
 import {Cell} from "@lib/bingo/Cell";
+import Templates from "@lib/db/templates";
 
 Vue.component("modal", {
   template: "#modal-template"
@@ -78,9 +80,12 @@ export default Vue.extend({
           // this.bingo = new Bingo(cells);
           this.bingo =  new Bingo( Cell.createBlankCell(3));
     },
-    startBingoGame:function(){
-      this.$store.commit('setBingoData',this.bingo);
-      this.$router.push('game');
+    saveTemplate:async function(){
+      let db:Templates = new Templates();
+      let newId:string = await db.saveTemplates(this.bingo);
+      this.bingo.id = newId;
+      this.$store.commit('yome/addToMyTemplate',this.bingo);
+      this.$router.push(`/yome/template/`+newId);
     },
   },
   watch: {

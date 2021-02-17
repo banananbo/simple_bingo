@@ -4,32 +4,36 @@ import {Bingo} from "@lib/bingo/Bingo";
 import {user_setting,UserSettingState} from './modules/user_setting'
 import {user,UserState} from './modules/user'
 import {archives , ArchivesState} from './modules/archives'
+import {yome , YomeState} from './modules/yome'
 import {User} from "@lib/bingo/user";
+import Templates from "@lib/db/templates";
 
 Vue.use(Vuex);
 
 interface State {
   bingo: Bingo,
+  templates: Bingo[]
   // modules
   user: UserState,
   archives: ArchivesState,
-  user_setting: UserSettingState
+  user_setting: UserSettingState,
+  yome: YomeState
 }
 
 export default new Vuex.Store({
 state: {
-    bingo: null,
-    
+    bingo: null
 } as State,
 modules: {
   user_setting,
   user,
-  archives
+  archives,
+  yome
 },
 mutations: {
     setBingoData (state:State,bingo:Bingo) {
-        state.bingo = bingo;
-        localStorage.setItem('mainBingo', JSON.stringify(bingo.serialized));
+      state.bingo = bingo;
+      localStorage.setItem('mainBingo', JSON.stringify(bingo.serialized));
     },
     removeBingoData (state:State){
       state.bingo = null;
@@ -77,6 +81,7 @@ actions: {
     context.commit('archives/loadRecentArchives');
     context.commit('archives/loadMyArchives');
     context.commit("user_setting/loadFromStrage");
+    context.commit("yome/loadFromStrage");
   },
 
 }

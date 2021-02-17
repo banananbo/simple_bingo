@@ -165,6 +165,10 @@ export class Bingo extends EventEmitter{
         return this._title;
     }
 
+    public set title(val:String){
+        this._title = val;
+    }
+
     public get game_state():number{
         return this._game_state;
     }
