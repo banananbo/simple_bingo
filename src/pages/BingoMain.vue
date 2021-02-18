@@ -1,6 +1,6 @@
 <template>
 <div v-if="this.$store.state.bingo">
-    <BingoOverlay :width="bingo_w" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
+    <BingoOverlay :bingo="this.$store.state.bingo" :width="bingo_w" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
     <div ref="bingoview">
      <BingoView :bingo="this.$store.state.bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>

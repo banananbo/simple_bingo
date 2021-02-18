@@ -9,6 +9,7 @@ import TestPage from '@pages/TestPage.vue';
 import ABingoEdit from '@pages/edit/ABingoEdit.vue';
 import Template from '@pages/edit/Template.vue';
 import YomeMyPage from '@pages/edit/MyPage.vue';
+import ABingoMain from '@pages/play/ABingoMain.vue';
 import Basic from '@templates/Basic.vue';
 import Yome from '@templates/Yome.vue';
 
@@ -31,6 +32,7 @@ export default [
         {path: "",component: ABingoEdit},
         {path: "mypage", component: YomeMyPage},
         { path: 'template/:id', component: Template },
+        { path: 'game/local/:id', component: ABingoMain },
       ]
   },
   // { path: '*', component: TestPage },

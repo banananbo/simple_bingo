@@ -9,6 +9,7 @@
             <div v-if="this.bingo">
               <textarea v-model="bingo.title"></textarea>
               <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
+              <textarea v-model="bingo.description"></textarea>
             </div>
             <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="saveTemplate">save template</button>

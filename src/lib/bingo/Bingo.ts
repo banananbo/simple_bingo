@@ -48,13 +48,21 @@ export class Bingo extends EventEmitter{
     public static BEFORE_PLAY:number = 0;
     public static PLAYING:number = 1;
     public static PLAYED:number = 2;
-    
-    private _template_id:string = "";
 
+    private _template_id:string = "";
     public bingonum:number = 0;
     public all_clear:Boolean = false;
-
     public nice_point:number=0;
+
+    public _description:string = "";
+
+    public set description(val:string){
+        this._description = val.substr(0,128);
+    }
+
+    public get description(){
+        return this._description.substr(0,128);       
+    }
     
     private bingo_groups:Array<BingoGroup> = [];
     public cells_multi:Array<Array<Cell>> = [];
@@ -101,7 +109,7 @@ export class Bingo extends EventEmitter{
         private _game_state:number = Bingo.BEFORE_PLAY,
         private _start_time:number = 0,
         private _end_time:number = 0,
-        private _title:String = "",
+        private _title:String = "no title",
         public memo:string = "",
         public id:string = '',
          ){
@@ -158,7 +166,7 @@ export class Bingo extends EventEmitter{
     }
 
     public get title():String{
-        if(this._title == ""){
+        if(this._title == "no title"){
             if(!this._start_time) return i18n.t("lead.not_start").toString();
             return i18n.d(new Date(this._start_time),'long')+"のビンゴ"
         }

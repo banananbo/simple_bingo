@@ -42,6 +42,7 @@ export class AContent implements Content{
     public caption="-"
     public ctype=AContent.content_type
     public img_src = `https://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=${this.id}&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=banananbo01-22&language=ja_JP`
+    public link = `https://www.amazon.co.jp/gp/product/${this.id}/ref=as_li_tl?ie=UTF8&tag=banananbo01-22&camp=247&creative=1211&linkCode=as2&creativeASIN=${this.id}`
 }
 
 export class BlankContent implements Content{

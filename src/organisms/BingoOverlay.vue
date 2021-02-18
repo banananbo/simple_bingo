@@ -8,6 +8,7 @@
 <script lang="ts">
 import Vue from "vue"
 import {i18n} from '@src/i18n';
+import { Bingo } from "@src/lib/bingo/Bingo";
 
 export type DataType ={
     overlay_color:string,
@@ -58,13 +59,13 @@ export default Vue.extend({
             "width":"100%",
             "height":"100%",
            }
-           this.$store.state.bingo.once('start_game',this.start)
+           this.bingo.once('start_game',this.start)
        },
        start(){
            this.text = i18n.tc("noun.go");
            this.removeAfterTime(300);
        },
-       bingo(event_obj:any){
+       is_bingo(event_obj:any){
            this.overlay_color = "#0000";
            this.text = `${i18n.tc("noun.bingo")}!!`;
            this.transition_name = "bottom";
@@ -115,6 +116,7 @@ export default Vue.extend({
     props: {
         width: Number,
         height: Number,
+        bingo: Bingo
     },
 
     created(){
@@ -122,9 +124,9 @@ export default Vue.extend({
     },
 
     mounted(){
-        if(!this.$store.state.bingo.is_playing) this.ready();
-        this.$store.state.bingo.on('bingo',this.bingo);
-        this.$store.state.bingo.on( 'all_clear' ,this.perfect)
+        if(!this.bingo.is_playing) this.ready();
+        this.bingo.on('bingo',this.is_bingo);
+        this.bingo.on( 'all_clear' ,this.perfect)
     },
 
     components: {

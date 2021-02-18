@@ -41,7 +41,7 @@ export default Vue.extend({
         url = new URL(this.a_url);
         let kaisou = url.pathname.split("/");
         for(let i=0;i<kaisou.length;i++){
-          if(kaisou[i] == "dp") return kaisou[i+1];
+          if(kaisou[i] == "dp" ||kaisou[i] == "d" ) return kaisou[i+1];
         }
        }catch{
          return "invalid";
