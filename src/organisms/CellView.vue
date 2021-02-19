@@ -52,7 +52,9 @@ export default Vue.extend({
     computed: {
         content_size:function():number{
             return this.size // 線幅
-        }       
+        },
+
+
     },
 
     mounted(){
@@ -95,6 +97,7 @@ export default Vue.extend({
 
 .reach_animation{
   box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+  z-index: 1000;
   animation: 1.5s infinite linear pop;
 }
 
@@ -117,7 +120,6 @@ export default Vue.extend({
     background-color: #ED766D;
     border-color: #7B3461;
 }
-
 
 span {
   position: absolute;/*絶対配置*/

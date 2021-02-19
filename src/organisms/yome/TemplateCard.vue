@@ -99,8 +99,12 @@ export default Vue.extend({
             if(!this.detail_mode) this.detail_view = !this.detail_view;
         },
         startPlay(){
-            this.$store.commit('yome/addToMyArchives',this.bingo);
-            let id = this.$store.state.yome.my_bingo_archives.indexOf(this.bingo);
+            let bingo:Bingo = Bingo.copyFromBingo(this.bingo);
+            console.log(bingo);
+            this.$store.commit('yome/addToMyArchives',bingo);
+            let id = this.$store.state.yome.my_bingo_archives.indexOf(bingo);
+            console.log(this.$store.state.yome.my_bingo_archives[id]);
+
             this.$router.push(`/yome/game/local/${id}`);
         }
   },
