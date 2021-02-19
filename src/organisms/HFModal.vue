@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" @click.self="$emit('outclick')">
 <div class="contents1" @click.self="$emit('outclick')">
-<div class="contents2">
+<div class="contents2" :style="contentstyle">
     <slot name="header"></slot>
     <div class="scroll">
         <slot></slot>
@@ -16,7 +16,31 @@
 <script lang="ts">
 import Vue from "vue"
 export default Vue.extend({
+    data:function() {
+        return{
+            content_height:80
+        }
+    },
+    props: {
+        cheight: {
+            type: Number,
+            default: 80
+        },
+    },
 
+    computed: {
+        contentstyle:function():Object{
+            return {
+                "width": "88%",
+                "height": `${this.cheight}vh`,
+                "border": "1px solid #ccc",
+                "border-radius": "4px",
+                "background-color": "white",
+                "overflow": "hidden",
+                "margin": "0px auto"
+            }
+        }       
+    },
 });
 </script>
 <style lang="css" scoped>
@@ -39,16 +63,15 @@ export default Vue.extend({
     /* -webkit-transform: translateX(-50%);
     transform: translateX(-50%); */
 }
-.contents2{
+/* .contents2{
     width: 88%;
-    height: 80vh;
+    height: 20vh;
     border: 1px solid #ccc;
     border-radius: 4px;
     background: white;
     overflow: hidden;
     margin: 0px auto;
-    /* padding: 20px 30px; */
-}
+} */
 .title{
     position: -webkit-sticky;
     position: sticky;

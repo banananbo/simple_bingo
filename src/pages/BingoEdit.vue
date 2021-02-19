@@ -1,11 +1,11 @@
 <template>
-<section>
+<section padding="0">
       <div class="container-fluid text-center">
-        <div class="row">
-          <div class="col-md-9 col-sm-12">
+        <div>
+          <!-- <div class="col-md-9 col-sm-12" style="padding:0"> -->
             <div id="top_area">
              <h5>{{$t("lead.create_bingo")}}</h5> 
-              <section id="cell_size_input" style="padding:10px">
+              <section id="cell_size_input" style="padding:10px 0">
                 {{$t("lead.cell_num")}}：
                 <select name='cell_num' v-model='cell_num' @change="initBingo()" style="font-size:1.2em;width:100px;padding:5px;margin-right:50px">
                   <option v-for="num,idx in cell_nums" :key="idx"> {{num}} </option>
@@ -16,7 +16,7 @@
             </div>
             <div v-if="this.bingo">
               <BingoView :bingo="this.bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
-            </div>
+            <!-- </div> -->
             <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="startBingoGame">{{$t("function.start")}}</button>
           </div>
@@ -52,7 +52,7 @@ export type DataType ={
 export default Vue.extend({
   data:function():DataType {
     return {
-      size: screen.width - 20,
+      size: screen.width - 10,
       cell_num: 3,
       showModal: false,
       editCell: null,
@@ -111,7 +111,7 @@ export default Vue.extend({
   }
 })
 </script>
-<style>
+<style scoped>
 .container-fluid{
   padding: 0 0;
 }

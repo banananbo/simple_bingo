@@ -49,7 +49,7 @@ export type DataType ={
 export default Vue.extend({
     data:function():DataType {
         return {
-            size: screen.width - 20,
+            size: screen.width - 10,
             cellPop: false,
             endPop: false,
             selectedCell: null,

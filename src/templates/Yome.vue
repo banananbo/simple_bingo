@@ -1,5 +1,6 @@
 <template>
     <section>
+        <Header></Header>
         <div id="main">
          <router-view></router-view>
         </div>
@@ -9,16 +10,23 @@
 <script lang="ts">
 import Vue from "vue"
 import Footer from "@organisms/yome/Footer.vue";
+import Header from "@organisms/yome/Header.vue";
 
 export default Vue.extend({
 
 components:{
-        Footer
+        Footer,
+        Header
       }
 })
 
 </script>
-<style>
+<style scoped>
+section{
+  padding: 0 5px;        /* 余白の削除 */
+  background-color: #d0d8d2;
+  background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%23929f92' fill-opacity='0.23'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
 div#main{
     width:100%;
     margin:auto;
@@ -47,7 +55,7 @@ div#footer-fixed
 
 /* navigation bar */
 .navbar {
-  background-color: #ffb310;
+  background-color: #5F8794;
 }
 .navbar .navbar-brand {
   color: #ecf0f1;
@@ -189,148 +197,4 @@ div#footer-fixed
   background-color: #499b41;
 }
 /* navigation bar */
-
-/*------------------------------------
-- COLOR primary
-------------------------------------*/
-.alert-primary {
-    color: #1a2408;
-    background-color: #c5e68c;
-    border-color: #bde27c;
-}
-
-.alert-primary hr {
-    border-top-color: #b2dd67;
-}
-
-.alert-primary .alert-link {
-    color: #000000;
-}
-
-.badge-primary {
-    color: #fff;
-    background-color: 62891E;
-}
-
-.badge-primary[href]:hover, .badge-primary[href]:focus {
-    color: #fff;
-    background-color: #445f14;
-}
-
-.bg-primary {
-    background-color: 62891E !important;
-}
-
-a.bg-primary:hover, a.bg-primary:focus,
-button.bg-primary:hover,
-button.bg-primary:focus {
-    background-color: #445f14 !important;
-}
-
-.border-primary {
-    border-color: 62891E !important;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: 62891E;
-    border-color: 62891E;
-}
-
-.btn-primary:hover {
-    color: #fff;
-    background-color: #4d6b17;
-    border-color: #445f14;
-}
-
-.btn-primary:focus, .btn-primary.focus {
-    box-shadow: 0 0 0 0.2rem rgba(98, 137, 30, 0.5);
-}
-
-.btn-primary.disabled, .btn-primary:disabled {
-    color: #fff;
-    background-color: 62891E;
-    border-color: 62891E;
-}
-
-.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #445f14;
-    border-color: #3b5212;
-}
-
-.btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(98, 137, 30, 0.5);
-}
-
-.btn-outline-primary {
-    color: 62891E;
-    background-color: transparent;
-    border-color: 62891E;
-}
-
-.btn-outline-primary:hover {
-    color: #fff;
-    background-color: 62891E;
-    border-color: 62891E;
-}
-
-.btn-outline-primary:focus, .btn-outline-primary.focus {
-    box-shadow: 0 0 0 0.2rem rgba(98, 137, 30, 0.5);
-}
-
-.btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: 62891E;
-    background-color: transparent;
-}
-
-.btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
-    color: #fff;
-    background-color: 62891E;
-    border-color: 62891E;
-}
-
-.btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(98, 137, 30, 0.5);
-}
-
-.list-group-item-primary {
-    color: #1a2408;
-    background-color: #bde27c;
-}
-
-.list-group-item-primary.list-group-item-action:hover, .list-group-item-primary.list-group-item-action:focus {
-    color: #1a2408;
-    background-color: #b2dd67;
-}
-
-.list-group-item-primary.list-group-item-action.active {
-    color: #fff;
-    background-color: #1a2408;
-    border-color: #1a2408;
-}
-
-.table-primary,
-.table-primary > th,
-.table-primary > td {
-    background-color: #bde27c;
-}
-
-.table-hover .table-primary:hover {
-    background-color: #b2dd67;
-}
-
-.table-hover .table-primary:hover > td,
-.table-hover .table-primary:hover > th {
-    background-color: #b2dd67;
-}
-
-.text-primary {
-    color: 62891E !important;
-}
-
-a.text-primary:hover, a.text-primary:focus {
-    color: #445f14 !important;
-}
-
 </style>

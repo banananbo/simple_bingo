@@ -84,7 +84,7 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width -40
+            default: screen.width -20
         },
         detail_mode:{
             type: Boolean,

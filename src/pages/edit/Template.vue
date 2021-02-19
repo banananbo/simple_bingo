@@ -28,7 +28,7 @@ export default Vue.extend({
         return {
             bingo: null,
             mypageurl: encodeURI(window.location.href),
-            size: screen.width - 20
+            size: screen.width - 10
         };
     },
     computed:{

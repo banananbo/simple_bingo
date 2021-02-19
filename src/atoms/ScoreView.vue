@@ -3,12 +3,12 @@
       <tr>
           <th>{{$t("noun.score")}}</th>
           <th>{{$t("noun.bingo")}}</th>
-          <th>{{$t("noun.time")}}</th>
+          <th v-if="timer">{{$t("noun.time")}}</th>
       </tr>
       <tr>
           <td class="big">{{this.bingo.score}}</td>
           <td class="big">{{this.bingo.bingonum}}</td>
-          <td>{{timer}}</td>
+          <td v-if="timer">{{timer}}</td>
       </tr>
   </table>
 </template>

@@ -33,9 +33,6 @@ export default Vue.extend({
 <style scoped>
 
 @keyframes fuwa {
-  /* 0% { transform: translateY(-10px) }
-  50% { transform: translateY(10px) }
-  100% { transform: translateY(-10px) } */
     0% { transform:scale(1,1); }
   50% { transform:scale(1.1,1.1); }
   100% { transform:scale(1,1); }
@@ -43,9 +40,8 @@ export default Vue.extend({
 
 .logo {
   margin: 0 auto;
-  /* width: 310px; */
   padding: 10px;
-  animation: fuwa 3s ease-in-out infinite;
+  /* animation: fuwa 3s ease-in-out infinite; */
 }
 
 .logo_inner {

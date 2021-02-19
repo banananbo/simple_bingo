@@ -8,8 +8,8 @@
         reach_animation: !cell.is_bingo&&cell.is_reach&&playing
         },'rounded']"
         @animationend="onAnimationEnd">
-        <ContentView :content="cell.content" :size="content_size"></ContentView>
-        <span v-if="show_title" class="title">{{cell.content.title}}</span>
+        <ContentView :content="cell.content" :size="content_size-4"></ContentView>
+        <span v-if="show_title&&cell.content.title!=``" class="title">{{cell.content.title}}</span>
     </div>
 </template>
 <script lang="ts">
@@ -60,21 +60,6 @@ export default Vue.extend({
     },
 
     watch: {
-      'cell':{
-          handler: function (val, oldVal) {
-            // val.on('bingo',this.rotate);
-          }
-      },
-    //   'cell.checked': {
-    //       handler: function (val) {
-    //           this.rotate();
-    //       }
-    //   },
-    //   'cell.is_bingo': {
-    //       handler: function (val) {
-    //           this.rotate();
-    //       }
-    //   }
     },
 
     components: {

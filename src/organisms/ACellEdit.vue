@@ -1,5 +1,5 @@
 <template>
-      <HFModal @outclick="$emit('close')">
+      <HFModal :cheight="40" @outclick="$emit('close')">
             <template v-slot:header>
                 <div class="title"> {{$t("message.choose_cell")}} </div>
             </template>
@@ -41,7 +41,7 @@ export default Vue.extend({
         url = new URL(this.a_url);
         let kaisou = url.pathname.split("/");
         for(let i=0;i<kaisou.length;i++){
-          if(kaisou[i] == "dp" ||kaisou[i] == "d" ) return kaisou[i+1];
+          if(kaisou[i] == "dp" ||kaisou[i] == "d" ||kaisou[i] == "product"   ) return kaisou[i+1];
         }
        }catch{
          return "invalid";

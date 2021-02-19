@@ -99,7 +99,7 @@ export default Vue.extend({
             if(!this.detail_mode) this.detail_view = !this.detail_view;
         },
         startPlay(){
-            this.$store.commit('yome/startPlay',this.bingo);
+            this.$store.commit('yome/addToMyArchives',this.bingo);
             let id = this.$store.state.yome.my_bingo_archives.indexOf(this.bingo);
             this.$router.push(`/yome/game/local/${id}`);
         }

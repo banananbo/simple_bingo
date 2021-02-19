@@ -3,15 +3,13 @@
       <div class="container-fluid text-center">
         <div class="row">
           <div class="col-md-9 col-sm-12">
-            <div id="top_area">
-             <h5>{{$t("lead.create_bingo")}}</h5> 
-            </div>
             <div v-if="this.bingo">
-              <textarea v-model="bingo.title"></textarea>
               <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
+            </div>
+            <div style="margin:10px">
+              <input type="text"  v-model="bingo.title" style="margin:10px" />
               <textarea v-model="bingo.description"></textarea>
             </div>
-            <p>{{$t("message.bingo_create")}}</p>
             <button type="button" class="btn btn-primary" @click="saveTemplate">save template</button>
           </div>
           <ACellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></ACellEdit>
@@ -106,12 +104,8 @@ export default Vue.extend({
       }
   },
   created() { 
-    if( this.$store.state.bingo && this.$store.state.bingo.is_playing){
-        this.$router.push('game');
-        return;
-    }
-    
     this.initBingo();
+    this.$store.commit('yome/setTitle',"ビンゴをつくる");
   },
   mounted(){
   },

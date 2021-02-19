@@ -1,15 +1,18 @@
 <template>
 <div>
+    <h5>プレイしたビンゴ</h5>
+    <!-- <h6>サーバーデータ</h6> -->
+    <div v-for="(bingo,idx) in $store.state.yome.my_bingo_archives" :key="`t${idx}`">
+        <ResultCard :bingo="bingo" :location_link="true"></ResultCard>
+        <button @click="goToBingoPage(bingo)">ビンゴ画面へ</button>
+    </div>
+
     <h5>作成したビンゴ</h5>
     <!-- <h6>サーバーデータ</h6> -->
     <div v-for="(bingo,idx) in $store.state.yome.my_bingo_templates" :key="`t${idx}`">
         <TemplateCard :bingo="bingo" :location_link="true" :enable_copy="true"></TemplateCard>
     </div>
-    <h5>プレイしたビンゴ</h5>
-    <!-- <h6>サーバーデータ</h6> -->
-    <div v-for="(bingo,idx) in $store.state.yome.my_bingo_archives" :key="`t${idx}`">
-        <ResultCard :bingo="bingo" :location_link="true" :enable_copy="true"></ResultCard>
-    </div>
+
 </div>
 
 </template>
@@ -40,6 +43,7 @@ export default Vue.extend({
 
     },
     created(){
+        this.$store.commit('yome/setTitle',`${this.$store.state.user.user.name}さんのビンゴ`)
     },
 
     components: {
@@ -49,6 +53,10 @@ export default Vue.extend({
     },
 
     methods: {
+        goToBingoPage: function(bingo:Bingo):void{
+            let id = this.$store.state.yome.my_bingo_archives.indexOf(bingo);
+            this.$router.push(`/yome/game/local/${id}`);
+        }
 
   },
 });
