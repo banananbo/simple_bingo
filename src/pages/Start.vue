@@ -1,7 +1,7 @@
 <template>
 <section>
       <div class="container-fluid text-center">
-            <TitleLogo></TitleLogo>
+            <TitleLogo :title="$t('title')" :subtitle="$t('sub_title')"></TitleLogo>
       </div>
       <section class='info_box_playing' v-if="this.$store.state.bingo" >
             <h5>{{ $t("lead.in_progress") }}</h5>

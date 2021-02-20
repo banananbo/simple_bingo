@@ -1,6 +1,6 @@
 <template>
-<div :v-if="bingo" class="main card row" @click="toggleView">
-        <div style="float:left">
+<div :v-if="bingo" class="main card row">
+        <div style="float:left" @click="toggleView">
             <table>
                 <tr>
                     <td rowspan="2">
@@ -28,10 +28,10 @@
                             <dd>{{bingo.score}}</dd>
                             <dt>{{$t("noun.bingo")}}</dt>
                             <dd>{{bingo.bingonum}}</dd>
-                            <dt>{{$t("noun.start")}}</dt>
-                            <dd>{{$d(new Date(bingo.start_time),"long")}}</dd>
-                            <dt>{{$t("noun.end")}}</dt>
-                            <dd>{{$d(new Date(bingo.end_time),"long")}}</dd>
+                            <dt v-if="bingo.is_started">{{$t("noun.start")}}</dt>
+                            <dd v-if="bingo.is_started">{{$d(new Date(bingo.start_time),"long")}}</dd>
+                            <dt v-if="bingo.is_end">{{$t("noun.end")}}</dt>
+                            <dd v-if="bingo.is_end">{{$d(new Date(bingo.end_time),"long")}}</dd>
                             <dt>{{$t("noun.time")}}</dt>
                             <dd>{{format_to_time(bingo.current_time)}}</dd>
                             <dt>{{$t("noun.memo")}}</dt>

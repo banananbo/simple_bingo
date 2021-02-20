@@ -54,10 +54,10 @@ export default Vue.extend({
 
     computed:{
       bingo_size:function():number{
-        return this.cell_size*this.bingo.cell_num + 4
+        return this.cell_size*this.bingo.cell_num + 6
       },
       cell_size:function():number{
-          return (this.size-4)/this.bingo.cell_num;
+          return (this.size-6)/this.bingo.cell_num;
       },
         draggable_style:function():any {
             return{

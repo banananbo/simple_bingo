@@ -9,6 +9,8 @@ import TestPage from '@pages/TestPage.vue';
 import ABingoEdit from '@pages/edit/ABingoEdit.vue';
 import Template from '@pages/edit/Template.vue';
 import YomeMyPage from '@pages/edit/MyPage.vue';
+import TemplateList from '@pages/edit/TemplateList.vue';
+import ABingoHome from '@pages/edit/ABingoHome.vue';
 import ABingoMain from '@pages/play/ABingoMain.vue';
 import Basic from '@templates/Basic.vue';
 import Yome from '@templates/Yome.vue';
@@ -29,10 +31,12 @@ export default [
   { path: '/template/:id', component: Template },
   { path: '/yome', component: Yome,
       children: [
-        {path: "",component: ABingoEdit},
+        {path: "",component: ABingoHome},
+        {path: "edit",component: ABingoEdit},
         {path: "mypage", component: YomeMyPage},
         { path: 'template/:id', component: Template },
-        { path: 'game/local/:id', component: ABingoMain },
+        { path: 'others', component: TemplateList },
+        { path: 'game/:id', component: ABingoMain },
       ]
   },
   // { path: '*', component: TestPage },

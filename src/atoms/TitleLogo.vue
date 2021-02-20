@@ -1,8 +1,8 @@
 <template>
 <div class="logo">
   <div class="logo_inner">
-    <strong>{{ $t("sub_title") }}</strong>
-    <span class="blue">{{ $t("title") }}</span>
+    <strong>{{subtitle}}</strong>
+    <span class="blue">{{title}}</span>
   </div>
 </div>
 </template>
@@ -20,14 +20,21 @@ export default Vue.extend({
     },
 
     props: {
-
+        title: {
+            type: String,
+            required: true
+        },
+        subtitle: {
+            type: String,
+            required: true
+        },
     },
 
-    methods: {
-        toggleSetting:function(){
-            this.$store.state.allow_location = !this.$store.state.allow_location
-        },
-  },
+  //   methods: {
+  //       toggleSetting:function(){
+  //           this.$store.state.allow_location = !this.$store.state.allow_location
+  //       },
+  // },
 });
 </script>
 <style scoped>

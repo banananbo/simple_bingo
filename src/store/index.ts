@@ -6,7 +6,6 @@ import {user,UserState} from './modules/user'
 import {archives , ArchivesState} from './modules/archives'
 import {yome , YomeState} from './modules/yome'
 import {User} from "@lib/bingo/user";
-import Templates from "@lib/db/templates";
 
 Vue.use(Vuex);
 

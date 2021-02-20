@@ -75,8 +75,8 @@ export default Vue.extend({
                 this.rotate_animation = false;
             });
         },
-        select:function(){
-            this.$emit('cellClick',{cell:this.cell});
+        select:function(event:any){
+            this.$emit('cellClick',{cell:this.cell,event:event,el:this.$el});
         },
         onAnimationEnd:function(e:any){
             // console.log(e);

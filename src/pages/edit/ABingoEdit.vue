@@ -7,10 +7,16 @@
               <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked' :draggable="true"></BingoView>
             </div>
             <div style="margin:10px">
-              <input type="text"  v-model="bingo.title" style="margin:10px" />
-              <textarea v-model="bingo.description"></textarea>
+              
+              
             </div>
-            <button type="button" class="btn btn-primary" @click="saveTemplate">save template</button>
+            <dl>
+              <dt>ビンゴタイトル</dt>
+              <dd><input type="text"  v-model="bingo.title" style="margin:10px" /></dd>
+              <dt>せつめい</dt>
+              <dd><textarea class="description" v-model="bingo.description" maxlength="100" ></textarea></dd>
+            </dl>
+            <button type="button" class="btn btn-primary" @click="saveTemplate">ビンゴを作成！</button>
           </div>
           <ACellEdit :bingo="this.bingo" v-if="showModal" @close="showModal = false" :cell="editCell" @selected="cellChanged" @cancel="showModal=false"></ACellEdit>
          </div>
@@ -26,7 +32,8 @@ import ACellEdit from "@organisms/ACellEdit.vue";
 import {Content,AContent} from "@lib/bingo/content";
 import {Bingo} from "@lib/bingo/Bingo";
 import {Cell} from "@lib/bingo/Cell";
-import Templates from "@lib/db/templates";
+import { DBBingos } from "@src/lib/db/dbbingos";
+
 
 Vue.component("modal", {
   template: "#modal-template"
@@ -64,24 +71,11 @@ export default Vue.extend({
       this.editCell.content = obj.content;
     },
     initBingo: function(){
-      // this.bingo =  new Bingo( Cell.createByRandomMitsuketaContents(  this.cell_num ) );
-          //       let cells:Cell[] = [ 
-          //     new Cell(new AContent("4873115655")),
-          //     new Cell(new AContent("B07HQ58BLM")),
-          //     new Cell(new AContent("4774142042")),
-          //     new Cell(new AContent("4274068560")),
-          //     new Cell(new AContent("4822248976")),
-          //     new Cell(new AContent("B00UX9VJGW")),
-          //     new Cell(new AContent("B00GRKD6XU")),
-          //     new Cell(new AContent("4048930656")),
-          //     new Cell(new AContent("477419218X")),
-          // ];
-          // this.bingo = new Bingo(cells);
-          this.bingo =  new Bingo( Cell.createBlankCell(3));
+        this.bingo =  new Bingo( Cell.createBlankCell(3));
     },
     saveTemplate:async function(){
-      let db:Templates = new Templates();
-      let newId:string = await db.saveTemplates(this.bingo);
+      let db:DBBingos = new DBBingos(DBBingos.DOC_AMAZON_TEMPLATE);
+      let newId:string = await db.addBingo(this.bingo);
       this.bingo.id = newId;
       this.$store.commit('yome/addToMyTemplate',this.bingo);
       this.$router.push(`/yome/template/`+newId);
@@ -119,9 +113,13 @@ export default Vue.extend({
 .container-fluid{
   padding: 0 0;
 }
+.description{
+  width: 100%;
+}
 @media print{
   .no-print{
     display: none;
   }
+
 }
 </style>

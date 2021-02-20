@@ -1,7 +1,7 @@
 <template>
-      <div class="navbar fixed-top shadow text-center">
+      <div class="navbar fixed-top shadow text-center justify-content-center">
         <!-- <img src="https://banananbo.github.io/simple_bingo/public/img/contents/001.png" style="width:30px;height:30px"> -->
-        <h5>{{$store.state.yome.tool_title}}</h5>
+        <span class="title">{{$store.state.yome.tool_title}}</span>
         <!-- <button class='btn' @click="openSettingPop"><v-fa icon="cog" /> </button> -->
         <!-- <SettingPop v-if="settingPop" :user="$store.state.user.user" :allow_location='$store.state.user_setting.allow_location' @close="closeSettingPop"></SettingPop> -->
     　</div>
@@ -45,5 +45,11 @@ export default Vue.extend({
   }
   .navbar-brand{
     font-weight: bolder;
+  }
+  .title{
+    padding: 4px;
+    font-weight: bold;
+    font-size:1.3em;
+    color: #FFF;
   }
 </style>

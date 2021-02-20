@@ -54,7 +54,7 @@ export class Bingo extends EventEmitter{
     public all_clear:Boolean = false;
     public nice_point:number=0;
 
-    public _description:string = "";
+    ;
 
     public set description(val:string){
         this._description = val.substr(0,128);
@@ -99,19 +99,21 @@ export class Bingo extends EventEmitter{
             id: this.id,
             user_id: this.user_id,
             _template_id: this._template_id,
-            nice_point: this.nice_point
+            nice_point: this.nice_point,
+            _description: this.description
         }
     }
 
     constructor(
         public cells:Array<Cell>,
+        private _title:String = "no title",
         public player:User = store.state.user.user,
         private _game_state:number = Bingo.BEFORE_PLAY,
         private _start_time:number = 0,
         private _end_time:number = 0,
-        private _title:String = "no title",
         public memo:string = "",
         public id:string = '',
+        public _description:string = ""
          ){
             super();
             this.user_id = player.id;
@@ -187,6 +189,14 @@ export class Bingo extends EventEmitter{
 
     public get end_time():number{
         return this._end_time;
+    }
+
+    public get is_started():Boolean{
+        return this._game_state!=Bingo.BEFORE_PLAY;
+    }
+    
+    public get is_end():Boolean{
+        return this._game_state==Bingo.PLAYED;
     }
 
     public get is_playing():Boolean{
@@ -266,11 +276,6 @@ export class Bingo extends EventEmitter{
         return Math.sqrt(this.cells.length);
     }
 
-    // static createNew(cells){
-        
-    //     return new Bingo(cells);
-    // }
-
     static copyFromBingo(origin:Bingo):Bingo{
         let cells:Array<Cell> = [];
         for(let i:number=0; i < origin.cell_num; i++){
@@ -278,7 +283,7 @@ export class Bingo extends EventEmitter{
                 cells.push(new Cell(origin.cells[i*origin.cell_num+j].content));
             }
         }
-        const bingo:Bingo = new Bingo(cells);
+        const bingo:Bingo = new Bingo(cells,origin.title);
         bingo.template_id = origin.id;
         return bingo;
     }
@@ -288,7 +293,7 @@ export class Bingo extends EventEmitter{
         for(let i:number=0;i<obj.cells.length;i++){
             cells.push(Cell.createByObj(obj.cells[i]));
         }
-        const bingo:Bingo = new Bingo(cells,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.title,obj.memo,(id!="")?id:obj.id);
+        const bingo:Bingo = new Bingo(cells,obj._title,obj.player,obj._game_state,obj._start_time,obj._end_time,obj.memo,(id!="")?id:obj.id,obj._description);
         bingo.checkBingo();
         return bingo
     }

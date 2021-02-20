@@ -15,7 +15,8 @@
 import Vue from "vue"
 import {Bingo} from "@lib/bingo/Bingo";
 import BingoView from "@organisms/BingoView.vue";
-import Templates from "@lib/db/templates";
+// import Templates from "@lib/db/templates";
+import { DBBingos } from "@src/lib/db/dbbingos";
 
 export type DataType ={
     bingo: Bingo,
@@ -48,9 +49,8 @@ export default Vue.extend({
 
     methods: {
          setup:async function(){
-            let db:Templates = new Templates();
-            
-            this.bingo =  await db.loadTemplate(this.$route.params.id);
+            let db:DBBingos = new DBBingos(DBBingos.DOC_AMAZON_TEMPLATE);
+            this.bingo =  await db.load(this.$route.params.id);
             console.log(this.bingo);
         }
     },

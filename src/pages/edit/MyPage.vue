@@ -1,5 +1,6 @@
 <template>
 <div>
+    <LoginInfo :user="$store.state.user.user"></LoginInfo>
     <h5>プレイしたビンゴ</h5>
     <!-- <h6>サーバーデータ</h6> -->
     <div v-for="(bingo,idx) in $store.state.yome.my_bingo_archives" :key="`t${idx}`">
@@ -20,8 +21,8 @@
 import Vue from "vue"
 import {Bingo} from "@lib/bingo/Bingo";
 import TemplateCard from "@organisms/yome/TemplateCard.vue";
+import LoginInfo from "@organisms/yome/LoginInfo.vue";
 import ResultCard from "@organisms/ResultCard.vue";
-import BingoView from "@organisms/BingoView.vue";
 
 export type DataType = {
     bingo: Bingo,
@@ -49,13 +50,12 @@ export default Vue.extend({
     components: {
         TemplateCard,
         ResultCard,
-        BingoView
+        LoginInfo
     },
 
     methods: {
         goToBingoPage: function(bingo:Bingo):void{
-            let id = this.$store.state.yome.my_bingo_archives.indexOf(bingo);
-            this.$router.push(`/yome/game/local/${id}`);
+            this.$router.push(`/yome/game/${bingo.id}`);
         }
 
   },

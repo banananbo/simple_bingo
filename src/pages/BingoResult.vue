@@ -36,9 +36,9 @@ export default Vue.extend({
 
     },
     created(){
-const db = firebase.firestore();
-db.collection('archives').doc(this.$route.params.id).get().then(
-    doc => {
+        const db = firebase.firestore();
+        db.collection('archives').doc(this.$route.params.id).get().then(
+            doc => {
                 if (!doc.exists) {
                 console.log('No such document!');
                 } else {

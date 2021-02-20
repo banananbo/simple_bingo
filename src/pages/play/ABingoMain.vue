@@ -2,7 +2,7 @@
 <div v-if="bingo">
     <BingoOverlay :bingo="bingo" :width="size" :height="bingo_h" @afterPerfectAnime='onClearBingo'></BingoOverlay>
     <div ref="bingoview">
-     <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked'></BingoView>
+    <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked'></BingoView>
     </div>
     <div style="margin-top:10px">
         <div v-if="!bingo.is_playing" class="text-center ">
@@ -16,7 +16,7 @@
         </div>
     </div>
     <CheckPop v-if="cellPop" :checkstr="`チェックした`" :cell="selectedCell" @submit="submitCell" @cancel="cancellCell" @close="cellPop = false;"></CheckPop>
-    <EndPop v-if="endPop" :bingo="bingo" :timer="timer" @submit="endGame" @cancel="endPop=false" @remove="confirmDiscard"></EndPop>
+    <!-- <EndPop v-if="endPop" :bingo="bingo" :timer="timer" @submit="endGame" @cancel="endPop=false" @remove="confirmDiscard"></EndPop> -->
     <DiscardGamePop v-if="view_discardPop" @discard="discardGame" @cancel="view_discardPop = false"></DiscardGamePop>
 </div>
 </template>
@@ -32,6 +32,7 @@ import BingoOverlay from "@organisms/BingoOverlay.vue";
 import DateFunc from "@mixin/date_func";
 import DiscardGamePop from "@organisms/DiscardGamePop.vue";
 import { Bingo } from "@src/lib/bingo/Bingo";
+import { DBBingos } from "@src/lib/db/dbbingos";
 
 export type DataType ={
     bingo:Bingo,
@@ -75,12 +76,17 @@ export default Vue.extend({
 
     },
     created(){
-        this.bingo = this.$store.state.yome.my_bingo_archives[this.$route.params.id]
+        // this.bingo = this.$store.state.yome.my_bingo_archives[this.$route.params.id]
     },
     mounted(){
-        this.bingo_w = (this.$refs.bingoview as Element).clientWidth;
-        this.bingo_h = (this.$refs.bingoview as Element).clientHeight;
-        this.$store.commit('yome/setTitle',this.bingo.title);
+        this.loadGame().then(
+            () => {
+                this.bingo_w = (this.$refs.bingoview as Element).clientWidth;
+                this.bingo_h = (this.$refs.bingoview as Element).clientHeight;
+                this.$store.commit('yome/setTitle',this.bingo.title);
+            }
+        )
+
     },
     beforeDestroy(){
         // clearInterval(this.timerObj);
@@ -97,6 +103,10 @@ export default Vue.extend({
     },
 
     methods: {
+        async loadGame(){
+            let db:DBBingos = new DBBingos(DBBingos.DOC_AMAZON_BINGO);
+            this.bingo = await db.load(this.$route.params.id);
+        },
         async endGame(){
             this.$store.state.bingo.endGame();
             this.$store.commit('saveBingoData');
@@ -109,9 +119,6 @@ export default Vue.extend({
             this.$store.commit('removeBingoData',null);
             this.$router.push(`result/`+newId);
         },
-        clickEndBtn(){
-            this.endPop = true;
-        },
         startGame(){
             this.bingo.startGame();
             this.$store.commit('yome/saveRecords');
@@ -120,29 +127,29 @@ export default Vue.extend({
             if (!this.bingo.is_playing) return;
             this.selectedCell = obj.cell
             this.cellPop = true;
-            console.log(this.bingo.cells_checked);
-        },
-        onclick :function(obj:any){
-            // this.count++;
-            // this.$store.commit('increment');
         },
         submitCell :function(obj:any){
             this.cellPop = false;
             this.selectedCell = null;
-            obj.cell.check( this.$store.state.user_setting.allow_location );
-            
-            // this.$store.state.bingo.checkBingo();
-            this.$store.commit('saveBingoData');
+            obj.cell.check( false );
+            this.saveBingo();
+            // this.$store.commit('saveBingoData');
         },
         cancellCell :function(obj:any){
             obj.cell.unCheck();
             this.cellPop = false;
             this.selectedCell = null;
-            this.$store.state.bingo.checkBingo();
-            this.$store.commit('saveBingoData');
+            this.saveBingo();
+        },
+        saveBingo:function(){
+            let db:DBBingos = new DBBingos(DBBingos.DOC_AMAZON_BINGO);
+            db.save(this.bingo);
+        },
+        clickEndBtn(){
+            this.endPop = true;
         },
         onClearBingo : function():void{
-            this.clickEndBtn();
+            // this.clickEndBtn();
         },
         confirmDiscard: function(){
             this.endPop=false;

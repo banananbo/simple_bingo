@@ -8,9 +8,21 @@
       </a>
     </li>
     <li class="nav-item">
+      <a href="#"  @click.prevent.stop="movePage('/yome/edit')">
+        <v-fa icon="wrench" />
+        <span>つくる</span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a href="#"  @click.prevent.stop="movePage('/yome/mypage')">
         <v-fa icon="user" />
         <span>{{$t("noun.you")}}</span>
+      </a>
+    </li>
+      <li class="nav-item">
+      <a href="#"  @click.prevent.stop="movePage('/yome/others')">
+        <v-fa icon="th" />
+        <span>さがす</span>
       </a>
     </li>
   </ul>

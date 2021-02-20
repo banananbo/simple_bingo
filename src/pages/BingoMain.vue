@@ -130,10 +130,6 @@ export default Vue.extend({
             this.cellPop = true;
             console.log(this.$store.state.bingo.cells_checked);
         },
-        onclick :function(obj:any){
-            // this.count++;
-            // this.$store.commit('increment');
-        },
         submitCell :function(obj:any){
             this.cellPop = false;
             this.selectedCell = null;

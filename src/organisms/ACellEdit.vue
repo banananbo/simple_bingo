@@ -3,12 +3,12 @@
             <template v-slot:header>
                 <div class="title"> {{$t("message.choose_cell")}} </div>
             </template>
-
+            <span>Amazonの商品URLを貼り付けてください</span>
             <textarea v-model="a_url"></textarea>
             {{a_id}}
             <ContentView v-if="content" :size="100" :content="content"></ContentView>
             <template v-slot:footer>
-                <button @click="submit({content:content})">{{$t("function.submit")}}</button>
+                <button :disabled="!content" @click="submit({content:content})">{{$t("function.submit")}}</button>
                 <button @click="$emit('close')">{{$t("function.cancel")}}</button>
             </template>
       </HFModal>
@@ -80,5 +80,8 @@ export default Vue.extend({
 <style scoped>
 .box{
   float: left;
+}
+textarea{
+  width:100%
 }
 </style>

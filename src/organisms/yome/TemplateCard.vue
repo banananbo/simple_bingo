@@ -1,13 +1,13 @@
 <template>
-<div :v-if="bingo" class="main card row" @click="toggleView">
-        <div style="float:left">
+<div :v-if="bingo" class="main card row">
+        <div style="float:left" @click="toggleView">
             <table>
                 <tr>
                     <td rowspan="2">
                         <ContentView v-if="!detail_view" :content="main_cell.content" :size="50"></ContentView>
                     </td>
                     <td class="title">
-                        {{bingo.title}}Template
+                        {{bingo.title}}
                     </td>
                 </tr>
                 <tr>
@@ -20,35 +20,45 @@
         <transition name="slide-fade">
             <div v-if="detail_view" class="container-fluid">
                 <div>
-                    <BingoView :bingo="bingo" :size="size"></BingoView>
-                    <!-- <div class="text-right"><CopyBingoBtn v-if="enable_copy" :bingo="bingo"></CopyBingoBtn></div> -->
+                    <BingoView :bingo="bingo" :size="size" @cellClick='onCellClicked'></BingoView>
                     <div class="text-right"><button @click="startPlay"> このビンゴをプレイ </button></div>
-                    <dl v-for="(cell,idx) in bingo.cells" :key="idx">
+                    <!-- <dl v-for="(cell,idx) in bingo.cells" :key="idx">
                         <dt><ContentView :content="cell.content" :size="50"></ContentView></dt>
                         <dd><a :href="cell.content.link" target="_blank">amazonで詳細を見る</a></dd>
-                    </dl>
+                    </dl> -->
+                    <p>{{bingo.description}}</p>
                 </div>
             </div>
         </transition>
+        <LinkPop :content="pop_content" :popx="popx" :popy="popy"></LinkPop>
 </div>
 </template>
 <script lang="ts">
 import Vue from "vue"
 import {Bingo} from "@lib/bingo/Bingo";
+import {AContent} from "@lib/bingo/content.ts";
+import {DBBingos} from "@lib/db/dbbingos.ts";
 import {Cell} from "@lib/bingo/Cell";
 import BingoView from "@organisms/BingoView.vue";
 import ContentView from "@organisms/ContentView.vue";
 import CopyBingoBtn from "@organisms/CopyBingoBtn.vue";
+import LinkPop from "@atoms/LinkPop.vue";
 import DateFunc from "@mixin/date_func.ts";
 
 export type DataType ={
     detail_view: Boolean,
+    pop_content: AContent,
+    popx: number,
+    popy: number
 }
 
 export default Vue.extend({
     data:function():DataType{
         return {
             detail_view: false,
+            pop_content: null,
+            popx: 0,
+            popy: 0
         };
     },
     mixins: [DateFunc],
@@ -66,7 +76,7 @@ export default Vue.extend({
         size:{
             type: Number,
             required: false,
-            default: screen.width -40
+            default: screen.width -20
         },
         detail_mode:{
             type: Boolean,
@@ -91,21 +101,36 @@ export default Vue.extend({
     components: {
         BingoView,
         ContentView,
-        CopyBingoBtn
+        CopyBingoBtn,
+        LinkPop
     },
 
     methods: {
         toggleView(){
             if(!this.detail_mode) this.detail_view = !this.detail_view;
         },
-        startPlay(){
-            let bingo:Bingo = Bingo.copyFromBingo(this.bingo);
-            console.log(bingo);
-            this.$store.commit('yome/addToMyArchives',bingo);
-            let id = this.$store.state.yome.my_bingo_archives.indexOf(bingo);
-            console.log(this.$store.state.yome.my_bingo_archives[id]);
+        onCellClicked: function(obj:any){
+            if(this.pop_content == obj.cell.content){
+                this.pop_content = null;
+                return;
+            }
+            let myb = this.$el.getBoundingClientRect();
 
-            this.$router.push(`/yome/game/local/${id}`);
+            this.pop_content = obj.cell.content as AContent
+            let clientRect = obj.el.getBoundingClientRect();
+            this.popx = clientRect.left - myb.left;
+            this.popy = clientRect.top - myb.top// - window.pageYOffset;
+        },
+        startPlay:async function(){
+            let bingo:Bingo = Bingo.copyFromBingo(this.bingo);
+            let db:DBBingos = new DBBingos(DBBingos.DOC_AMAZON_BINGO);
+            let bingo_id:string = await db.addBingo(bingo);
+            bingo.id = bingo_id;
+            this.$store.commit('yome/addToMyArchives',bingo);
+            // let id = this.$store.state.yome.my_bingo_archives.indexOf(bingo);
+            // console.log(this.$store.state.yome.my_bingo_archives[id]);
+
+            this.$router.push(`/yome/game/${bingo_id}`);
         }
   },
 });
