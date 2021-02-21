@@ -14,7 +14,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="#"  @click.prevent.stop="movePage('/yome/mypage')">
+      <a href="#" @click.prevent.stop="movePage('/yome/mypage')">
         <v-fa icon="user" />
         <span>{{$t("noun.you")}}</span>
       </a>

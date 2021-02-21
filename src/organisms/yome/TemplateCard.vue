@@ -8,6 +8,7 @@
                     </td>
                     <td class="title">
                         {{bingo.title}}
+                        <a href="#" @click.prevent.stop="$router.push(`/yome/template/${bingo.id}`)"><v-fa icon="link" /></a>
                     </td>
                 </tr>
                 <tr>

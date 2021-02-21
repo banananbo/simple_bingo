@@ -64,5 +64,8 @@
     "dev": "webpack --watch",
     "build": "webpack --mode=production",
     "test": "jest"
+  },
+  "dependencies": {
+    "html2canvas": "^1.0.0-rc.7"
   }
 }

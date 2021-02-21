@@ -5,8 +5,10 @@
     <v-fa :icon="['fab', 'twitter']" />シェアする
     </a>
     </div>
-    <h5 style="padding-bottom:20px">template</h5>
+    <button @click="makeOgp">test</button>
+    <section>
     <BingoView v-if="this.bingo" :bingo="this.bingo" :size="size"></BingoView>
+    </section>
     <!-- <ResultCard v-if="bingo" :bingo="bingo" :datail_view="true" :detail_mode="true"></ResultCard> -->
 </div>
 
@@ -17,6 +19,7 @@ import {Bingo} from "@lib/bingo/Bingo";
 import BingoView from "@organisms/BingoView.vue";
 // import Templates from "@lib/db/templates";
 import { DBBingos } from "@src/lib/db/dbbingos";
+import html2canvas from 'html2canvas'
 
 export type DataType ={
     bingo: Bingo,
@@ -41,6 +44,7 @@ export default Vue.extend({
     },
     created(){
         this.setup();
+        this.$store.commit('yome/setTitle',`${this.bingo.title}`)
     },
 
     components: {
@@ -52,6 +56,31 @@ export default Vue.extend({
             let db:DBBingos = new DBBingos(DBBingos.DOC_AMAZON_TEMPLATE);
             this.bingo =  await db.load(this.$route.params.id);
             console.log(this.bingo);
+        },
+        makeOgp:function () {
+            html2canvas(document.getElementById("ogpprintarea")).then(canvas => {
+                let ctx = canvas.getContext("2d");
+                let img = new Image();
+                // img.src="img.png";
+                document.body.appendChild(canvas);
+                ctx.drawImage(img, 0, 0);
+            }
+
+            )
+            // var canvas = document.createElement('canvas')
+            // canvas.width = this.size
+            // canvas.height = this.size
+            // var ctx = canvas.getContext('2d')
+            // var image = new Image()
+            // image.onload = () => {
+            //     ctx.drawImage(image, 0, 0, 1200, 630)
+            //     successCallback(canvas.toDataURL())
+            // }
+            // image.onerror = (e) => {
+            //     errorCallback(e)
+            // }
+            // var svgData = new XMLSerializer().serializeToString(svgElement)
+            // image.src = 'data:image/svg+xml;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(svgData)))
         }
     },
 });

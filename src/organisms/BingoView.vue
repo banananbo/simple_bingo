@@ -1,5 +1,5 @@
 <template>
-    <draggable v-model="bingo.cells" :style="draggable_style" element="ul" :options="options" @start="ondraggstart" @end="ondraggend" :move="handleMove">
+    <draggable id="ogpprintarea" v-model="bingo.cells" :style="draggable_style" element="ul" :options="options" @start="ondraggstart" @end="ondraggend" :move="handleMove">
     <li v-for="(cell, index) in bingo.cells" :key="index">
         <CellView :size="cell_size" :cell="cell" @cellClick='onCellClicked' :show_title="cell_size>100" :playing="bingo.is_playing"></CellView>
     </li>
