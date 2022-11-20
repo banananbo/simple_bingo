@@ -110,6 +110,7 @@ export default Vue.extend({
             this.$store.commit('saveBingoData');
             // this.$store.commit('addToBingoArchives',this.$store.state.bingo);
             await this.$store.dispatch('archives/addToBingoDBArchives');
+            await this.$store.dispatch('archives/addToBingoArchivesLocal');
             // context.commit('archives/addToBingoArchivesLocal');
 
             const newId = this.$store.state.bingo.id;

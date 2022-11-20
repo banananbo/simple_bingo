@@ -4,7 +4,7 @@
           <div class="modal-wrapper" >
             <div class="modal-container" @click="(event)=>{ event.stopPropagation(); }">  
               <div class="modal-body rounded">
-                <div v-if="user.is_guest">
+                <!-- <div v-if="user.is_guest">
                   <h5>{{$t("message.not_logged_in")}}</h5>
                   <p style='font-size: 0.8em'>
                     {{$t("message.about_login")}}
@@ -19,7 +19,7 @@
                         <div>
                           <button class='btn' @click="logout"><v-fa icon="sign-out-alt" /> {{$t("function.logout")}}</button>
                         </div>
-      　        </div>
+      　        </div> -->
 
                 <div class='info_box'>
                   <h6>{{$t("lead.language_setting")}}</h6>
