@@ -50,7 +50,10 @@ export const archives = {
       addToBingoArchivesLocal (state:ArchivesState) {
         if(!rootStore.state.user.user.is_guest) return; // ゲストでない場合はローカルに記録しない
         state.my_bingo_archives_local.unshift(rootStore.state.bingo);
-        localStorage.setItem('my_bingo_archives_local', JSON.stringify(state.my_bingo_archives_local));
+        const store_json:string = JSON.stringify(state.my_bingo_archives_local.map( b => { 
+          return b.serialized 
+        }))
+        localStorage.setItem('my_bingo_archives_local', store_json);
       },
       
       loadMyArchives (state:ArchivesState) {

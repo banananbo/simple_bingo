@@ -18,6 +18,9 @@ Vue.component('v-fa', FontAwesomeIcon);
 // -- font awsome
 
 import firebase from 'firebase';
+
+Vue.config.devtools = true
+
 let con = {
   apiKey: "AIzaSyDMsKXtMydaeaISrmtXAKWdWPfU4ZvdArs",
   authDomain: "bingogame-1a418.firebaseapp.com",

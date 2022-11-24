@@ -5,7 +5,7 @@ import {User} from "@lib/bingo/user";
 export default class Archives{
     async fetchRecentArchives(){
         const db = firebase.firestore();
-        let datas = await db.collection("archives").orderBy("_end_time","desc").limit(10).get();
+        let datas = await db.collection("archives").orderBy("_end_time","desc").limit(15).get();
         
          datas.docs.map(
             await this.createBingoData
